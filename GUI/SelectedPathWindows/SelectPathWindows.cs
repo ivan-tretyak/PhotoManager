@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IndexingModule;
 
 namespace PhotoManager
 {
@@ -40,9 +41,10 @@ namespace PhotoManager
 
         private void scanstart_Click(object sender, EventArgs e)
         {
+            Indexing indexing = new();
             for(int i = 0; i < this.tableLayoutPanel1.RowCount; i++)
             {
-                string path = this.tableLayoutPanel1.Controls[i*3].Text;
+                var res = indexing.IndexingDirectory(this.tableLayoutPanel1.Controls[i*3].Text);
             }
         }
     }
