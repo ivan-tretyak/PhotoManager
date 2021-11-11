@@ -1,0 +1,3 @@
+[submodule "IndexingModule"]
+	path = IndexingModule
+	url = git@github.com:ivan-tretyak/IndexingModule.git
