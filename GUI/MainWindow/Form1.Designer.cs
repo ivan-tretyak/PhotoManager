@@ -39,6 +39,7 @@ namespace PhotoManager
             this.AlbumList.FormattingEnabled = true;
             resources.ApplyResources(this.AlbumList, "AlbumList");
             this.AlbumList.Name = "AlbumList";
+            this.AlbumList.SelectedIndexChanged += new System.EventHandler(this.AlbumList_SelectedIndexChanged);
             // 
             // ImageListForAlbum
             // 
