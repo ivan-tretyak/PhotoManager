@@ -16,39 +16,16 @@ namespace PhotoManager
 {
     public partial class MainWindow : Form
     {
+        HelperMainWindow helper;
         public MainWindow()
         {
+            helper = new();
             InitializeComponent();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            var s = new SelectPathWindows();
-            try
-            {
-                using (var db = new DatabaseContext())
-                {
-                    var photos = db.Photos
-                       .ToList();
-                    int counter = 0;
-
-                    this.ImageListForAlbum.View = View.LargeIcon;
-                    this.ImageListForAlbum.LargeImageList = new ImageList();
-                    this.ImageListForAlbum.LargeImageList.ImageSize = new Size(256, 256);
-                    this.ImageListForAlbum.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
-
-                    foreach (var photo in photos)
-                    {
-                        var i = new ImagesPreview(photo.Path);
-                        this.ImageListForAlbum.LargeImageList.Images.Add(i.thumbnail);
-                        this.ImageListForAlbum.Items.Add(photo.Path, counter);
-                        counter++;
-                    }
-                }
-            } catch (Exception) {
-                s.ShowDialog();
-            }
-            
+            helper.ShowPhotoFromAlbum(this.AlbumList, this.ImageListForAlbum);
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,5 +100,71 @@ namespace PhotoManager
             }
             return thumbnail;
         }
+    }
+    public class HelperMainWindow
+    {
+        public HelperMainWindow()
+        {
+
+        }
+
+        public void ShowPhotoFromAlbum(System.Windows.Forms.ListBox AlbumList, ListView ImageList)
+        {
+            var s = new SelectPathWindows(); 
+            try
+            {
+                using (var db = new DatabaseContext())
+                {
+                    //Get album context
+                    var albumsContexts = db.AlbumContexts
+                       .Where(b => b.AlbumId == 1)
+                       .ToList();
+                    int counter = 0;
+
+                    List<Photo> photos = new();
+
+                    foreach (var albumContext in albumsContexts)
+                    {
+                        photos.Add(db.Photos.Find(albumContext.PhotoId));
+                    }
+
+                    //Delete LargeImageList
+                    if (ImageList.LargeImageList != null)
+                    {
+                        ImageList.LargeImageList.Dispose();
+                    }
+
+                    //Create image list
+                    ImageList.View = View.LargeIcon;
+                    ImageList.LargeImageList = new ImageList();
+                    ImageList.LargeImageList.ImageSize = new Size(256, 256);
+                    ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+                    foreach (var photo in photos)
+                    {
+                        var i = new ImagesPreview(photo.Path);
+                        ImageList.LargeImageList.Images.Add(i.thumbnail);
+                        ImageList.Items.Add(photo.Path, counter);
+                        counter++;
+                    }
+
+                    //Get albums
+                    var albums = db.Albums
+                        .ToList();
+                    counter = 0;
+
+                    foreach (var album in albums)
+                    {
+                        AlbumList.Items.Add(album.Name);
+                        counter++;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                s.ShowDialog();
+            }
+        }
+
     }
 }
