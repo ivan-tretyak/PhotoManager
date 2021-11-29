@@ -36,15 +36,15 @@ namespace PhotoManager
             // 
             // AlbumList
             // 
-            this.AlbumList.FormattingEnabled = true;
             resources.ApplyResources(this.AlbumList, "AlbumList");
+            this.AlbumList.FormattingEnabled = true;
             this.AlbumList.Name = "AlbumList";
             this.AlbumList.SelectedIndexChanged += new System.EventHandler(this.AlbumList_SelectedIndexChanged);
             // 
             // ImageListForAlbum
             // 
-            this.ImageListForAlbum.HideSelection = false;
             resources.ApplyResources(this.ImageListForAlbum, "ImageListForAlbum");
+            this.ImageListForAlbum.HideSelection = false;
             this.ImageListForAlbum.Name = "ImageListForAlbum";
             this.ImageListForAlbum.UseCompatibleStateImageBehavior = false;
             // 

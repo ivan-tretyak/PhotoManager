@@ -57,6 +57,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AlbumList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AlbumList.ItemHeight" type="System.Int32, mscorlib">
     <value>15</value>
@@ -66,7 +70,7 @@
     <value>13, 13</value>
   </data>
   <data name="AlbumList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 424</value>
+    <value>258, 424</value>
   </data>
   <data name="AlbumList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -82,6 +86,9 @@
   </data>
   <data name="&gt;&gt;AlbumList.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="ImageListForAlbum.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="ImageListForAlbum.Location" type="System.Drawing.Point, System.Drawing">
     <value>277, 13</value>
