@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IndexingModule;
 using ORMDatabaseModule;
-using PhotoManager.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 
@@ -66,9 +65,6 @@ namespace PhotoManager
                     .First();
             }
 
-            //Create albumcontext
-            AlbumContext albumContext = new();
-
             Indexing indexing = new();
             for(int i = 0; i < this.tableLayoutPanel1.RowCount; i++)
             {
@@ -94,6 +90,9 @@ namespace PhotoManager
                     m.Model = image.GetModel();
                     m.Manufacturer = image.GetManufacturer();
                     p.MetaData = m;
+
+                    //Create albumcontext
+                    AlbumContext albumContext = new();
 
                     //Associate album with photo
                     albumContext.Album = albums;
