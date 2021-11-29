@@ -120,7 +120,7 @@ namespace PhotoManager
                     m.Manufacturer = image.GetManufacturer();
                     p.MetaData = m;
 
-                    //Create albumcontext
+                    //Create albumcontext for common album
                     AlbumContext albumContext = new();
 
                     //Associate album with photo

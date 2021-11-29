@@ -18,10 +18,15 @@ namespace PhotoManager
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            helper.ShowPhotoFromAlbum(this.AlbumList, this.ImageListForAlbum, 1);
+            helper.ShowPhotoFromAlbum(this.AlbumList, this.ImageListForAlbum, 1, this.comboBox1);
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
