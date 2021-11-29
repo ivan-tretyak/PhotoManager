@@ -25,7 +25,7 @@ namespace PhotoManager
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            helper.ShowPhotoFromAlbum(this.AlbumList, this.ImageListForAlbum);
+            helper.ShowPhotoFromAlbum(this.AlbumList, this.ImageListForAlbum, 1);
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace PhotoManager
 
         }
 
-        public void ShowPhotoFromAlbum(System.Windows.Forms.ListBox AlbumList, ListView ImageList)
+        public void ShowPhotoFromAlbum(System.Windows.Forms.ListBox AlbumList, ListView ImageList, int albumId)
         {
             var s = new SelectPathWindows(); 
             try
@@ -117,7 +117,7 @@ namespace PhotoManager
                 {
                     //Get album context
                     var albumsContexts = db.AlbumContexts
-                       .Where(b => b.AlbumId == 1)
+                       .Where(b => b.AlbumId == albumId)
                        .ToList();
                     int counter = 0;
 
