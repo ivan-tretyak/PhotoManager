@@ -1,4 +1,9 @@
 ﻿using System.Windows.Forms;
+using IndexingModule;
+using ORMDatabaseModule;
+using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Linq;
 
 namespace PhotoManager
 {
@@ -64,6 +69,76 @@ namespace PhotoManager
                 return true;
             }
             return false;
+        }
+
+        public void Scanning(TableLayoutPanel panel)
+        {
+            //Create first album
+            var album = new Album();
+            album.Name = "Common";
+            album.DateCreation = DateTime.Now.ToString();
+
+            //Save album to database
+            using (var db = new DatabaseContext())
+            {
+                var b = db.Database.EnsureCreated();
+                db.Add(album);
+                db.SaveChanges();
+            }
+
+            //Get
+            var albums = new Album();
+            using (var db = new DatabaseContext())
+            {
+                albums = db.Albums
+                    .First();
+            }
+
+            Indexing indexing = new();
+            for (int i = 0; i < panel.RowCount; i++)
+            {
+                int c = 0;
+                var res = indexing.IndexingDirectory(panel.Controls[i * 3].Text);
+                foreach (string s in res)
+                {
+                    //Get metadata
+                    var image = new IndexingModule.Image(s);
+                    //create photo
+                    Photo p = new();
+
+                    ORMDatabaseModule.MetaData m = new();
+
+                    //Adding data
+                    p.Path = s;
+                    m.DateCreation = image.GetDateTime().ToString();
+                    m.Flash = image.GetFlash();
+                    m.Latitude = (float)image.GetLatitude();
+                    m.Longitude = (float)image.GetLongitude();
+                    m.FocusLength = (float)image.GetFocalLength();
+                    m.Orientation = image.GetOrientation();
+                    m.Model = image.GetModel();
+                    m.Manufacturer = image.GetManufacturer();
+                    p.MetaData = m;
+
+                    //Create albumcontext
+                    AlbumContext albumContext = new();
+
+                    //Associate album with photo
+                    albumContext.Album = albums;
+                    albumContext.Photo = p;
+
+                    using (var db = new DatabaseContext())
+                    {
+                        var b = db.Database.EnsureCreated();
+                        //db.Add(p);
+                        db.AlbumContexts.Add(albumContext);
+                        db.Albums.Attach(albums);
+                        //db.Photos.Attach(p);
+                        db.SaveChanges();
+                        c++;
+                    }
+                }
+            }
         }
     }
 }
