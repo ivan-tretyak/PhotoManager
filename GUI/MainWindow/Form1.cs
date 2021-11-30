@@ -28,7 +28,7 @@ namespace PhotoManager
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            helper.showPhotoFromChooseYearCurrentAlbum("0001", "Common", this.ImageListForAlbum);
+            helper.ShowPhotoFromAlbum("0001", "Common", this.ImageListForAlbum);
         }
     }
 }

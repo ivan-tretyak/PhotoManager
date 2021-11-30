@@ -65,7 +65,6 @@ namespace PhotoManager
                 var albumsContexts = db.AlbumContexts
                    .Where(b => b.Album.Name == albumName)
                    .ToList();
-                int counter = 0;
 
                 List<Photo> photos = new();
 
@@ -74,32 +73,38 @@ namespace PhotoManager
                     photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
                 }
 
-                //Delete LargeImageList
-                if (ImageList.LargeImageList != null)
-                {
-                    ImageList.LargeImageList.Dispose();
-                    ImageList.Items.Clear();
-                }
-
-                //Create image list
-                ImageList.View = View.LargeIcon;
-                ImageList.LargeImageList = new ImageList();
-                ImageList.LargeImageList.ImageSize = new Size(256, 256);
-                ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
-
-                foreach (var photo in photos)
-                {
-                    //Create photo preview
-                    var i = new ImagesPreview(photo.Path);
-                    ImageList.LargeImageList.Images.Add(i.thumbnail);
-                    ImageList.Items.Add(photo.Path, counter);
-                    counter++;
-                }
+                DisplayImage(ImageList, photos);
             }
 
         }
 
-        public void showPhotoFromChooseYearCurrentAlbum(string year, string albumName, ListView ImageList)
+        private static void DisplayImage(ListView ImageList, List<Photo> photos)
+        {
+            int counter = 0;
+            //Delete LargeImageList
+            if (ImageList.LargeImageList != null)
+            {
+                ImageList.LargeImageList.Dispose();
+                ImageList.Items.Clear();
+            }
+
+            //Create image list
+            ImageList.View = View.LargeIcon;
+            ImageList.LargeImageList = new ImageList();
+            ImageList.LargeImageList.ImageSize = new Size(256, 256);
+            ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+            foreach (var photo in photos)
+            {
+                //Create photo preview
+                var i = new ImagesPreview(photo.Path);
+                ImageList.LargeImageList.Images.Add(i.thumbnail);
+                ImageList.Items.Add(photo.Path, counter);
+                counter++;
+            }
+        }
+
+        public void ShowPhotoFromAlbum(string year, string albumName, ListView ImageList)
         {
             using (var db = new DatabaseContext())
             {
@@ -116,29 +121,7 @@ namespace PhotoManager
                     photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
 
                 }
-
-                if (ImageList.LargeImageList != null)
-                {
-                    ImageList.LargeImageList.Dispose();
-                    ImageList.Items.Clear();
-                }
-
-                //Create image list
-                ImageList.View = View.LargeIcon;
-                ImageList.LargeImageList = new ImageList();
-                ImageList.LargeImageList.ImageSize = new Size(256, 256);
-                ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
-                int counter = 0;
-
-                foreach (var photo in photos)
-                {
-                    //Create photo preview
-                    var i = new ImagesPreview(photo.Path);
-                    ImageList.LargeImageList.Images.Add(i.thumbnail);
-                    ImageList.Items.Add(photo.Path, counter);
-                    counter++;
-                }
-
+                DisplayImage(ImageList, photos);
             }
         }
     }
