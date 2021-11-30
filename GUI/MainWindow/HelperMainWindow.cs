@@ -54,6 +54,7 @@ namespace PhotoManager
             {
                 var s = new SelectPathWindows();
                 s.ShowDialog();
+                showData(AlbumList, comboBox);
             }
         }
 
