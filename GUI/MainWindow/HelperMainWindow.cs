@@ -18,7 +18,7 @@ namespace PhotoManager
 
         public void ShowPhotoFromAlbum(System.Windows.Forms.ListBox AlbumList, ListView ImageList, int albumId, System.Windows.Forms.ComboBox comboBox)
         {
-            var s = new SelectPathWindows(); 
+            var s = new SelectPathWindows();
             try
             {
                 using (var db = new DatabaseContext())
@@ -65,7 +65,7 @@ namespace PhotoManager
 
                         //Parse date from DB
                         var date = DateTime.Parse(metadata.DateCreation);
-                        
+
                         years.Add(date.Year.ToString());
                     }
 
@@ -95,5 +95,46 @@ namespace PhotoManager
             }
         }
 
+        public void showPhotoFromChooseYearCurrentAlbum(string year, string albumName, ListView ImageList)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Select album contexts
+                var albumContexts = db.AlbumContexts
+                    .Where(albumContext => albumContext.Album.Name == albumName && albumContext.Photo.MetaData.DateCreation.Contains(year))
+                    .ToList();
+
+
+                //Select photo
+                List<Photo> photos = new();
+                foreach (var albumContext in albumContexts)
+                {
+                    photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
+
+                }
+
+                if (ImageList.LargeImageList != null)
+                {
+                    ImageList.LargeImageList.Dispose();
+                }
+
+                //Create image list
+                ImageList.View = View.LargeIcon;
+                ImageList.LargeImageList = new ImageList();
+                ImageList.LargeImageList.ImageSize = new Size(256, 256);
+                ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+                int counter = 0;
+
+                foreach (var photo in photos)
+                {
+                    //Create photo preview
+                    var i = new ImagesPreview(photo.Path);
+                    ImageList.LargeImageList.Images.Add(i.thumbnail);
+                    ImageList.Items.Add(photo.Path, counter);
+                    counter++;
+                }
+
+            }
+        }
     }
 }
