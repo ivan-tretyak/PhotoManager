@@ -16,57 +16,29 @@ namespace PhotoManager
 
         }
 
-        public void ShowPhotoFromAlbum(System.Windows.Forms.ListBox AlbumList, ListView ImageList, int albumId, System.Windows.Forms.ComboBox comboBox)
+        public void showData(ListBox AlbumList, ComboBox comboBox)
         {
-            var s = new SelectPathWindows();
             try
             {
                 using (var db = new DatabaseContext())
                 {
-                    //Get album context
-                    var albumsContexts = db.AlbumContexts
-                       .Where(b => b.AlbumId == albumId)
-                       .ToList();
-                    int counter = 0;
+                    //Selected all albums
+                    var albums = db.Albums.ToList();
 
-                    List<Photo> photos = new();
-
-                    foreach (var albumContext in albumsContexts)
+                    //Show albums
+                    foreach(var album in albums)
                     {
-                        photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
+                        AlbumList.Items.Add(album.Name);
                     }
 
-                    //Delete LargeImageList
-                    if (ImageList.LargeImageList != null)
-                    {
-                        ImageList.LargeImageList.Dispose();
-                        ImageList.Items.Clear();
-                    }
+                    //Select metadata
+                    var metadatas = db.MetaDatas.ToList();
 
-                    //Create image list
-                    ImageList.View = View.LargeIcon;
-                    ImageList.LargeImageList = new ImageList();
-                    ImageList.LargeImageList.ImageSize = new Size(256, 256);
-                    ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+                    //Get years
                     List<string> years = new();
-
-                    foreach (var photo in photos)
+                    foreach (var metadata in metadatas)
                     {
-                        //Create photo preview
-                        var i = new ImagesPreview(photo.Path);
-                        ImageList.LargeImageList.Images.Add(i.thumbnail);
-                        ImageList.Items.Add(photo.Path, counter);
-                        counter++;
-
-                        //Add a year for sorting
-                        //Get metadata
-                        var metadata = db.MetaDatas
-                            .Where(b => b.MetadataId == photo.MetaDataId)
-                            .First();
-
-                        //Parse date from DB
                         var date = DateTime.Parse(metadata.DateCreation);
-
                         years.Add(date.Year.ToString());
                     }
 
@@ -76,24 +48,55 @@ namespace PhotoManager
                     {
                         comboBox.Items.Add(year);
                     }
-
-                    //Get albums
-                    var albums = db.Albums
-                        .ToList();
-                    counter = 0;
-
-                    foreach (var album in albums)
-                    {
-                        //Generate album list
-                        AlbumList.Items.Add(album.Name);
-                        counter++;
-                    }
                 }
             }
-            catch (Exception)
+            catch(Exception)
             {
+                var s = new SelectPathWindows();
                 s.ShowDialog();
             }
+        }
+
+        public void ShowPhotoFromAlbum(ListView ImageList, string albumName)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Get album context
+                var albumsContexts = db.AlbumContexts
+                   .Where(b => b.Album.Name == albumName)
+                   .ToList();
+                int counter = 0;
+
+                List<Photo> photos = new();
+
+                foreach (var albumContext in albumsContexts)
+                {
+                    photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
+                }
+
+                //Delete LargeImageList
+                if (ImageList.LargeImageList != null)
+                {
+                    ImageList.LargeImageList.Dispose();
+                    ImageList.Items.Clear();
+                }
+
+                //Create image list
+                ImageList.View = View.LargeIcon;
+                ImageList.LargeImageList = new ImageList();
+                ImageList.LargeImageList.ImageSize = new Size(256, 256);
+                ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+                foreach (var photo in photos)
+                {
+                    //Create photo preview
+                    var i = new ImagesPreview(photo.Path);
+                    ImageList.LargeImageList.Images.Add(i.thumbnail);
+                    ImageList.Items.Add(photo.Path, counter);
+                    counter++;
+                }
+            }
+
         }
 
         public void showPhotoFromChooseYearCurrentAlbum(string year, string albumName, ListView ImageList)
