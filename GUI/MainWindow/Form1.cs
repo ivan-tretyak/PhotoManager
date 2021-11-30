@@ -41,6 +41,7 @@ namespace PhotoManager
                 helper.ShowPhotoFromAlbum(year, this.AlbumList.SelectedItem.ToString(), this.ImageListForAlbum);
             }
             this.label2.Visible = false;
+            this.RemoveButton.Visible = false;
             this.moveAlbumBox.Visible = false;
             this.moveButton.Visible = false;
             this.CopyButton.Visible = false;
@@ -59,6 +60,7 @@ namespace PhotoManager
             {
                 this.label2.Visible = true;
                 this.moveAlbumBox.Visible = true;
+                this.RemoveButton.Visible = true;
                 this.moveAlbumBox.Items.Clear();
                 foreach(var item in this.AlbumList.Items)
                 {
@@ -78,11 +80,13 @@ namespace PhotoManager
             {
                 moveButton.Visible = true;
                 CopyButton.Visible = true;
+                this.RemoveButton.Visible = true;
             }
             else
             {
                 moveButton.Visible = false;
                 CopyButton.Visible = false;
+                this.RemoveButton.Visible = true;
             }
         }
 
@@ -98,6 +102,7 @@ namespace PhotoManager
             this.moveAlbumBox.Visible = false;
             this.moveButton.Visible = false;
             this.CopyButton.Visible = false;
+            this.RemoveButton.Visible = false;
             helper.ShowPhotoFromAlbum(this.ImageListForAlbum, oldAlbum.ToString());
             helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
         }
@@ -113,6 +118,19 @@ namespace PhotoManager
             this.moveAlbumBox.Visible = false;
             this.moveButton.Visible = false;
             this.CopyButton.Visible = false;
+            this.RemoveButton.Visible = false;
+            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
+            helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var album = this.AlbumList.SelectedItem.ToString();
+            foreach(int index in this.ImageListForAlbum.SelectedIndices)
+            {
+                var path = this.ImageListForAlbum.Items[index].Text.ToString();
+                helper.Remove(album, path);
+            }
             helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
             helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
         }

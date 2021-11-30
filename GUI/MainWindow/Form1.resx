@@ -70,7 +70,7 @@
     <value>13, 43</value>
   </data>
   <data name="AlbumList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 394</value>
+    <value>398, 394</value>
   </data>
   <data name="AlbumList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -85,7 +85,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AlbumList.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="ImageListForAlbum.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -94,7 +94,7 @@
     <value>277, 43</value>
   </data>
   <data name="ImageListForAlbum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>620, 395</value>
+    <value>760, 395</value>
   </data>
   <data name="ImageListForAlbum.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -109,7 +109,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ImageListForAlbum.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>72, 15</value>
@@ -130,7 +130,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -157,7 +157,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="CreateAlbumButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>277, 14</value>
@@ -181,13 +181,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CreateAlbumButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>377, 18</value>
+    <value>517, 18</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 15</value>
@@ -211,10 +211,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="moveAlbumBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>437, 14</value>
+    <value>577, 14</value>
   </data>
   <data name="moveAlbumBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 23</value>
@@ -235,10 +235,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moveAlbumBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="moveButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>703, 14</value>
+    <value>843, 14</value>
   </data>
   <data name="moveButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -262,10 +262,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moveButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="CopyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>794, 13</value>
+    <value>934, 14</value>
   </data>
   <data name="CopyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 23</value>
@@ -289,6 +289,33 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CopyButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RemoveButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>377, 15</value>
+  </data>
+  <data name="RemoveButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 23</value>
+  </data>
+  <data name="RemoveButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="RemoveButton.Text" xml:space="preserve">
+    <value>Remove from album</value>
+  </data>
+  <data name="RemoveButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;RemoveButton.Name" xml:space="preserve">
+    <value>RemoveButton</value>
+  </data>
+  <data name="&gt;&gt;RemoveButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoveButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;RemoveButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -298,7 +325,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>909, 450</value>
+    <value>1049, 450</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>

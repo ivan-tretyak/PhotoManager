@@ -233,5 +233,19 @@ namespace PhotoManager
             }
             return year;
         }
+
+        public void Remove(string album, string path)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Get album context
+                var albumContext = db.AlbumContexts
+                     .Where(aC => aC.Photo.Path == path && aC.Album.Name == album)
+                     .First();
+
+                db.AlbumContexts.Remove(albumContext);
+                db.SaveChanges();
+            }
+        }
     }
 }
