@@ -35,6 +35,10 @@ namespace PhotoManager
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CreateAlbumButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.moveAlbumBox = new System.Windows.Forms.ComboBox();
+            this.moveButton = new System.Windows.Forms.Button();
+            this.CopyButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AlbumList
@@ -50,6 +54,7 @@ namespace PhotoManager
             this.ImageListForAlbum.HideSelection = false;
             this.ImageListForAlbum.Name = "ImageListForAlbum";
             this.ImageListForAlbum.UseCompatibleStateImageBehavior = false;
+            this.ImageListForAlbum.SelectedIndexChanged += new System.EventHandler(this.ImageListForAlbum_SelectedIndexChanged);
             // 
             // comboBox1
             // 
@@ -70,10 +75,40 @@ namespace PhotoManager
             this.CreateAlbumButton.UseVisualStyleBackColor = true;
             this.CreateAlbumButton.Click += new System.EventHandler(this.CreateAlbumButton_Click);
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // moveAlbumBox
+            // 
+            this.moveAlbumBox.FormattingEnabled = true;
+            resources.ApplyResources(this.moveAlbumBox, "moveAlbumBox");
+            this.moveAlbumBox.Name = "moveAlbumBox";
+            this.moveAlbumBox.SelectedIndexChanged += new System.EventHandler(this.moveAlbumBox_SelectedIndexChanged);
+            // 
+            // moveButton
+            // 
+            resources.ApplyResources(this.moveButton, "moveButton");
+            this.moveButton.Name = "moveButton";
+            this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
+            // 
+            // CopyButton
+            // 
+            resources.ApplyResources(this.CopyButton, "CopyButton");
+            this.CopyButton.Name = "CopyButton";
+            this.CopyButton.UseVisualStyleBackColor = true;
+            this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
+            // 
             // MainWindow
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CopyButton);
+            this.Controls.Add(this.moveButton);
+            this.Controls.Add(this.moveAlbumBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.CreateAlbumButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
@@ -93,6 +128,10 @@ namespace PhotoManager
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button CreateAlbumButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox moveAlbumBox;
+        private System.Windows.Forms.Button moveButton;
+        private System.Windows.Forms.Button CopyButton;
     }
 }
 

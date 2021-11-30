@@ -16,7 +16,7 @@ namespace PhotoManager
 
         }
 
-        public void showData(ListBox AlbumList, ComboBox comboBox)
+       public void showData(ListBox AlbumList)
         {
             try
             {
@@ -34,36 +34,59 @@ namespace PhotoManager
                     {
                         AlbumList.Items.Add(album.Name);
                     }
-
-                    //Select metadata
-                    var metadatas = db.MetaDatas.ToList();
-
-                    //Get years
-                    List<string> years = new();
-                    if (comboBox.Items.Count != 0)
-                    {
-                        comboBox.Items.Clear();
-                    }
-
-                    foreach (var metadata in metadatas)
-                    {
-                        var date = DateTime.Parse(metadata.DateCreation);
-                        years.Add(date.Year.ToString());
-                    }
-
-                    var yearsUnique = years.ToHashSet();
-                    //Add unique value
-                    foreach (var year in yearsUnique)
-                    {
-                        comboBox.Items.Add(year);
-                    }
                 }
             }
             catch(Exception)
             {
                 var s = new SelectPathWindows();
                 s.ShowDialog();
-                showData(AlbumList, comboBox);
+                showData(AlbumList);
+            }
+        }
+
+        public void addYears(string albumName, ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            using (var db = new DatabaseContext())
+            {
+                //Get album context
+                var albumContexts = db.AlbumContexts
+                    .Where(albumContext => albumContext.Album.Name == albumName)
+                    .ToList();
+
+                //Get photo
+                List<Photo> photos = new();
+                foreach(var albumContext in albumContexts)
+                {
+                    photos.Add(db.Photos
+                        .Where(photo => photo.PhotoId == albumContext.PhotoId)
+                        .First());
+                }
+
+                //Select metadata
+                List<MetaData> metadatas = new();
+                foreach(var photo in photos)
+                {
+                    metadatas.Add(db.MetaDatas
+                        .Where(metadata => metadata.MetadataId == photo.MetaDataId)
+                        .First());
+                }
+
+                //Get years
+                List<string> years = new();
+
+                foreach (var metadata in metadatas)
+                {
+                    var date = DateTime.Parse(metadata.DateCreation);
+                    years.Add(date.Year.ToString());
+                }
+
+                var uniqueYears = years.Distinct();
+
+                foreach(var year in uniqueYears)
+                {
+                    comboBox.Items.Add(year);
+                }
             }
         }
 
@@ -153,6 +176,62 @@ namespace PhotoManager
                 }
                 DisplayImage(ImageList, photos);
             }
+        }
+
+        public void MoveToAnotherAlbum(string newAlbumName, string oldAlbumName, string path)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Get album context
+                var albumContext = db.AlbumContexts
+                    .Where(aC => aC.Album.Name == oldAlbumName && aC.Photo.Path == path)
+                    .First();
+
+                //Get destation album
+                var album = db.Albums
+                    .Where(a => a.Name == newAlbumName)
+                    .First();
+
+                //Update
+                albumContext.Album = album;
+                albumContext.AlbumId = album.AlbumId;
+                db.AlbumContexts.Update(albumContext);
+                db.SaveChanges();
+            }
+        }
+
+        public void CopyToAnotherAlbum(string newAlbumName, string path)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Create new album context
+                var albumContext = new AlbumContext();
+
+                //Get destation album
+                var album = db.Albums
+                    .Where(a => a.Name == newAlbumName)
+                    .First();
+
+                //Get photo by path
+                var photo = db.Photos
+                    .Where(p => p.Path == path)
+                    .First();
+
+                //Associate
+                albumContext.Album = album;
+                albumContext.Photo = photo;
+                db.Add(albumContext);
+                db.SaveChanges();
+            }
+        }
+
+        public string normalizeYear(string year)
+        {
+            while(year.Length < 4)
+            {
+                year = "0" + year;
+            }
+            return year;
         }
     }
 }
