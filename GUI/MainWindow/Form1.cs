@@ -30,5 +30,12 @@ namespace PhotoManager
         {
             helper.ShowPhotoFromAlbum("0001", "Common", this.ImageListForAlbum);
         }
+
+        private void CreateAlbumButton_Click(object sender, EventArgs e)
+        {
+            var s = new PhotoManager.GUI.AlbumCreator.Form1();
+            s.ShowDialog();
+            helper.showData(this.AlbumList, this.comboBox1);
+        }
     }
 }

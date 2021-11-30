@@ -34,6 +34,7 @@ namespace PhotoManager
             this.ImageListForAlbum = new System.Windows.Forms.ListView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.CreateAlbumButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AlbumList
@@ -62,10 +63,18 @@ namespace PhotoManager
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // CreateAlbumButton
+            // 
+            resources.ApplyResources(this.CreateAlbumButton, "CreateAlbumButton");
+            this.CreateAlbumButton.Name = "CreateAlbumButton";
+            this.CreateAlbumButton.UseVisualStyleBackColor = true;
+            this.CreateAlbumButton.Click += new System.EventHandler(this.CreateAlbumButton_Click);
+            // 
             // MainWindow
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CreateAlbumButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ImageListForAlbum);
@@ -83,6 +92,7 @@ namespace PhotoManager
         private System.Windows.Forms.ListView ImageListForAlbum;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button CreateAlbumButton;
     }
 }
 

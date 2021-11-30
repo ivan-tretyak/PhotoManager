@@ -85,16 +85,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AlbumList.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="ImageListForAlbum.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="ImageListForAlbum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 13</value>
+    <value>277, 43</value>
   </data>
   <data name="ImageListForAlbum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>511, 425</value>
+    <value>511, 395</value>
   </data>
   <data name="ImageListForAlbum.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -109,7 +109,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ImageListForAlbum.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>72, 15</value>
@@ -130,7 +130,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -157,6 +157,30 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CreateAlbumButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>277, 14</value>
+  </data>
+  <data name="CreateAlbumButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
+  </data>
+  <data name="CreateAlbumButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="CreateAlbumButton.Text" xml:space="preserve">
+    <value>Create Album</value>
+  </data>
+  <data name="&gt;&gt;CreateAlbumButton.Name" xml:space="preserve">
+    <value>CreateAlbumButton</value>
+  </data>
+  <data name="&gt;&gt;CreateAlbumButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CreateAlbumButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CreateAlbumButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

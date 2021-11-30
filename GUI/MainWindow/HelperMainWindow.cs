@@ -22,6 +22,10 @@ namespace PhotoManager
             {
                 using (var db = new DatabaseContext())
                 {
+                    if (AlbumList.Items.Count != 0)
+                    {
+                        AlbumList.Items.Clear();
+                    }
                     //Selected all albums
                     var albums = db.Albums.ToList();
 
@@ -36,6 +40,11 @@ namespace PhotoManager
 
                     //Get years
                     List<string> years = new();
+                    if (comboBox.Items.Count != 0)
+                    {
+                        comboBox.Items.Clear();
+                    }
+
                     foreach (var metadata in metadatas)
                     {
                         var date = DateTime.Parse(metadata.DateCreation);
