@@ -73,7 +73,6 @@ namespace PhotoManager
                 {
                     photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
                 }
-
                 DisplayImage(ImageList, photos);
             }
 
@@ -97,11 +96,32 @@ namespace PhotoManager
 
             foreach (var photo in photos)
             {
-                //Create photo preview
-                var i = new ImagesPreview(photo.Path);
-                ImageList.LargeImageList.Images.Add(i.thumbnail);
-                ImageList.Items.Add(photo.Path, counter);
-                counter++;
+                try
+                {
+                    //Create photo preview
+                    var i = new ImagesPreview(photo.Path);
+                    ImageList.LargeImageList.Images.Add(i.thumbnail);
+                    ImageList.Items.Add(photo.Path, counter);
+                    counter++;
+                    if (photo.Exist == 1)
+                    {
+                        UpdateExist(photo, 0);
+                    }
+                }
+                catch (Exception)
+                {
+                    UpdateExist(photo, 1);
+                }
+            }
+        }
+
+        private static void UpdateExist(Photo photo, int existFlag)
+        {
+            using (var db = new DatabaseContext())
+            {
+                photo.Exist = existFlag;
+                db.Photos.Update(photo);
+                db.SaveChanges();
             }
         }
 

@@ -12,8 +12,7 @@ namespace PhotoManager
         public Image thumbnail;
         public ImagesPreview(string path)
         {
-            try
-            {
+
                 Image image = new Bitmap(path);
                 height = (int)(image.Height / (image.Width / width));
                 if (height > 256)
@@ -23,16 +22,6 @@ namespace PhotoManager
                 }
                 thumbnail = createThumbnail(ResizeImage(image));
                 image.Dispose();
-            }
-            catch
-            {
-                thumbnail = new Bitmap(256, 256);
-                using (var g = Graphics.FromImage(thumbnail))
-                {
-                    g.Clear(Color.Black);
-                }
-            }
-
         }
 
         private Bitmap ResizeImage(Image image)
