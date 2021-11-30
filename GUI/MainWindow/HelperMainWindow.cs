@@ -33,13 +33,14 @@ namespace PhotoManager
 
                     foreach (var albumContext in albumsContexts)
                     {
-                        photos.Add(db.Photos.Find(albumContext.PhotoId));
+                        photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
                     }
 
                     //Delete LargeImageList
                     if (ImageList.LargeImageList != null)
                     {
                         ImageList.LargeImageList.Dispose();
+                        ImageList.Items.Clear();
                     }
 
                     //Create image list
@@ -116,6 +117,7 @@ namespace PhotoManager
                 if (ImageList.LargeImageList != null)
                 {
                     ImageList.LargeImageList.Dispose();
+                    ImageList.Items.Clear();
                 }
 
                 //Create image list
