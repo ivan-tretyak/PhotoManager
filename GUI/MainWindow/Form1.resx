@@ -59,7 +59,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AlbumList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Bottom, Left</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AlbumList.ItemHeight" type="System.Int32, mscorlib">
@@ -70,7 +70,7 @@
     <value>13, 43</value>
   </data>
   <data name="AlbumList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>398, 394</value>
+    <value>258, 394</value>
   </data>
   <data name="AlbumList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -94,7 +94,7 @@
     <value>277, 43</value>
   </data>
   <data name="ImageListForAlbum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>760, 395</value>
+    <value>760, 394</value>
   </data>
   <data name="ImageListForAlbum.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
