@@ -57,6 +57,7 @@ namespace PhotoManager
             this.ImageListForAlbum.Name = "ImageListForAlbum";
             this.ImageListForAlbum.UseCompatibleStateImageBehavior = false;
             this.ImageListForAlbum.SelectedIndexChanged += new System.EventHandler(this.ImageListForAlbum_SelectedIndexChanged);
+            this.ImageListForAlbum.DoubleClick += new System.EventHandler(this.ImageList_DoubleClick);
             // 
             // comboBox1
             // 
