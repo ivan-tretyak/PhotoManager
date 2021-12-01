@@ -42,7 +42,7 @@ namespace PhotoManager
 
         private void scanstart_Click(object sender, EventArgs e)
         {
-            helper.Scanning(tableLayoutPanel1);
+            helper.Scanning(tableLayoutPanel1, progressBar1, label1);
             this.Close();
         }
     }

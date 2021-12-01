@@ -72,7 +72,7 @@ namespace PhotoManager
             return false;
         }
 
-        public void Scanning(TableLayoutPanel panel)
+        public void Scanning(TableLayoutPanel panel, ProgressBar bar, Label label)
         {
             //Create first album
             var album = new Album();
@@ -95,11 +95,17 @@ namespace PhotoManager
                     .First();
             }
 
+            label.Text = $"0/{panel.RowCount}";
+
             Indexing indexing = new();
             for (int i = 0; i < panel.RowCount; i++)
             {
+                label.Text = $"{i}/{panel.RowCount}";
                 int c = 0;
                 var res = indexing.IndexingDirectory(panel.Controls[i * 3].Text);
+                bar.Maximum = res.Count;
+                bar.Value = 0;
+                int count = 0;
                 foreach (string s in res)
                 {
                     //Get metadata
@@ -138,6 +144,8 @@ namespace PhotoManager
                         db.SaveChanges();
                         c++;
                     }
+                    count++;
+                    bar.Value = count;
                 }
             }
         }
