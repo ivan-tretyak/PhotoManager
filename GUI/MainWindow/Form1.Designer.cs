@@ -40,6 +40,7 @@ namespace PhotoManager
             this.moveButton = new System.Windows.Forms.Button();
             this.CopyButton = new System.Windows.Forms.Button();
             this.RemoveButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AlbumList
@@ -109,10 +110,16 @@ namespace PhotoManager
             this.RemoveButton.UseVisualStyleBackColor = true;
             this.RemoveButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
             // MainWindow
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.CopyButton);
             this.Controls.Add(this.moveButton);
@@ -142,6 +149,7 @@ namespace PhotoManager
         private System.Windows.Forms.Button moveButton;
         private System.Windows.Forms.Button CopyButton;
         private System.Windows.Forms.Button RemoveButton;
+        private System.Windows.Forms.Label label3;
     }
 }
 

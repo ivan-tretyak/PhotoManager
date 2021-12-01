@@ -92,35 +92,54 @@ namespace PhotoManager
 
         private void moveButton_Click(object sender, EventArgs e)
         {
-            var newAlbum = this.moveAlbumBox.SelectedItem;
-            var oldAlbum = this.AlbumList.SelectedItem;
-            foreach (int index in this.ImageListForAlbum.SelectedIndices)
+            try
             {
-                helper.MoveToAnotherAlbum(newAlbum.ToString(), oldAlbum.ToString(), this.ImageListForAlbum.Items[index].Text.ToString());
+                var newAlbum = this.moveAlbumBox.SelectedItem;
+                var oldAlbum = this.AlbumList.SelectedItem;
+                foreach (int index in this.ImageListForAlbum.SelectedIndices)
+                {
+                    var newAl = newAlbum.ToString();
+                    var oldAl = oldAlbum.ToString();
+                    var path = this.ImageListForAlbum.Items[index].Text.ToString();
+                    helper.MoveToAnotherAlbum(newAl, oldAl, path);
+                }
+                this.label2.Visible = false;
+                this.moveAlbumBox.Visible = false;
+                this.moveButton.Visible = false;
+                this.CopyButton.Visible = false;
+                this.RemoveButton.Visible = false;
+                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, oldAlbum.ToString());
+                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
             }
-            this.label2.Visible = false;
-            this.moveAlbumBox.Visible = false;
-            this.moveButton.Visible = false;
-            this.CopyButton.Visible = false;
-            this.RemoveButton.Visible = false;
-            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, oldAlbum.ToString());
-            helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+            catch (Exception)
+            {
+                label3.Text = "Something went wrong";
+            }
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
         {
-            var newAlbum = this.moveAlbumBox.SelectedItem;
-            foreach(int index in this.ImageListForAlbum.SelectedIndices)
+            try
             {
-                helper.CopyToAnotherAlbum(newAlbum.ToString(), this.ImageListForAlbum.Items[index].Text.ToString());
+                var newAlbum = this.moveAlbumBox.SelectedItem;
+                foreach (int index in this.ImageListForAlbum.SelectedIndices)
+                {
+                    var albumNew = newAlbum.ToString();
+                    var path = this.ImageListForAlbum.Items[index].Text.ToString();
+                    helper.CopyToAnotherAlbum(albumNew, path);
+                }
+                this.label2.Visible = false;
+                this.moveAlbumBox.Visible = false;
+                this.moveButton.Visible = false;
+                this.CopyButton.Visible = false;
+                this.RemoveButton.Visible = false;
+                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
+                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
             }
-            this.label2.Visible = false;
-            this.moveAlbumBox.Visible = false;
-            this.moveButton.Visible = false;
-            this.CopyButton.Visible = false;
-            this.RemoveButton.Visible = false;
-            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
-            helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+            catch (Exception)
+            {
+                label3.Text = "Something went wrong";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
