@@ -133,5 +133,14 @@ namespace PhotoManager.GUI.ShowImage
             index--;
             ShowImage();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var img = new Bitmap(paths[index]);
+            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Image = img;
+            trackBar1.Value = 0;
+        }
     }
 }
