@@ -58,12 +58,9 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(23, 20);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(525, 391);
+            this.pictureBox1.Size = new System.Drawing.Size(545, 405);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
