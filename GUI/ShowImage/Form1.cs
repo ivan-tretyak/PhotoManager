@@ -57,6 +57,7 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox1.Image = new Bitmap(this.paths[index]);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             org.Load(paths[index]);
+            LoadMetadata();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -65,6 +66,8 @@ namespace PhotoManager.GUI.ShowImage
             {
                 pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
                 panel1.AutoScroll = true;
+                panel1.HorizontalScroll.Visible = true;
+                panel1.VerticalScroll.Visible = true;
                 var img = new Bitmap(paths[index]);
                 Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * trackBar1.Value / 100), Convert.ToInt32(img.Height * trackBar1.Value / 100));
                 Graphics gpu = Graphics.FromImage(bm);
@@ -92,6 +95,29 @@ namespace PhotoManager.GUI.ShowImage
             }
             index++;
             ShowImage();
+        }
+
+        private void LoadMetadata()
+        {
+            using (var db = new DatabaseContext())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                ManufacturerShow.Text = metadata.Manufacturer;
+                ModelShow.Text = metadata.Model;
+                OrientationShow.Text = metadata.Orientation.ToString();
+                FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
+                PlacesShow.Text = $"{metadata.Longitude}, {metadata.Latitude}";
+                FlashShow.Text = metadata.Flash.ToString();
+                CreationDateShow.Text = metadata.DateCreation;
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

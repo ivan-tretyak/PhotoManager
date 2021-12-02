@@ -32,6 +32,12 @@ namespace PhotoManager.GUI.ShowImage
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.CreationDateShow = new System.Windows.Forms.Label();
+            this.FlashShow = new System.Windows.Forms.Label();
+            this.PlacesShow = new System.Windows.Forms.Label();
+            this.FocusLenghtShow = new System.Windows.Forms.Label();
+            this.OrientationShow = new System.Windows.Forms.Label();
+            this.ModelShow = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,6 +45,7 @@ namespace PhotoManager.GUI.ShowImage
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.ManufacturerShow = new System.Windows.Forms.Label();
             this.panel1 = new PhotoManager.GUI.ShowImage.MyPanel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
@@ -51,9 +58,12 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Location = new System.Drawing.Point(23, 20);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(562, 419);
+            this.pictureBox1.Size = new System.Drawing.Size(525, 391);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -62,6 +72,12 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.CreationDateShow, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.FlashShow, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.PlacesShow, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.FocusLenghtShow, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.OrientationShow, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ModelShow, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -69,6 +85,7 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ManufacturerShow, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 13);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
@@ -81,6 +98,60 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 140);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // CreationDateShow
+            // 
+            this.CreationDateShow.AutoSize = true;
+            this.CreationDateShow.Location = new System.Drawing.Point(103, 120);
+            this.CreationDateShow.Name = "CreationDateShow";
+            this.CreationDateShow.Size = new System.Drawing.Size(44, 15);
+            this.CreationDateShow.TabIndex = 13;
+            this.CreationDateShow.Text = "label14";
+            // 
+            // FlashShow
+            // 
+            this.FlashShow.AutoSize = true;
+            this.FlashShow.Location = new System.Drawing.Point(103, 100);
+            this.FlashShow.Name = "FlashShow";
+            this.FlashShow.Size = new System.Drawing.Size(44, 15);
+            this.FlashShow.TabIndex = 12;
+            this.FlashShow.Text = "label13";
+            // 
+            // PlacesShow
+            // 
+            this.PlacesShow.AutoSize = true;
+            this.PlacesShow.Location = new System.Drawing.Point(103, 80);
+            this.PlacesShow.Name = "PlacesShow";
+            this.PlacesShow.Size = new System.Drawing.Size(44, 15);
+            this.PlacesShow.TabIndex = 11;
+            this.PlacesShow.Text = "label12";
+            // 
+            // FocusLenghtShow
+            // 
+            this.FocusLenghtShow.AutoSize = true;
+            this.FocusLenghtShow.Location = new System.Drawing.Point(103, 60);
+            this.FocusLenghtShow.Name = "FocusLenghtShow";
+            this.FocusLenghtShow.Size = new System.Drawing.Size(44, 15);
+            this.FocusLenghtShow.TabIndex = 10;
+            this.FocusLenghtShow.Text = "label11";
+            // 
+            // OrientationShow
+            // 
+            this.OrientationShow.AutoSize = true;
+            this.OrientationShow.Location = new System.Drawing.Point(103, 40);
+            this.OrientationShow.Name = "OrientationShow";
+            this.OrientationShow.Size = new System.Drawing.Size(44, 15);
+            this.OrientationShow.TabIndex = 9;
+            this.OrientationShow.Text = "label10";
+            // 
+            // ModelShow
+            // 
+            this.ModelShow.AutoSize = true;
+            this.ModelShow.Location = new System.Drawing.Point(103, 20);
+            this.ModelShow.Name = "ModelShow";
+            this.ModelShow.Size = new System.Drawing.Size(38, 15);
+            this.ModelShow.TabIndex = 8;
+            this.ModelShow.Text = "label9";
             // 
             // label1
             // 
@@ -147,8 +218,21 @@ namespace PhotoManager.GUI.ShowImage
             this.label7.TabIndex = 6;
             this.label7.Text = "Creation date";
             // 
+            // ManufacturerShow
+            // 
+            this.ManufacturerShow.AutoSize = true;
+            this.ManufacturerShow.Location = new System.Drawing.Point(103, 0);
+            this.ManufacturerShow.Name = "ManufacturerShow";
+            this.ManufacturerShow.Size = new System.Drawing.Size(38, 15);
+            this.ManufacturerShow.TabIndex = 7;
+            this.ManufacturerShow.Text = "label8";
+            // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(220, 13);
             this.panel1.Name = "panel1";
@@ -222,6 +306,13 @@ namespace PhotoManager.GUI.ShowImage
         private MyPanel panel1;
         private Button button1;
         private Button button2;
+        private Label CreationDateShow;
+        private Label FlashShow;
+        private Label PlacesShow;
+        private Label FocusLenghtShow;
+        private Label OrientationShow;
+        private Label ModelShow;
+        private Label ManufacturerShow;
     }
 
     public class MyPanel : Panel
