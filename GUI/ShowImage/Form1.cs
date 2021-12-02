@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using ORMDatabaseModule;
+
+namespace PhotoManager.GUI.ShowImage
+{
+    public partial class Form1 : Form
+    {
+        List<string> paths;
+        PictureBox org;
+        int index;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        public Form1(List<string> paths, string albumName, int i)
+        {
+            InitializeComponent();
+            this.paths = paths;
+            this.index = i;
+            org = new PictureBox();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ShowImage();
+            if (index == 0)
+            {
+                button1.Enabled = false;
+            }
+            if (index == paths.Count - 1)
+            {
+                button2.Enabled = false;
+            }
+        }
+
+        private void ShowImage()
+        {
+            pictureBox1.Image = new Bitmap(this.paths[index]);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            org.Load(paths[index]);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            if (trackBar1.Value > 0)
+            {
+                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+                panel1.AutoScroll = true;
+                var img = new Bitmap(paths[index]);
+                Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * trackBar1.Value / 100), Convert.ToInt32(img.Height * trackBar1.Value / 100));
+                Graphics gpu = Graphics.FromImage(bm);
+                gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = bm;
+                gpu.Dispose();
+            }
+            else
+            {
+                ShowImage();
+                panel1.AutoScroll = false;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (index + 1 == paths.Count - 1)
+            {
+                button2.Enabled = false;
+            }
+            if (index + 1 > 0)
+            {
+                button1.Enabled = true;
+            }
+            index++;
+            ShowImage();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (index - 1 == 0)
+            {
+                button1.Enabled = false;
+            }
+            if (index - 1 < paths.Count - 1)
+            {
+                button2.Enabled = true;
+            }
+            index--;
+            ShowImage();
+        }
+    }
+}

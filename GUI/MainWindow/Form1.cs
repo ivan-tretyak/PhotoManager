@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -152,6 +153,17 @@ namespace PhotoManager
             }
             helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
             helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+        }
+
+        private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
+        {
+            List<string> paths = new();
+            for (int i = 0; i < ImageListForAlbum.Items.Count; i++)
+            {
+                paths.Add(ImageListForAlbum.Items[i].Text.ToString());
+            }
+            var show = new PhotoManager.GUI.ShowImage.Form1(paths, AlbumList.SelectedItem.ToString(), ImageListForAlbum.SelectedIndices[0]);
+            show.ShowDialog();
         }
     }
 }
