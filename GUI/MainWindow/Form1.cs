@@ -154,7 +154,7 @@ namespace PhotoManager
             helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
         }
 
-        private void ImageList_DoubleClick(object sender, EventArgs e)
+        private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
         {
             MessageBox.Show(ImageListForAlbum.SelectedItems[0].Text);
         }
