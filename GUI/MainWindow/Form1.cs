@@ -25,12 +25,15 @@ namespace PhotoManager
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, AlbumList.SelectedItem.ToString());
-            this.label2.Visible = false;
-            this.moveAlbumBox.Visible = false;
-            this.moveButton.Visible = false;
-            this.CopyButton.Visible = false;
-            helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+            if (AlbumList.SelectedItem != null)
+            {
+                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, AlbumList.SelectedItem.ToString());
+                this.label2.Visible = false;
+                this.moveAlbumBox.Visible = false;
+                this.moveButton.Visible = false;
+                this.CopyButton.Visible = false;
+                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
