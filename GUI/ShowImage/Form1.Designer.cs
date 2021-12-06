@@ -60,9 +60,12 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(545, 405);
+            this.pictureBox1.Size = new System.Drawing.Size(562, 419);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -271,18 +274,19 @@ namespace PhotoManager.GUI.ShowImage
             // 
             this.button3.Location = new System.Drawing.Point(13, 221);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 23);
+            this.button3.Size = new System.Drawing.Size(120, 23);
             this.button3.TabIndex = 5;
-            this.button3.Text = "Previous";
+            this.button3.Text = "Сounterclockwise";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(112, 221);
+            this.button4.Location = new System.Drawing.Point(139, 221);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(101, 23);
+            this.button4.Size = new System.Drawing.Size(74, 23);
             this.button4.TabIndex = 6;
-            this.button4.Text = "Next";
+            this.button4.Text = "Clockwise";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 

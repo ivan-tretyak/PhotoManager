@@ -55,7 +55,7 @@ namespace PhotoManager.GUI.ShowImage
         private void ShowImage()
         {
             pictureBox1.Image = new Bitmap(this.paths[index]);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             org.Load(paths[index]);
             LoadMetadata();
         }
@@ -136,9 +136,18 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var img = new Bitmap(paths[index]);
+            var img = pictureBox1.Image;
             img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Image = img;
+            trackBar1.Value = 0;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var img = pictureBox1.Image;
+            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = img;
             trackBar1.Value = 0;
         }
