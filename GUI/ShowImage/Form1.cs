@@ -50,6 +50,21 @@ namespace PhotoManager.GUI.ShowImage
             {
                 button2.Enabled = false;
             }
+            this.ResizeEnd += new EventHandler(this.resize);
+            this.Resize += new EventHandler(this.resize);
+        }
+
+        private void resize(object sender, EventArgs e)
+        {
+            int x = panel1.Size.Width;
+            int y = panel1.Size.Height;
+            x = x - 10;
+            y = y - 10;
+            Size size = new();
+            size.Width = x;
+            size.Height = y;
+            pictureBox1.Size = size;
+            ShowImage();
         }
 
         private void ShowImage()
@@ -95,6 +110,8 @@ namespace PhotoManager.GUI.ShowImage
             }
             index++;
             ShowImage();
+            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
+            trackBar1.Value = 0;
         }
 
         private void LoadMetadata()
@@ -132,12 +149,15 @@ namespace PhotoManager.GUI.ShowImage
             }
             index--;
             ShowImage();
+            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
+            trackBar1.Value = 0;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             var img = pictureBox1.Image;
             img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = img;
             trackBar1.Value = 0;
@@ -147,6 +167,7 @@ namespace PhotoManager.GUI.ShowImage
         {
             var img = pictureBox1.Image;
             img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = img;
             trackBar1.Value = 0;
