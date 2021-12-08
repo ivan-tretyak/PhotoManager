@@ -35,7 +35,8 @@ namespace PhotoManager.GUI.ShowImage
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowImage();
+            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            DisplayMetadata();
             if (index == 0)
             {
                 button1.Enabled = false;
@@ -50,85 +51,14 @@ namespace PhotoManager.GUI.ShowImage
 
         private void resize(object sender, EventArgs e)
         {
-            int x = panel1.Size.Width;
-            int y = panel1.Size.Height;
-            x = x - 10;
-            y = y - 10;
-            Size size = new();
-            size.Width = x;
-            size.Height = y;
-            pictureBox1.Size = size;
-            ShowImage();
-        }
-
-        private void ShowImage()
-        {
-            pictureBox1.Image = new Bitmap(this.paths[index]);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            org.Load(paths[index]);
-            LoadMetadata();
-
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                pictureBox1.Image.RotateFlip(OrientationToFlipType(metadata.Orientation));
-            }
-            this.Text = paths[index];
-        }
-
-        private static RotateFlipType OrientationToFlipType(int orientation)
-        {
-            switch (orientation)
-            {
-                case 1:
-                    return RotateFlipType.RotateNoneFlipNone;
-                case 2:
-                    return RotateFlipType.RotateNoneFlipX;
-                case 3:
-                    return RotateFlipType.Rotate180FlipNone;
-                case 4:
-                    return RotateFlipType.Rotate180FlipX;
-                case 5:
-                    return RotateFlipType.Rotate90FlipX;
-                case 6:
-                    return RotateFlipType.Rotate90FlipNone;
-                case 7:
-                    return RotateFlipType.Rotate270FlipX;
-                case 8:
-                    return RotateFlipType.Rotate270FlipNone;
-                default:
-                    return RotateFlipType.RotateNoneFlipNone;
-            }
+            HelperShowImage.resizer(panel1, pictureBox1);
+            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            DisplayMetadata();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            if (trackBar1.Value > 0)
-            {
-                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-                panel1.AutoScroll = true;
-                panel1.HorizontalScroll.Visible = true;
-                panel1.VerticalScroll.Visible = true;
-                var img = new Bitmap(paths[index]);
-                Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * trackBar1.Value / 100), Convert.ToInt32(img.Height * trackBar1.Value / 100));
-                Graphics gpu = Graphics.FromImage(bm);
-                gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-                pictureBox1.Image.Dispose();
-                pictureBox1.Image = bm;
-                gpu.Dispose();
-            }
-            else
-            {
-                ShowImage();
-                panel1.AutoScroll = false;
-            }
+            HelperShowImage.ResizeImage(trackBar1, pictureBox1, org, panel1, paths[index], this);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -142,47 +72,32 @@ namespace PhotoManager.GUI.ShowImage
                 button1.Enabled = true;
             }
             index++;
-            ShowImage();
+            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            DisplayMetadata();
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             trackBar1.Value = 0;
         }
 
-        private void LoadMetadata()
+        private void DisplayMetadata()
         {
-            using (var db = new DatabaseContext())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
 
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-                if (metadata.Manufacturer != "")
-                {
-                    ManufacturerShow.Text = metadata.Manufacturer;
-                }
-                else
-                {
-                    ManufacturerShow.Text = "Unknown";
-                }
-                if (metadata.Model != "")
-                {
-                    ModelShow.Text = metadata.Model;
-                }
-                else
-                {
-                    ModelShow.Text = "Unknown";
-                }
-                
-                
-                OrientationShow.Text = metadata.Orientation.ToString();
-                FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
-                LatitudeShow.Text = $"{metadata.Latitude}";
-                LongitudeShow.Text = $"{metadata.Longitude}";
-                FlashShow.Text = metadata.Flash.ToString();
-                CreationDateShow.Text = metadata.DateCreation;
+            if (metadata.Manufacturer == "")
+            {
+                metadata.Manufacturer = "Unknown";
             }
+
+            if (metadata.Model == "")
+            {
+                metadata.Model = "Unknown";
+            }
+
+            OrientationShow.Text = metadata.Orientation.ToString();
+            FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
+            LatitudeShow.Text = $"{metadata.Latitude}";
+            LongitudeShow.Text = $"{metadata.Longitude}";
+            FlashShow.Text = metadata.Flash.ToString();
+            CreationDateShow.Text = metadata.DateCreation;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -196,29 +111,20 @@ namespace PhotoManager.GUI.ShowImage
                 button2.Enabled = true;
             }
             index--;
-            ShowImage();
+            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            DisplayMetadata();
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             trackBar1.Value = 0;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var image = pictureBox1.Image;
-            image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            pictureBox1.Image = image;
-            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            trackBar1.Value = 0;
+            HelperShowImage.RotateImage(pictureBox1, panel1, trackBar1, true);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var image = pictureBox1.Image;
-            image.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            pictureBox1.Image = image; ;
-            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            trackBar1.Value = 0;
+            HelperShowImage.RotateImage(pictureBox1, panel1, trackBar1, false);
         }
 
         private void CreationDateShow_Click(object sender, EventArgs e)
@@ -439,8 +345,8 @@ namespace PhotoManager.GUI.ShowImage
                 OrientationShow = new();
                 tableLayoutPanel1.Controls.Add(OrientationShow, 1, 2);
                 OrientationShow.Click += new EventHandler(OrientationShow_Click);
-                ShowImage();
-                LoadMetadata();
+                HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+                DisplayMetadata();
             }
         }
     }
