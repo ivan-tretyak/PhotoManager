@@ -10,7 +10,33 @@ namespace PhotoManager
         public int height = 0;
         public int width = 256;
         public Image thumbnail;
-        public ImagesPreview(string path)
+
+        private static RotateFlipType OrientationToFlipType(int orientation)
+        {
+            switch (orientation)
+            {
+                case 1:
+                    return RotateFlipType.RotateNoneFlipNone;
+                case 2:
+                    return RotateFlipType.RotateNoneFlipX;
+                case 3:
+                    return RotateFlipType.Rotate180FlipNone;
+                case 4:
+                    return RotateFlipType.Rotate180FlipX;
+                case 5:
+                    return RotateFlipType.Rotate90FlipX;
+                case 6:
+                    return RotateFlipType.Rotate90FlipNone;
+                case 7:
+                    return RotateFlipType.Rotate270FlipX;
+                case 8:
+                    return RotateFlipType.Rotate270FlipNone;
+                default:
+                    return RotateFlipType.RotateNoneFlipNone;
+            }
+        }
+
+        public ImagesPreview(string path, int orientation)
         {
 
                 Image image = new Bitmap(path);
@@ -20,7 +46,7 @@ namespace PhotoManager
                     height = 256;
                     width = (int)(image.Width / (image.Height / height));
                 }
-                thumbnail = createThumbnail(ResizeImage(image));
+                thumbnail = createThumbnail(ResizeImage(image), orientation);
                 image.Dispose();
         }
 
@@ -49,10 +75,10 @@ namespace PhotoManager
             return destImage;
         }
 
-        private Bitmap createThumbnail(Image image)
+        private Bitmap createThumbnail(Image image, int orientation)
         {
             var thumbnail = new Bitmap(256, 256);
-
+            image.RotateFlip(OrientationToFlipType(orientation));
             using (var graphics = Graphics.FromImage(thumbnail))
             {
                 graphics.Clear(Color.White);

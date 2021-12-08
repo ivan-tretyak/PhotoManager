@@ -54,6 +54,7 @@ namespace PhotoManager.GUI.ShowImage
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -150,6 +151,7 @@ namespace PhotoManager.GUI.ShowImage
             this.OrientationShow.Size = new System.Drawing.Size(44, 15);
             this.OrientationShow.TabIndex = 9;
             this.OrientationShow.Text = "label10";
+            this.OrientationShow.Click += new System.EventHandler(this.OrientationShow_Click);
             // 
             // ModelShow
             // 
@@ -316,6 +318,13 @@ namespace PhotoManager.GUI.ShowImage
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // sqliteCommand1
+            // 
+            this.sqliteCommand1.CommandTimeout = 30;
+            this.sqliteCommand1.Connection = null;
+            this.sqliteCommand1.Transaction = null;
+            this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -367,6 +376,7 @@ namespace PhotoManager.GUI.ShowImage
         private Button button4;
         private Label LongitudeShow;
         private Label label8;
+        private Microsoft.Data.Sqlite.SqliteCommand sqliteCommand1;
     }
 
     public class MyPanel : Panel

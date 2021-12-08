@@ -19,6 +19,7 @@ namespace PhotoManager.GUI.ShowImage
         int index;
         DateTimePicker date;
         TextBox placeInput;
+        ComboBox orientationBox;
         public Form1()
         {
             InitializeComponent();
@@ -200,31 +201,6 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             trackBar1.Value = 0;
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                int newOrientation = metadata.Orientation;
-
-                if (newOrientation + 1 > 8)
-                {
-                    newOrientation = 1;
-                }
-                else
-                {
-                    newOrientation++;
-                }
-                metadata.Orientation = newOrientation;
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
-            LoadMetadata();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -233,31 +209,6 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             trackBar1.Value = 0;
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                int newOrientation = metadata.Orientation;
-
-                if (newOrientation - 1 < 1)
-                {
-                    newOrientation = 1;
-                }
-                else
-                {
-                    newOrientation--;
-                }
-                metadata.Orientation = newOrientation;
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
-            LoadMetadata();
         }
 
         private void CreationDateShow_Click(object sender, EventArgs e)
@@ -434,6 +385,45 @@ namespace PhotoManager.GUI.ShowImage
 
                 db.MetaDatas.Update(metadata);
                 db.SaveChanges();
+            }
+        }
+
+        private void OrientationShow_Click(object sender, EventArgs e)
+        {
+            orientationBox = new();
+            for(int i = 1; i < 9; i++)
+            {
+                orientationBox.Items.Add(i);
+            }
+            tableLayoutPanel1.Controls.Add(orientationBox, 1, 2);
+            orientationBox.SelectedIndexChanged += new EventHandler(OrientationBox_SelectedIndexChanged);
+            OrientationShow.Dispose();
+        }
+
+        private void OrientationBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (orientationBox.SelectedItem != null)
+            {
+                using (var db = new DatabaseContext())
+                {
+                    var photo = db.Photos
+                        .Where(p => p.Path == paths[index])
+                        .First();
+
+                    var metadata = db.MetaDatas
+                        .Where(m => m.MetadataId == photo.MetaDataId)
+                        .First();
+
+                    metadata.Orientation = int.Parse(orientationBox.SelectedItem.ToString());
+                    db.MetaDatas.Update(metadata);
+                    db.SaveChanges();
+                }
+                orientationBox.Dispose();
+                OrientationShow = new();
+                tableLayoutPanel1.Controls.Add(OrientationShow, 1, 2);
+                OrientationShow.Click += new EventHandler(OrientationShow_Click);
+                ShowImage();
+                LoadMetadata();
             }
         }
     }

@@ -131,7 +131,16 @@ namespace PhotoManager
                 try
                 {
                     //Create photo preview
-                    var i = new ImagesPreview(photo.Path);
+                    //Get orientation
+                    int orientation = 0;
+                    using (var db = new DatabaseContext())
+                    {
+                        var metadata = db.MetaDatas
+                            .Where(m => m.MetadataId == photo.MetaDataId)
+                            .First();
+                        orientation = metadata.Orientation;
+                    }
+                    var i = new ImagesPreview(photo.Path, orientation);
                     ImageList.LargeImageList.Images.Add(i.thumbnail);
                     ImageList.Items.Add(photo.Path, counter);
                     counter++;
