@@ -84,6 +84,14 @@ namespace PhotoManager.GUI.ShowImage
             }
         }
 
+        public static void UpdateMetadata(MetaData metaData)
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.MetaDatas.Update(metaData);
+            }
+        }
+
         public static void RotateImage(PictureBox pictureBox, MyPanel panel, TrackBar track, bool clockwised)
         {
             var image = pictureBox.Image;
@@ -122,6 +130,16 @@ namespace PhotoManager.GUI.ShowImage
                 ShowImage(pictureBox, org, path, form);
                 panel.AutoScroll = false;
             }
+        }
+
+        public static void ReplaceLabelTextBox(TextBox textBox, Label label, int row, EventHandler eventHandler, TableLayoutPanel tableLayoutPanel)
+        {
+            textBox = new();
+            textBox.Text = label.Text;
+            textBox.Location = new System.Drawing.Point(103, 120);
+            label.Dispose();
+            tableLayoutPanel.Controls.Add(textBox, 1, row);
+            textBox.DoubleClick += new EventHandler(eventHandler);
         }
     }
 }

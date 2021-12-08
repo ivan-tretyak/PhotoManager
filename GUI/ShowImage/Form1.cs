@@ -154,31 +154,14 @@ namespace PhotoManager.GUI.ShowImage
             CreationDateShow.Location = new Point(103, 120);
             tableLayoutPanel1.Controls.Add(CreationDateShow, 1, 7);
             CreationDateShow.Click += new EventHandler(CreationDateShow_Click);
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                metadata.DateCreation = dateString;
-
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
+            metadata.DateCreation = dateString;
+            HelperShowImage.UpdateMetadata(metadata);
         }
 
         private void LatitudeShow_Click(object sender, EventArgs e)
         {
-            placeInput = new();
-            placeInput.Text = LatitudeShow.Text;
-            placeInput.Location = new System.Drawing.Point(103, 120);
-            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 4);
-            placeInput.DoubleClick += new EventHandler(placeInputLatitude_Click);
-            LatitudeShow.Dispose();
+            HelperShowImage.ReplaceLabelTextBox(placeInput, LatitudeShow, 4, (EventHandler)placeInputLatitude_Click, tableLayoutPanel1);
         }
 
         private void placeInputLatitude_Click(object sender, EventArgs e)
@@ -189,21 +172,9 @@ namespace PhotoManager.GUI.ShowImage
             tableLayoutPanel1.Controls.Add(LatitudeShow, 1, 4);
             placeInput.Dispose();
             LatitudeShow.Click += new EventHandler(LatitudeShow_Click);
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                metadata.Latitude = latitude;
-
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
+            metadata.Latitude = latitude;
+            HelperShowImage.UpdateMetadata(metadata);
         }
 
         private void placeInputLongitude(object sender, EventArgs e)
@@ -214,41 +185,19 @@ namespace PhotoManager.GUI.ShowImage
             tableLayoutPanel1.Controls.Add(LongitudeShow, 1, 5);
             LongitudeShow.Click += new EventHandler(LongitudeShow_Click);
             placeInput.Dispose();
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                metadata.Longitude = longitude;
-
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
+            metadata.Longitude = longitude;
+            HelperShowImage.UpdateMetadata(metadata);
         }
 
         private void LongitudeShow_Click(object sender, EventArgs e)
         {
-            placeInput = new();
-            placeInput.Text = LatitudeShow.Text;
-            placeInput.Location = new System.Drawing.Point(103, 120);
-            ManufacturerShow.Dispose();
-            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 5);
-            placeInput.DoubleClick += new EventHandler(placeInputLongitude);
+            HelperShowImage.ReplaceLabelTextBox(placeInput, LongitudeShow, 5, (EventHandler)placeInputLongitude, tableLayoutPanel1);
         }
 
         private void ManufacturerShow_Click(object sender, EventArgs e)
         {
-            placeInput = new();
-            placeInput.Text = ManufacturerShow.Text;
-            placeInput.Location = new System.Drawing.Point(103, 120);
-            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 0);
-            ManufacturerShow.Dispose();
-            placeInput.DoubleClick += new EventHandler(placeInputManufacturer);
+            HelperShowImage.ReplaceLabelTextBox(placeInput, ManufacturerShow, 0, (EventHandler)placeInputManufacturer, tableLayoutPanel1);
         }
 
         private void placeInputManufacturer(object sender, EventArgs e)
@@ -259,31 +208,14 @@ namespace PhotoManager.GUI.ShowImage
             tableLayoutPanel1.Controls.Add(ManufacturerShow, 1, 0);
             placeInput.Dispose();
             ManufacturerShow.Click += new EventHandler(ManufacturerShow_Click);
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                metadata.Manufacturer = manufacturer;
-
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
+            metadata.Manufacturer = manufacturer;
+            HelperShowImage.UpdateMetadata(metadata);
         }
 
         private void ModelShow_Click(object sender, EventArgs e)
         {
-            placeInput = new();
-            placeInput.Text = ModelShow.Text;
-            placeInput.Location = new System.Drawing.Point(103, 120);
-            ModelShow.Dispose();
-            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 1);
-            placeInput.DoubleClick += new EventHandler(placeInputModel);
+            HelperShowImage.ReplaceLabelTextBox(placeInput, ModelShow, 1, (EventHandler)placeInputModel, tableLayoutPanel1);
         }
 
         private void placeInputModel(object sender, EventArgs e)
@@ -294,21 +226,9 @@ namespace PhotoManager.GUI.ShowImage
             placeInput.Dispose();
             tableLayoutPanel1.Controls.Add(ModelShow, 1, 1);
             ModelShow.Click += new EventHandler(ModelShow_Click);
-            using (DatabaseContext db = new())
-            {
-                var photo = db.Photos
-                    .Where(p => p.Path == paths[index])
-                    .First();
-
-                var metadata = db.MetaDatas
-                    .Where(m => m.MetadataId == photo.MetaDataId)
-                    .First();
-
-                metadata.Model = model;
-
-                db.MetaDatas.Update(metadata);
-                db.SaveChanges();
-            }
+            var metadata = HelperShowImage.LoadMetadata(paths[index]);
+            metadata.Model = model;
+            HelperShowImage.UpdateMetadata(metadata);
         }
 
         private void OrientationShow_Click(object sender, EventArgs e)
@@ -327,20 +247,9 @@ namespace PhotoManager.GUI.ShowImage
         {
             if (orientationBox.SelectedItem != null)
             {
-                using (var db = new DatabaseContext())
-                {
-                    var photo = db.Photos
-                        .Where(p => p.Path == paths[index])
-                        .First();
-
-                    var metadata = db.MetaDatas
-                        .Where(m => m.MetadataId == photo.MetaDataId)
-                        .First();
-
-                    metadata.Orientation = int.Parse(orientationBox.SelectedItem.ToString());
-                    db.MetaDatas.Update(metadata);
-                    db.SaveChanges();
-                }
+                var metadata = HelperShowImage.LoadMetadata(paths[index]);
+                metadata.Orientation = int.Parse(orientationBox.SelectedItem.ToString()); ;
+                HelperShowImage.UpdateMetadata(metadata);
                 orientationBox.Dispose();
                 OrientationShow = new();
                 tableLayoutPanel1.Controls.Add(OrientationShow, 1, 2);
