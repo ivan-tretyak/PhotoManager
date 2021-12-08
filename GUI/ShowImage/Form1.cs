@@ -196,22 +196,68 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var img = pictureBox1.Image;
-            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.Image = img;
             trackBar1.Value = 0;
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                int newOrientation = metadata.Orientation;
+
+                if (newOrientation + 1 > 8)
+                {
+                    newOrientation = 1;
+                }
+                else
+                {
+                    newOrientation++;
+                }
+                metadata.Orientation = newOrientation;
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
+            LoadMetadata();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var img = pictureBox1.Image;
-            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.Image = img;
             trackBar1.Value = 0;
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                int newOrientation = metadata.Orientation;
+
+                if (newOrientation - 1 < 1)
+                {
+                    newOrientation = 1;
+                }
+                else
+                {
+                    newOrientation--;
+                }
+                metadata.Orientation = newOrientation;
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
+            LoadMetadata();
         }
 
         private void CreationDateShow_Click(object sender, EventArgs e)
