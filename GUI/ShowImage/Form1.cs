@@ -318,9 +318,9 @@ namespace PhotoManager.GUI.ShowImage
             placeInput = new();
             placeInput.Text = LatitudeShow.Text;
             placeInput.Location = new System.Drawing.Point(103, 120);
+            ManufacturerShow.Dispose();
             this.tableLayoutPanel1.Controls.Add(placeInput, 1, 5);
             placeInput.DoubleClick += new EventHandler(placeInputLongitude);
-            LatitudeShow.Dispose();
         }
 
         private void ManufacturerShow_Click(object sender, EventArgs e)
@@ -329,8 +329,8 @@ namespace PhotoManager.GUI.ShowImage
             placeInput.Text = ManufacturerShow.Text;
             placeInput.Location = new System.Drawing.Point(103, 120);
             this.tableLayoutPanel1.Controls.Add(placeInput, 1, 0);
-            placeInput.DoubleClick += new EventHandler(placeInputManufacturer);
             ManufacturerShow.Dispose();
+            placeInput.DoubleClick += new EventHandler(placeInputManufacturer);
         }
 
         private void placeInputManufacturer(object sender, EventArgs e)
@@ -339,8 +339,8 @@ namespace PhotoManager.GUI.ShowImage
             ManufacturerShow = new();
             ManufacturerShow.Text = $"{manufacturer}";
             tableLayoutPanel1.Controls.Add(ManufacturerShow, 1, 0);
-            ManufacturerShow.Click += new EventHandler(ManufacturerShow_Click);
             placeInput.Dispose();
+            ManufacturerShow.Click += new EventHandler(ManufacturerShow_Click);
             using (DatabaseContext db = new())
             {
                 var photo = db.Photos
@@ -363,9 +363,9 @@ namespace PhotoManager.GUI.ShowImage
             placeInput = new();
             placeInput.Text = ModelShow.Text;
             placeInput.Location = new System.Drawing.Point(103, 120);
+            ModelShow.Dispose();
             this.tableLayoutPanel1.Controls.Add(placeInput, 1, 1);
             placeInput.DoubleClick += new EventHandler(placeInputModel);
-            ModelShow.Dispose();
         }
 
         private void placeInputModel(object sender, EventArgs e)
@@ -373,9 +373,9 @@ namespace PhotoManager.GUI.ShowImage
             string model = placeInput.Text;
             ModelShow = new();
             ModelShow.Text = $"{model}";
-            tableLayoutPanel1.Controls.Add(ModelShow, 1, 1);
-            ManufacturerShow.Click += new EventHandler(ModelShow_Click);
             placeInput.Dispose();
+            tableLayoutPanel1.Controls.Add(ModelShow, 1, 1);
+            ModelShow.Click += new EventHandler(ModelShow_Click);
             using (DatabaseContext db = new())
             {
                 var photo = db.Photos

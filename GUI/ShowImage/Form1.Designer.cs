@@ -300,21 +300,23 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button3.Location = new System.Drawing.Point(13, 268);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 23);
+            this.button3.Size = new System.Drawing.Size(99, 49);
             this.button3.TabIndex = 5;
-            this.button3.Text = "Сounterclockwise";
+            this.button3.Text = "↶";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(139, 268);
+            this.button4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button4.Location = new System.Drawing.Point(112, 268);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(74, 23);
+            this.button4.Size = new System.Drawing.Size(101, 49);
             this.button4.TabIndex = 6;
-            this.button4.Text = "Clockwise";
+            this.button4.Text = "↷";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
