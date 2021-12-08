@@ -280,28 +280,30 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button1.Location = new System.Drawing.Point(13, 239);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 23);
+            this.button1.Size = new System.Drawing.Size(99, 37);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Previous";
+            this.button1.Text = "←";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button2.Location = new System.Drawing.Point(112, 239);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 23);
+            this.button2.Size = new System.Drawing.Size(101, 37);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Next";
+            this.button2.Text = "→";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(13, 268);
+            this.button3.Location = new System.Drawing.Point(13, 282);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 49);
             this.button3.TabIndex = 5;
@@ -312,7 +314,7 @@ namespace PhotoManager.GUI.ShowImage
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(112, 268);
+            this.button4.Location = new System.Drawing.Point(112, 282);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(101, 49);
             this.button4.TabIndex = 6;
