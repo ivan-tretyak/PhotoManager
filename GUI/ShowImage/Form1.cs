@@ -76,6 +76,44 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             org.Load(paths[index]);
             LoadMetadata();
+
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                pictureBox1.Image.RotateFlip(OrientationToFlipType(metadata.Orientation));
+            }
+        }
+
+        private static RotateFlipType OrientationToFlipType(int orientation)
+        {
+            switch (orientation)
+            {
+                case 1:
+                    return RotateFlipType.RotateNoneFlipNone;
+                case 2:
+                    return RotateFlipType.RotateNoneFlipX;
+                case 3:
+                    return RotateFlipType.Rotate180FlipNone;
+                case 4:
+                    return RotateFlipType.Rotate180FlipX;
+                case 5:
+                    return RotateFlipType.Rotate90FlipX;
+                case 6:
+                    return RotateFlipType.Rotate90FlipNone;
+                case 7:
+                    return RotateFlipType.Rotate270FlipX;
+                case 8:
+                    return RotateFlipType.Rotate270FlipNone;
+                default:
+                    return RotateFlipType.RotateNoneFlipNone;
+            }
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -137,7 +175,6 @@ namespace PhotoManager.GUI.ShowImage
                 LongitudeShow.Text = $"{metadata.Longitude}";
                 FlashShow.Text = metadata.Flash.ToString();
                 CreationDateShow.Text = metadata.DateCreation;
-
             }
         }
 
@@ -231,6 +268,7 @@ namespace PhotoManager.GUI.ShowImage
             LatitudeShow.Text = $"{latitude}";
             tableLayoutPanel1.Controls.Add(LatitudeShow, 1, 4);
             placeInput.Dispose();
+            LatitudeShow.Click += new EventHandler(LatitudeShow_Click);
             using (DatabaseContext db = new())
             {
                 var photo = db.Photos
@@ -254,6 +292,7 @@ namespace PhotoManager.GUI.ShowImage
             LongitudeShow = new();
             LongitudeShow.Text = $"{longitude}";
             tableLayoutPanel1.Controls.Add(LongitudeShow, 1, 5);
+            LongitudeShow.Click += new EventHandler(LongitudeShow_Click);
             placeInput.Dispose();
             using (DatabaseContext db = new())
             {
@@ -280,6 +319,76 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.Controls.Add(placeInput, 1, 5);
             placeInput.DoubleClick += new EventHandler(placeInputLongitude);
             LatitudeShow.Dispose();
+        }
+
+        private void ManufacturerShow_Click(object sender, EventArgs e)
+        {
+            placeInput = new();
+            placeInput.Text = ManufacturerShow.Text;
+            placeInput.Location = new System.Drawing.Point(103, 120);
+            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 0);
+            placeInput.DoubleClick += new EventHandler(placeInputManufacturer);
+            ManufacturerShow.Dispose();
+        }
+
+        private void placeInputManufacturer(object sender, EventArgs e)
+        {
+            string manufacturer = placeInput.Text;
+            ManufacturerShow = new();
+            ManufacturerShow.Text = $"{manufacturer}";
+            tableLayoutPanel1.Controls.Add(ManufacturerShow, 1, 0);
+            ManufacturerShow.Click += new EventHandler(ManufacturerShow_Click);
+            placeInput.Dispose();
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                metadata.Manufacturer = manufacturer;
+
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
+        }
+
+        private void ModelShow_Click(object sender, EventArgs e)
+        {
+            placeInput = new();
+            placeInput.Text = ModelShow.Text;
+            placeInput.Location = new System.Drawing.Point(103, 120);
+            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 1);
+            placeInput.DoubleClick += new EventHandler(placeInputModel);
+            ModelShow.Dispose();
+        }
+
+        private void placeInputModel(object sender, EventArgs e)
+        {
+            string model = placeInput.Text;
+            ModelShow = new();
+            ModelShow.Text = $"{model}";
+            tableLayoutPanel1.Controls.Add(ModelShow, 1, 1);
+            ManufacturerShow.Click += new EventHandler(ModelShow_Click);
+            placeInput.Dispose();
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                metadata.Model = model;
+
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -159,6 +159,7 @@ namespace PhotoManager.GUI.ShowImage
             this.ModelShow.Size = new System.Drawing.Size(38, 15);
             this.ModelShow.TabIndex = 8;
             this.ModelShow.Text = "label9";
+            this.ModelShow.Click += new System.EventHandler(this.ModelShow_Click);
             // 
             // label1
             // 
@@ -214,6 +215,7 @@ namespace PhotoManager.GUI.ShowImage
             this.ManufacturerShow.Size = new System.Drawing.Size(38, 15);
             this.ManufacturerShow.TabIndex = 7;
             this.ManufacturerShow.Text = "label8";
+            this.ManufacturerShow.Click += new System.EventHandler(this.ManufacturerShow_Click);
             // 
             // label7
             // 
