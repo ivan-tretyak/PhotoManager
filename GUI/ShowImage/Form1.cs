@@ -18,6 +18,7 @@ namespace PhotoManager.GUI.ShowImage
         PictureBox org;
         int index;
         DateTimePicker date;
+        TextBox placeInput;
         public Form1()
         {
             InitializeComponent();
@@ -132,7 +133,8 @@ namespace PhotoManager.GUI.ShowImage
                 ModelShow.Text = metadata.Model;
                 OrientationShow.Text = metadata.Orientation.ToString();
                 FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
-                PlacesShow.Text = $"{metadata.Longitude}, {metadata.Latitude}";
+                LatitudeShow.Text = $"{metadata.Latitude}";
+                LongitudeShow.Text = $"{metadata.Longitude}";
                 FlashShow.Text = metadata.Flash.ToString();
                 CreationDateShow.Text = metadata.DateCreation;
 
@@ -180,7 +182,7 @@ namespace PhotoManager.GUI.ShowImage
             date = new();
             date.Value = DateTime.Parse(CreationDateShow.Text.Replace('\u00A0', ' '));
             date.Location = new System.Drawing.Point(103, 120);
-            this.tableLayoutPanel1.Controls.Add(date, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(date, 1, 7);
             date.ValueChanged += new EventHandler(dateChanged);
             date.MaxDate = DateTime.Now;
             CreationDateShow.Dispose();
@@ -193,7 +195,7 @@ namespace PhotoManager.GUI.ShowImage
             CreationDateShow.Text = dateString;
             date.Dispose();
             CreationDateShow.Location = new Point(103, 120);
-            tableLayoutPanel1.Controls.Add(CreationDateShow, 1, 6);
+            tableLayoutPanel1.Controls.Add(CreationDateShow, 1, 7);
             CreationDateShow.Click += new EventHandler(CreationDateShow_Click);
             using (DatabaseContext db = new())
             {
@@ -210,6 +212,74 @@ namespace PhotoManager.GUI.ShowImage
                 db.MetaDatas.Update(metadata);
                 db.SaveChanges();
             }
+        }
+
+        private void LatitudeShow_Click(object sender, EventArgs e)
+        {
+            placeInput = new();
+            placeInput.Text = LatitudeShow.Text;
+            placeInput.Location = new System.Drawing.Point(103, 120);
+            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 4);
+            placeInput.DoubleClick += new EventHandler(placeInputLatitude_Click);
+            LatitudeShow.Dispose();
+        }
+
+        private void placeInputLatitude_Click(object sender, EventArgs e)
+        {
+            float latitude = float.Parse(placeInput.Text);
+            LatitudeShow = new();
+            LatitudeShow.Text = $"{latitude}";
+            tableLayoutPanel1.Controls.Add(LatitudeShow, 1, 4);
+            placeInput.Dispose();
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                metadata.Latitude = latitude;
+
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
+        }
+
+        private void placeInputLongitude(object sender, EventArgs e)
+        {
+            float longitude = float.Parse(placeInput.Text);
+            LongitudeShow = new();
+            LongitudeShow.Text = $"{longitude}";
+            tableLayoutPanel1.Controls.Add(LongitudeShow, 1, 5);
+            placeInput.Dispose();
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                metadata.Longitude = longitude;
+
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
+        }
+
+        private void LongitudeShow_Click(object sender, EventArgs e)
+        {
+            placeInput = new();
+            placeInput.Text = LatitudeShow.Text;
+            placeInput.Location = new System.Drawing.Point(103, 120);
+            this.tableLayoutPanel1.Controls.Add(placeInput, 1, 5);
+            placeInput.DoubleClick += new EventHandler(placeInputLongitude);
+            LatitudeShow.Dispose();
         }
     }
 }

@@ -32,20 +32,22 @@ namespace PhotoManager.GUI.ShowImage
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.CreationDateShow = new System.Windows.Forms.Label();
-            this.FlashShow = new System.Windows.Forms.Label();
-            this.PlacesShow = new System.Windows.Forms.Label();
+            this.LongitudeShow = new System.Windows.Forms.Label();
+            this.LatitudeShow = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.FocusLenghtShow = new System.Windows.Forms.Label();
             this.OrientationShow = new System.Windows.Forms.Label();
             this.ModelShow = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.ManufacturerShow = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CreationDateShow = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.FlashShow = new System.Windows.Forms.Label();
             this.panel1 = new PhotoManager.GUI.ShowImage.MyPanel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
@@ -71,23 +73,25 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.CreationDateShow, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.FlashShow, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.PlacesShow, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LongitudeShow, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.LatitudeShow, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.FocusLenghtShow, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.OrientationShow, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.ModelShow, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.ManufacturerShow, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.CreationDateShow, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.FlashShow, 1, 6);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 13);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -95,41 +99,44 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 140);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 158);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // CreationDateShow
+            // LongitudeShow
             // 
-            this.CreationDateShow.AutoSize = true;
-            this.CreationDateShow.Location = new System.Drawing.Point(103, 120);
-            this.CreationDateShow.Name = "CreationDateShow";
-            this.CreationDateShow.Size = new System.Drawing.Size(44, 15);
-            this.CreationDateShow.TabIndex = 13;
-            this.CreationDateShow.Text = "label14";
-            this.CreationDateShow.Click += new System.EventHandler(this.CreationDateShow_Click);
+            this.LongitudeShow.AutoSize = true;
+            this.LongitudeShow.Location = new System.Drawing.Point(103, 98);
+            this.LongitudeShow.Name = "LongitudeShow";
+            this.LongitudeShow.Size = new System.Drawing.Size(44, 15);
+            this.LongitudeShow.TabIndex = 12;
+            this.LongitudeShow.Text = "label12";
+            this.LongitudeShow.Click += new System.EventHandler(this.LongitudeShow_Click);
             // 
-            // FlashShow
+            // LatitudeShow
             // 
-            this.FlashShow.AutoSize = true;
-            this.FlashShow.Location = new System.Drawing.Point(103, 100);
-            this.FlashShow.Name = "FlashShow";
-            this.FlashShow.Size = new System.Drawing.Size(44, 15);
-            this.FlashShow.TabIndex = 12;
-            this.FlashShow.Text = "label13";
+            this.LatitudeShow.AutoSize = true;
+            this.LatitudeShow.Location = new System.Drawing.Point(103, 78);
+            this.LatitudeShow.Name = "LatitudeShow";
+            this.LatitudeShow.Size = new System.Drawing.Size(44, 15);
+            this.LatitudeShow.TabIndex = 11;
+            this.LatitudeShow.Text = "label12";
+            this.LatitudeShow.Click += new System.EventHandler(this.LatitudeShow_Click);
             // 
-            // PlacesShow
+            // label8
             // 
-            this.PlacesShow.AutoSize = true;
-            this.PlacesShow.Location = new System.Drawing.Point(103, 80);
-            this.PlacesShow.Name = "PlacesShow";
-            this.PlacesShow.Size = new System.Drawing.Size(44, 15);
-            this.PlacesShow.TabIndex = 11;
-            this.PlacesShow.Text = "label12";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 98);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 15);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Longitude";
             // 
             // FocusLenghtShow
             // 
             this.FocusLenghtShow.AutoSize = true;
-            this.FocusLenghtShow.Location = new System.Drawing.Point(103, 60);
+            this.FocusLenghtShow.Location = new System.Drawing.Point(103, 58);
             this.FocusLenghtShow.Name = "FocusLenghtShow";
             this.FocusLenghtShow.Size = new System.Drawing.Size(44, 15);
             this.FocusLenghtShow.TabIndex = 10;
@@ -138,7 +145,7 @@ namespace PhotoManager.GUI.ShowImage
             // OrientationShow
             // 
             this.OrientationShow.AutoSize = true;
-            this.OrientationShow.Location = new System.Drawing.Point(103, 40);
+            this.OrientationShow.Location = new System.Drawing.Point(103, 38);
             this.OrientationShow.Name = "OrientationShow";
             this.OrientationShow.Size = new System.Drawing.Size(44, 15);
             this.OrientationShow.TabIndex = 9;
@@ -147,7 +154,7 @@ namespace PhotoManager.GUI.ShowImage
             // ModelShow
             // 
             this.ModelShow.AutoSize = true;
-            this.ModelShow.Location = new System.Drawing.Point(103, 20);
+            this.ModelShow.Location = new System.Drawing.Point(103, 19);
             this.ModelShow.Name = "ModelShow";
             this.ModelShow.Size = new System.Drawing.Size(38, 15);
             this.ModelShow.TabIndex = 8;
@@ -165,16 +172,26 @@ namespace PhotoManager.GUI.ShowImage
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 20);
+            this.label2.Location = new System.Drawing.Point(3, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "Model";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 78);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 15);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Latitude";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 40);
+            this.label3.Location = new System.Drawing.Point(3, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 2;
@@ -183,40 +200,11 @@ namespace PhotoManager.GUI.ShowImage
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 60);
+            this.label4.Location = new System.Drawing.Point(3, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 15);
             this.label4.TabIndex = 3;
             this.label4.Text = "Focus Length";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 80);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 15);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Place";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 100);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 15);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Flash";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 120);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 15);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Creation date";
             // 
             // ManufacturerShow
             // 
@@ -226,6 +214,44 @@ namespace PhotoManager.GUI.ShowImage
             this.ManufacturerShow.Size = new System.Drawing.Size(38, 15);
             this.ManufacturerShow.TabIndex = 7;
             this.ManufacturerShow.Text = "label8";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 138);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 15);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Creation date";
+            // 
+            // CreationDateShow
+            // 
+            this.CreationDateShow.AutoSize = true;
+            this.CreationDateShow.Location = new System.Drawing.Point(103, 138);
+            this.CreationDateShow.Name = "CreationDateShow";
+            this.CreationDateShow.Size = new System.Drawing.Size(44, 15);
+            this.CreationDateShow.TabIndex = 13;
+            this.CreationDateShow.Text = "label14";
+            this.CreationDateShow.Click += new System.EventHandler(this.CreationDateShow_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 118);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 15);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Flash";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // FlashShow
+            // 
+            this.FlashShow.AutoSize = true;
+            this.FlashShow.Location = new System.Drawing.Point(103, 118);
+            this.FlashShow.Name = "FlashShow";
+            this.FlashShow.Size = new System.Drawing.Size(44, 15);
+            this.FlashShow.TabIndex = 12;
+            this.FlashShow.Text = "label13";
             // 
             // panel1
             // 
@@ -241,7 +267,7 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(12, 159);
+            this.trackBar1.Location = new System.Drawing.Point(12, 206);
             this.trackBar1.Maximum = 200;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(201, 45);
@@ -250,7 +276,7 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 192);
+            this.button1.Location = new System.Drawing.Point(13, 239);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 23);
             this.button1.TabIndex = 4;
@@ -260,7 +286,7 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(112, 192);
+            this.button2.Location = new System.Drawing.Point(112, 239);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 23);
             this.button2.TabIndex = 4;
@@ -270,7 +296,7 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(13, 221);
+            this.button3.Location = new System.Drawing.Point(13, 268);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(120, 23);
             this.button3.TabIndex = 5;
@@ -280,7 +306,7 @@ namespace PhotoManager.GUI.ShowImage
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(139, 221);
+            this.button4.Location = new System.Drawing.Point(139, 268);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(74, 23);
             this.button4.TabIndex = 6;
@@ -330,13 +356,15 @@ namespace PhotoManager.GUI.ShowImage
         private Button button2;
         private Label CreationDateShow;
         private Label FlashShow;
-        private Label PlacesShow;
+        private Label LatitudeShow;
         private Label FocusLenghtShow;
         private Label OrientationShow;
         private Label ModelShow;
         private Label ManufacturerShow;
         private Button button3;
         private Button button4;
+        private Label LongitudeShow;
+        private Label label8;
     }
 
     public class MyPanel : Panel
