@@ -198,7 +198,9 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button4_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            var image = pictureBox1.Image;
+            image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.Image = image;
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             trackBar1.Value = 0;
@@ -206,7 +208,9 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button3_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            var image = pictureBox1.Image;
+            image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.Image = image; ;
             pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             trackBar1.Value = 0;
