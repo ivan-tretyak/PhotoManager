@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace PhotoManager.GUI.ShowImage
         List<string> paths;
         PictureBox org;
         int index;
+        DateTimePicker date;
         public Form1()
         {
             InitializeComponent();
@@ -171,6 +173,43 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = img;
             trackBar1.Value = 0;
+        }
+
+        private void CreationDateShow_Click(object sender, EventArgs e)
+        {
+            date = new();
+            date.Value = DateTime.Parse(CreationDateShow.Text.Replace('\u00A0', ' '));
+            date.Location = new System.Drawing.Point(103, 120);
+            this.tableLayoutPanel1.Controls.Add(date, 1, 6);
+            date.ValueChanged += new EventHandler(dateChanged);
+            date.MaxDate = DateTime.Now;
+            CreationDateShow.Dispose();
+        }
+
+        private void dateChanged(object sender, EventArgs e)
+        {
+            string dateString = date.Value.ToString();
+            this.CreationDateShow = new();
+            CreationDateShow.Text = dateString;
+            date.Dispose();
+            CreationDateShow.Location = new Point(103, 120);
+            tableLayoutPanel1.Controls.Add(CreationDateShow, 1, 6);
+            CreationDateShow.Click += new EventHandler(CreationDateShow_Click);
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                metadata.DateCreation = dateString;
+
+                db.MetaDatas.Update(metadata);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -106,6 +106,7 @@ namespace PhotoManager.GUI.ShowImage
             this.CreationDateShow.Size = new System.Drawing.Size(44, 15);
             this.CreationDateShow.TabIndex = 13;
             this.CreationDateShow.Text = "label14";
+            this.CreationDateShow.Click += new System.EventHandler(this.CreationDateShow_Click);
             // 
             // FlashShow
             // 
