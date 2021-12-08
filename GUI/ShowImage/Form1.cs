@@ -90,6 +90,7 @@ namespace PhotoManager.GUI.ShowImage
 
                 pictureBox1.Image.RotateFlip(OrientationToFlipType(metadata.Orientation));
             }
+            this.Text = paths[index];
         }
 
         private static RotateFlipType OrientationToFlipType(int orientation)

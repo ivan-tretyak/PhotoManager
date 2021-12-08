@@ -16,6 +16,7 @@ namespace PhotoManager.GUI.AlbumCreator
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Album creator";
         }
 
         private void label1_Click(object sender, EventArgs e)

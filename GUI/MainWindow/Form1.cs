@@ -20,7 +20,7 @@ namespace PhotoManager
         private void MainWindow_Load(object sender, EventArgs e)
         {
             helper.showData(this.AlbumList);
-            //this.ImageListForAlbum.CheckBoxes = true;
+            this.Text = "Photo Viewer";
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
@@ -33,6 +33,7 @@ namespace PhotoManager
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+                this.Text = $"Album: {AlbumList.SelectedItem}";
             }
         }
 
@@ -49,6 +50,7 @@ namespace PhotoManager
             this.moveAlbumBox.Visible = false;
             this.moveButton.Visible = false;
             this.CopyButton.Visible = false;
+            this.Text = comboBox1.SelectedItem.ToString();
         }
 
         private void CreateAlbumButton_Click(object sender, EventArgs e)
