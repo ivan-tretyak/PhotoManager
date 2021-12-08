@@ -168,9 +168,24 @@ namespace PhotoManager.GUI.ShowImage
                 var metadata = db.MetaDatas
                     .Where(m => m.MetadataId == photo.MetaDataId)
                     .First();
-
-                ManufacturerShow.Text = metadata.Manufacturer;
-                ModelShow.Text = metadata.Model;
+                if (metadata.Manufacturer != "")
+                {
+                    ManufacturerShow.Text = metadata.Manufacturer;
+                }
+                else
+                {
+                    ManufacturerShow.Text = "Unknown";
+                }
+                if (metadata.Model != "")
+                {
+                    ModelShow.Text = metadata.Model;
+                }
+                else
+                {
+                    ModelShow.Text = "Unknown";
+                }
+                
+                
                 OrientationShow.Text = metadata.Orientation.ToString();
                 FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
                 LatitudeShow.Text = $"{metadata.Latitude}";
@@ -219,7 +234,14 @@ namespace PhotoManager.GUI.ShowImage
         private void CreationDateShow_Click(object sender, EventArgs e)
         {
             date = new();
-            date.Value = DateTime.Parse(CreationDateShow.Text.Replace('\u00A0', ' '));
+            try
+            {
+                date.Value = DateTime.Parse(CreationDateShow.Text.Replace('\u00A0', ' '));
+            }
+            catch (Exception)
+            {
+
+            }
             date.Location = new System.Drawing.Point(103, 120);
             this.tableLayoutPanel1.Controls.Add(date, 1, 7);
             date.ValueChanged += new EventHandler(dateChanged);
