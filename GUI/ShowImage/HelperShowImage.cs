@@ -89,6 +89,7 @@ namespace PhotoManager.GUI.ShowImage
             using (var db = new DatabaseContext())
             {
                 db.MetaDatas.Update(metaData);
+                db.SaveChanges();
             }
         }
 
@@ -134,7 +135,6 @@ namespace PhotoManager.GUI.ShowImage
 
         public static void ReplaceLabelTextBox(TextBox textBox, Label label, int row, EventHandler eventHandler, TableLayoutPanel tableLayoutPanel)
         {
-            textBox = new();
             textBox.Text = label.Text;
             textBox.Location = new System.Drawing.Point(103, 120);
             label.Dispose();

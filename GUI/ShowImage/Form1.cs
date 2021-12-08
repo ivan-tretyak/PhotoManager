@@ -84,12 +84,20 @@ namespace PhotoManager.GUI.ShowImage
 
             if (metadata.Manufacturer == "")
             {
-                metadata.Manufacturer = "Unknown";
+                ManufacturerShow.Text = "Unknown";
+            }
+            else
+            {
+                ManufacturerShow.Text = metadata.Manufacturer;
             }
 
             if (metadata.Model == "")
             {
-                metadata.Model = "Unknown";
+                ModelShow.Text = "Unknown";
+            }
+            else
+            {
+                ModelShow.Text = metadata.Model;
             }
 
             OrientationShow.Text = metadata.Orientation.ToString();
@@ -161,6 +169,7 @@ namespace PhotoManager.GUI.ShowImage
 
         private void LatitudeShow_Click(object sender, EventArgs e)
         {
+            placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, LatitudeShow, 4, (EventHandler)placeInputLatitude_Click, tableLayoutPanel1);
         }
 
@@ -192,11 +201,13 @@ namespace PhotoManager.GUI.ShowImage
 
         private void LongitudeShow_Click(object sender, EventArgs e)
         {
+            placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, LongitudeShow, 5, (EventHandler)placeInputLongitude, tableLayoutPanel1);
         }
 
         private void ManufacturerShow_Click(object sender, EventArgs e)
         {
+            placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, ManufacturerShow, 0, (EventHandler)placeInputManufacturer, tableLayoutPanel1);
         }
 
@@ -215,6 +226,7 @@ namespace PhotoManager.GUI.ShowImage
 
         private void ModelShow_Click(object sender, EventArgs e)
         {
+            placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, ModelShow, 1, (EventHandler)placeInputModel, tableLayoutPanel1);
         }
 
@@ -248,7 +260,7 @@ namespace PhotoManager.GUI.ShowImage
             if (orientationBox.SelectedItem != null)
             {
                 var metadata = HelperShowImage.LoadMetadata(paths[index]);
-                metadata.Orientation = int.Parse(orientationBox.SelectedItem.ToString()); ;
+                metadata.Orientation = int.Parse(orientationBox.SelectedItem.ToString());
                 HelperShowImage.UpdateMetadata(metadata);
                 orientationBox.Dispose();
                 OrientationShow = new();
