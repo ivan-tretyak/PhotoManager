@@ -33,16 +33,6 @@ namespace PhotoManager.GUI.ShowImage
             org = new PictureBox();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             ShowImage();
