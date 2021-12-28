@@ -162,6 +162,7 @@ namespace PhotoManager
                 ImageList.EndUpdate();
             }
             ImageList.LargeImageList = LargeImageList;
+            ImageList.UseWaitCursor = false;
         }
 
         private static void UpdateExist(Photo photo, int existFlag)
