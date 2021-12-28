@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ORMDatabaseModule;
 
@@ -110,7 +111,7 @@ namespace PhotoManager
 
         }
 
-        private static void DisplayImage(ListView ImageList, List<Photo> photos)
+        private static async void DisplayImage(ListView ImageList, List<Photo> photos)
         {
             int counter = 0;
             //Delete LargeImageList
@@ -141,7 +142,8 @@ namespace PhotoManager
                         orientation = metadata.Orientation;
                     }
                     var i = new ImagesPreview(photo.Path, orientation);
-                    ImageList.LargeImageList.Images.Add(i.thumbnail);
+                    var thumbnail = await Task.Run(() => i.thumbnail());
+                    ImageList.LargeImageList.Images.Add(thumbnail);
                     ImageList.Items.Add(photo.Path, counter);
                     counter++;
                     if (photo.Exist == 1)

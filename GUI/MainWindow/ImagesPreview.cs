@@ -9,7 +9,8 @@ namespace PhotoManager
     {
         public int height = 0;
         public int width = 256;
-        public Image thumbnail;
+        public string path;
+        public int orientation;
 
         private static RotateFlipType OrientationToFlipType(int orientation)
         {
@@ -38,16 +39,8 @@ namespace PhotoManager
 
         public ImagesPreview(string path, int orientation)
         {
-
-                Image image = new Bitmap(path);
-                height = (int)(image.Height / (image.Width / width));
-                if (height > 256)
-                {
-                    height = 256;
-                    width = (int)(image.Width / (image.Height / height));
-                }
-                thumbnail = createThumbnail(ResizeImage(image), orientation);
-                image.Dispose();
+            this.path = path;
+            this.orientation = orientation;
         }
 
         private Bitmap ResizeImage(Image image)
@@ -84,6 +77,20 @@ namespace PhotoManager
                 graphics.Clear(Color.White);
                 graphics.DrawImage(image, (int)((256 - image.Width) / 2), 256 - image.Height);
             }
+            return thumbnail;
+        }
+
+        public  Bitmap thumbnail()
+        {
+            Image image = new Bitmap(path);
+            height = (int)(image.Height / (image.Width / width));
+            if (height > 256)
+            {
+                height = 256;
+                width = (int)(image.Width / (image.Height / height));
+            }
+            var thumbnail = createThumbnail(ResizeImage(image), orientation);
+            image.Dispose();
             return thumbnail;
         }
     }
