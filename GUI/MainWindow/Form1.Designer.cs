@@ -131,6 +131,7 @@ namespace PhotoManager
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ImageListForAlbum);
             this.Controls.Add(this.AlbumList);
+            this.DoubleBuffered = true;
             this.Name = "MainWindow";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);

@@ -113,22 +113,24 @@ namespace PhotoManager
 
         private static async void DisplayImage(ListView ImageList, List<Photo> photos)
         {
-            int counter = 0;
+            int count = 0;
             //Delete LargeImageList
             if (ImageList.LargeImageList != null)
             {
                 ImageList.LargeImageList.Dispose();
-                ImageList.Items.Clear();
             }
-
+            ImageList.Items.Clear();
             //Create image list
             ImageList.View = View.LargeIcon;
-            ImageList.LargeImageList = new ImageList();
-            ImageList.LargeImageList.ImageSize = new Size(256, 256);
-            ImageList.LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+            var LargeImageList = new ImageList();
+            LargeImageList.ImageSize = new Size(256, 256);
+            LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+            ImageList.UseWaitCursor = true;
 
             foreach (var photo in photos)
             {
+                ImageList.BeginUpdate();
                 try
                 {
                     //Create photo preview
@@ -143,9 +145,11 @@ namespace PhotoManager
                     }
                     var i = new ImagesPreview(photo.Path, orientation);
                     var thumbnail = await Task.Run(() => i.thumbnail());
-                    ImageList.LargeImageList.Images.Add(thumbnail);
-                    ImageList.Items.Add(photo.Path, counter);
-                    counter++;
+                    ImageList.BeginUpdate();
+                    ImageList.Items.Add(photo.Path, count);
+                    ImageList.EndUpdate();
+                    count++;
+                    LargeImageList.Images.Add(photo.Path, thumbnail);
                     if (photo.Exist == 1)
                     {
                         UpdateExist(photo, 0);
@@ -155,7 +159,9 @@ namespace PhotoManager
                 {
                     UpdateExist(photo, 1);
                 }
+                ImageList.EndUpdate();
             }
+            ImageList.LargeImageList = LargeImageList;
         }
 
         private static void UpdateExist(Photo photo, int existFlag)
@@ -168,7 +174,7 @@ namespace PhotoManager
             }
         }
 
-        public void ShowPhotoFromAlbum(string year, string albumName, ListView ImageList)
+        public static void ShowPhotoFromAlbum(string year, string albumName, ListView ImageList)
         {
             using (var db = new DatabaseContext())
             {
@@ -189,7 +195,7 @@ namespace PhotoManager
             }
         }
 
-        public void MoveToAnotherAlbum(string newAlbumName, string oldAlbumName, string path)
+        public static void MoveToAnotherAlbum(string newAlbumName, string oldAlbumName, string path)
         {
             using (var db = new DatabaseContext())
             {
@@ -211,7 +217,7 @@ namespace PhotoManager
             }
         }
 
-        public void CopyToAnotherAlbum(string newAlbumName, string path)
+        public static void CopyToAnotherAlbum(string newAlbumName, string path)
         {
             using (var db = new DatabaseContext())
             {

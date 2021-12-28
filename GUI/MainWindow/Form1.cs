@@ -43,7 +43,7 @@ namespace PhotoManager
             {
                 var mYear = this.comboBox1.SelectedItem;
                 string year = helper.normalizeYear(mYear.ToString());
-                helper.ShowPhotoFromAlbum(year, this.AlbumList.SelectedItem.ToString(), this.ImageListForAlbum);
+                HelperMainWindow.ShowPhotoFromAlbum(year, this.AlbumList.SelectedItem.ToString(), this.ImageListForAlbum);
             }
             this.label2.Visible = false;
             this.RemoveButton.Visible = false;
@@ -107,7 +107,7 @@ namespace PhotoManager
                     var newAl = newAlbum.ToString();
                     var oldAl = oldAlbum.ToString();
                     var path = this.ImageListForAlbum.Items[index].Text.ToString();
-                    helper.MoveToAnotherAlbum(newAl, oldAl, path);
+                    HelperMainWindow.MoveToAnotherAlbum(newAl, oldAl, path);
                 }
                 this.label2.Visible = false;
                 this.moveAlbumBox.Visible = false;
@@ -132,7 +132,7 @@ namespace PhotoManager
                 {
                     var albumNew = newAlbum.ToString();
                     var path = this.ImageListForAlbum.Items[index].Text.ToString();
-                    helper.CopyToAnotherAlbum(albumNew, path);
+                    HelperMainWindow.CopyToAnotherAlbum(albumNew, path);
                 }
                 this.label2.Visible = false;
                 this.moveAlbumBox.Visible = false;
