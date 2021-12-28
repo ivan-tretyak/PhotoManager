@@ -106,17 +106,15 @@ namespace PhotoManager
                 bar.Maximum = res.Count;
                 bar.Value = 0;
                 int count = 0;
-                foreach (string s in res)
+                foreach (Image image in res)
                 {
-                    //Get metadata
-                    var image = new IndexingModule.Image(s);
                     //create photo
                     Photo p = new();
 
                     ORMDatabaseModule.MetaData m = new();
 
                     //Adding data
-                    p.Path = s;
+                    p.Path = image.path;
                     m.DateCreation = image.GetDateTime().ToString();
                     m.Flash = image.GetFlash();
                     m.Latitude = (float)image.GetLatitude();
