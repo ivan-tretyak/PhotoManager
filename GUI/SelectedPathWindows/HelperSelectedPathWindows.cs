@@ -116,14 +116,14 @@ namespace PhotoManager
 
                     //Adding data
                     p.Path = image.path;
-                    m.DateCreation = image.GetDateTime().ToString();
-                    m.Flash = image.GetFlash();
-                    m.Latitude = (float)image.GetLatitude();
-                    m.Longitude = (float)image.GetLongitude();
-                    m.FocusLength = (float)image.GetFocalLength();
-                    m.Orientation = image.GetOrientation();
-                    m.Model = image.GetModel();
-                    m.Manufacturer = image.GetManufacturer();
+                    m.DateCreation = image.metaData.DateCreation.ToString();
+                    m.Flash = image.metaData.Flash;
+                    m.Latitude = image.metaData.Latitude;
+                    m.Longitude = image.metaData.Longitude;
+                    m.FocusLength = (float)image.metaData.FocalLength;
+                    m.Orientation = image.metaData.Orientation;
+                    m.Model = image.metaData.Model;
+                    m.Manufacturer = image.metaData.Manufacturer;
                     p.MetaData = m;
 
                     //Create albumcontext for common album
