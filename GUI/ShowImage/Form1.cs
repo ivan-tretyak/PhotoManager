@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ORMDatabaseModule;
+using PhotoManager.GUI.ShowImage;
 
 namespace PhotoManager.GUI.ShowImage
 {
@@ -84,7 +85,7 @@ namespace PhotoManager.GUI.ShowImage
 
             if (metadata.Manufacturer == "")
             {
-                ManufacturerShow.Text = "Unknown";
+                ManufacturerShow.Text = ShowImageString.UnknownManufacturer;
             }
             else
             {
@@ -93,7 +94,7 @@ namespace PhotoManager.GUI.ShowImage
 
             if (metadata.Model == "")
             {
-                ModelShow.Text = "Unknown";
+                ModelShow.Text = ShowImageString.UnknownModel;
             }
             else
             {
@@ -101,7 +102,7 @@ namespace PhotoManager.GUI.ShowImage
             }
 
             OrientationShow.Text = metadata.Orientation.ToString();
-            FocusLenghtShow.Text = $"{metadata.FocusLength}mm";
+            FocusLenghtShow.Text = $"{metadata.FocusLength}{ShowImageString.FocalLengthUnit}";
             LatitudeShow.Text = $"{metadata.Latitude}";
             LongitudeShow.Text = $"{metadata.Longitude}";
             FlashShow.Text = metadata.Flash.ToString();
@@ -269,6 +270,16 @@ namespace PhotoManager.GUI.ShowImage
                 HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
                 DisplayMetadata();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
