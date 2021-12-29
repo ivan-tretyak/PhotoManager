@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using PhotoManager.GUI.SelectedPathWindows;
 
 namespace PhotoManager
 {
@@ -19,7 +20,7 @@ namespace PhotoManager
             var button = new Button();
 
             //label.TabIndex = 0;
-            label.Text = "Path:";
+            label.Text = StringOfSelectedPath.PathLabelText;
             label.AutoSize = true;
 
             textbox.Size = new System.Drawing.Size(588, 23);
@@ -28,7 +29,7 @@ namespace PhotoManager
 
             button.Size = new System.Drawing.Size(139, 23);
             //button.TabIndex = 2;
-            button.Text = "Choose";
+            button.Text = StringOfSelectedPath.ChooseButtonText;
             button.UseVisualStyleBackColor = true;
             button.Name = $"{panel.RowCount}";
 
@@ -76,7 +77,7 @@ namespace PhotoManager
         {
             //Create first album
             var album = new Album();
-            album.Name = "Common";
+            album.Name = StringOfSelectedPath.AlbumName;
             album.DateCreation = DateTime.Now.ToString();
 
             //Save album to database

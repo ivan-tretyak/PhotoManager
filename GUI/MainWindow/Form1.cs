@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PhotoManager.GUI.MainWindow;
 
 
 namespace PhotoManager
@@ -20,7 +21,6 @@ namespace PhotoManager
         private void MainWindow_Load(object sender, EventArgs e)
         {
             helper.showData(this.AlbumList);
-            this.Text = "Photo Viewer";
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace PhotoManager
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
-                this.Text = $"Album: {AlbumList.SelectedItem}";
+                this.Text = $"{MainWindowStrings.Album}: {AlbumList.SelectedItem}";
             }
         }
 
@@ -119,7 +119,7 @@ namespace PhotoManager
             }
             catch (Exception)
             {
-                label3.Text = "Something went wrong";
+                label3.Text = MainWindowStrings.Error;
             }
         }
 
@@ -144,7 +144,7 @@ namespace PhotoManager
             }
             catch (Exception)
             {
-                label3.Text = "Something went wrong";
+                label3.Text = MainWindowStrings.Error;
             }
         }
 

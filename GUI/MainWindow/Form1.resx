@@ -342,6 +342,9 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>ru-RU</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -352,7 +355,7 @@
     <value>1049, 450</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Form1</value>
+    <value>Photo Viewer</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainWindow</value>

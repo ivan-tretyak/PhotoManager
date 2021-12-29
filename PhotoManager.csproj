@@ -16,4 +16,37 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="GUI\AlbumCreator\AlbumCreationMessage.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AlbumCreationMessage.resx</DependentUpon>
+    </Compile>
+    <Compile Update="GUI\MainWindow\MainWindowStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="GUI\SelectedPathWindows\StringOfSelectedPath.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringOfSelectedPath.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="GUI\AlbumCreator\AlbumCreationMessage.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumCreationMessage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="GUI\MainWindow\MainWindowStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="GUI\SelectedPathWindows\StringOfSelectedPath.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringOfSelectedPath.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

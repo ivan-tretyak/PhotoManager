@@ -16,7 +16,6 @@ namespace PhotoManager.GUI.AlbumCreator
         public Form1()
         {
             InitializeComponent();
-            this.Text = "Album creator";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +38,7 @@ namespace PhotoManager.GUI.AlbumCreator
                 }
                 catch (Exception)
                 {
-                    this.label2.Text = "This album already exist. Please change name!";
+                    this.label2.Text = AlbumCreationMessage.AlreadyExist;
                 }
             }
         }
