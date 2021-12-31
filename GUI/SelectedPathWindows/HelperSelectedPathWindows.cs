@@ -1,10 +1,8 @@
 ﻿using System.Windows.Forms;
 using IndexingModule;
 using ORMDatabaseModule;
-using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using PhotoManager.GUI.SelectedPathWindows;
 
 namespace PhotoManager

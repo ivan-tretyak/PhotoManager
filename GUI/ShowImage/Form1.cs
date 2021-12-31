@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ORMDatabaseModule;
-using PhotoManager.GUI.ShowImage;
+
 
 namespace PhotoManager.GUI.ShowImage
 {
@@ -270,16 +263,6 @@ namespace PhotoManager.GUI.ShowImage
                 HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
                 DisplayMetadata();
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

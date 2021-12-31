@@ -67,7 +67,6 @@ namespace PhotoManager.GUI.ShowImage
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -128,7 +127,6 @@ namespace PhotoManager.GUI.ShowImage
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
