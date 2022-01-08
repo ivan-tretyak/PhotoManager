@@ -45,10 +45,7 @@ namespace PhotoManager
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.AlbumList = new System.Windows.Forms.ListBox();
             this.ImageListForAlbum = new System.Windows.Forms.ListView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.CreateAlbumButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.moveAlbumBox = new System.Windows.Forms.ComboBox();
@@ -56,14 +53,8 @@ namespace PhotoManager
             this.CopyButton = new System.Windows.Forms.Button();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.AlbumList = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
-            // 
-            // AlbumList
-            // 
-            resources.ApplyResources(this.AlbumList, "AlbumList");
-            this.AlbumList.FormattingEnabled = true;
-            this.AlbumList.Name = "AlbumList";
-            this.AlbumList.SelectedIndexChanged += new System.EventHandler(this.AlbumList_SelectedIndexChanged);
             // 
             // ImageListForAlbum
             // 
@@ -73,18 +64,6 @@ namespace PhotoManager
             this.ImageListForAlbum.UseCompatibleStateImageBehavior = false;
             this.ImageListForAlbum.SelectedIndexChanged += new System.EventHandler(this.ImageListForAlbum_SelectedIndexChanged);
             this.ImageListForAlbum.DoubleClick += new System.EventHandler(this.ImageListForAlbum_DoubleClick);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // CreateAlbumButton
             // 
@@ -100,8 +79,8 @@ namespace PhotoManager
             // 
             // moveAlbumBox
             // 
-            this.moveAlbumBox.FormattingEnabled = true;
             resources.ApplyResources(this.moveAlbumBox, "moveAlbumBox");
+            this.moveAlbumBox.FormattingEnabled = true;
             this.moveAlbumBox.Name = "moveAlbumBox";
             this.moveAlbumBox.SelectedIndexChanged += new System.EventHandler(this.moveAlbumBox_SelectedIndexChanged);
             // 
@@ -131,10 +110,18 @@ namespace PhotoManager
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
+            // AlbumList
+            // 
+            resources.ApplyResources(this.AlbumList, "AlbumList");
+            this.AlbumList.ItemHeight = 15;
+            this.AlbumList.Name = "AlbumList";
+            this.AlbumList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.AlbumList_SelectedIndexChanged);
+            // 
             // MainWindow
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.AlbumList);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.CopyButton);
@@ -142,10 +129,7 @@ namespace PhotoManager
             this.Controls.Add(this.moveAlbumBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CreateAlbumButton);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ImageListForAlbum);
-            this.Controls.Add(this.AlbumList);
             this.DoubleBuffered = true;
             this.Name = "MainWindow";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -155,11 +139,7 @@ namespace PhotoManager
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox AlbumList;
         private System.Windows.Forms.ListView ImageListForAlbum;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button CreateAlbumButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox moveAlbumBox;
@@ -167,6 +147,7 @@ namespace PhotoManager
         private System.Windows.Forms.Button CopyButton;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TreeView AlbumList;
     }
 }
 

@@ -33,15 +33,19 @@ namespace PhotoManager
 
         }
 
-       public void showData(ListBox AlbumList)
+       public void showData(TreeView AlbumList)
         {
+           if (AlbumList.Nodes.Count != 0)
+            {
+                AlbumList.Nodes.Clear();
+            }
             try
             {
                 using (var db = new DatabaseContext())
                 {
-                    if (AlbumList.Items.Count != 0)
+                    if (AlbumList.Nodes.Count != 0)
                     {
-                        AlbumList.Items.Clear();
+                        AlbumList.Nodes.Clear();
                     }
                     //Selected all albums
                     var albums = db.Albums.ToList();
@@ -49,9 +53,10 @@ namespace PhotoManager
                     //Show albums
                     foreach(var album in albums)
                     {
-                        AlbumList.Items.Add(album.Name);
+                        AlbumList.Nodes.Add(album.Name);
                     }
                 }
+                this.addYears(AlbumList);
             }
             catch(Exception)
             {
@@ -61,49 +66,53 @@ namespace PhotoManager
             }
         }
 
-        public void addYears(string albumName, ComboBox comboBox)
+        public void addYears(TreeView treeView)
         {
-            comboBox.Items.Clear();
-            using (var db = new DatabaseContext())
+            //treeView.Items.Clear();
+            for (int i = 0; i < treeView.Nodes.Count; i++)
             {
-                //Get album context
-                var albumContexts = db.AlbumContexts
-                    .Where(albumContext => albumContext.Album.Name == albumName)
-                    .ToList();
-
-                //Get photo
-                List<Photo> photos = new();
-                foreach(var albumContext in albumContexts)
+                using (var db = new DatabaseContext())
                 {
-                    photos.Add(db.Photos
-                        .Where(photo => photo.PhotoId == albumContext.PhotoId)
-                        .First());
+                    //Get album context
+                    var albumContexts = db.AlbumContexts
+                        .Where(albumContext => albumContext.Album.Name == treeView.Nodes[i].Text)
+                        .ToList();
+
+                    //Get photo
+                    List<Photo> photos = new();
+                    foreach (var albumContext in albumContexts)
+                    {
+                        photos.Add(db.Photos
+                            .Where(photo => photo.PhotoId == albumContext.PhotoId)
+                            .First());
+                    }
+
+                    //Select metadata
+                    List<MetaData> metadatas = new();
+                    foreach (var photo in photos)
+                    {
+                        metadatas.Add(db.MetaDatas
+                            .Where(metadata => metadata.MetadataId == photo.MetaDataId)
+                            .First());
+                    }
+
+                    //Get years
+                    List<string> years = new();
+
+                    foreach (var metadata in metadatas)
+                    {
+                        var date = DateTime.Parse(metadata.DateCreation);
+                        years.Add(date.Year.ToString());
+                    }
+
+                    var uniqueYears = years.Distinct();
+
+                    foreach (var year in uniqueYears)
+                    {
+                        treeView.Nodes[i].Nodes.Add(year);
+                    }
                 }
 
-                //Select metadata
-                List<MetaData> metadatas = new();
-                foreach(var photo in photos)
-                {
-                    metadatas.Add(db.MetaDatas
-                        .Where(metadata => metadata.MetadataId == photo.MetaDataId)
-                        .First());
-                }
-
-                //Get years
-                List<string> years = new();
-
-                foreach (var metadata in metadatas)
-                {
-                    var date = DateTime.Parse(metadata.DateCreation);
-                    years.Add(date.Year.ToString());
-                }
-
-                var uniqueYears = years.Distinct();
-
-                foreach(var year in uniqueYears)
-                {
-                    comboBox.Items.Add(year);
-                }
             }
         }
 

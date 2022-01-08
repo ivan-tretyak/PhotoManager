@@ -36,36 +36,6 @@ namespace PhotoManager
             helper.showData(this.AlbumList);
         }
 
-        private void AlbumList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (AlbumList.SelectedItem != null)
-            {
-                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, AlbumList.SelectedItem.ToString());
-                this.label2.Visible = false;
-                this.moveAlbumBox.Visible = false;
-                this.moveButton.Visible = false;
-                this.CopyButton.Visible = false;
-                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
-                this.Text = $"{MainWindowStrings.Album}: {AlbumList.SelectedItem}";
-            }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.AlbumList.SelectedItem != null)
-            {
-                var mYear = this.comboBox1.SelectedItem;
-                string year = helper.normalizeYear(mYear.ToString());
-                HelperMainWindow.ShowPhotoFromAlbum(year, this.AlbumList.SelectedItem.ToString(), this.ImageListForAlbum);
-            }
-            this.label2.Visible = false;
-            this.RemoveButton.Visible = false;
-            this.moveAlbumBox.Visible = false;
-            this.moveButton.Visible = false;
-            this.CopyButton.Visible = false;
-            this.Text = comboBox1.SelectedItem.ToString();
-        }
-
         private void CreateAlbumButton_Click(object sender, EventArgs e)
         {
             var s = new PhotoManager.GUI.AlbumCreator.Form1();
@@ -81,9 +51,9 @@ namespace PhotoManager
                 this.moveAlbumBox.Visible = true;
                 this.RemoveButton.Visible = true;
                 this.moveAlbumBox.Items.Clear();
-                foreach(var item in this.AlbumList.Items)
+                for(int i = 0; i < AlbumList.Nodes.Count; i++)
                 {
-                    this.moveAlbumBox.Items.Add(item.ToString());
+                    this.moveAlbumBox.Items.Add(AlbumList.Nodes[i].Text);
                 }
             }
             else
@@ -114,7 +84,7 @@ namespace PhotoManager
             try
             {
                 var newAlbum = this.moveAlbumBox.SelectedItem;
-                var oldAlbum = this.AlbumList.SelectedItem;
+                var oldAlbum = this.AlbumList.SelectedNode.Text;
                 foreach (int index in this.ImageListForAlbum.SelectedIndices)
                 {
                     var newAl = newAlbum.ToString();
@@ -128,7 +98,7 @@ namespace PhotoManager
                 this.CopyButton.Visible = false;
                 this.RemoveButton.Visible = false;
                 helper.ShowPhotoFromAlbum(this.ImageListForAlbum, oldAlbum.ToString());
-                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+                helper.showData(AlbumList);
             }
             catch (Exception)
             {
@@ -152,8 +122,8 @@ namespace PhotoManager
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 this.RemoveButton.Visible = false;
-                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
-                helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedNode.ToString());
+                helper.showData(AlbumList);
             }
             catch (Exception)
             {
@@ -163,14 +133,13 @@ namespace PhotoManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var album = this.AlbumList.SelectedItem.ToString();
+            var album = this.AlbumList.SelectedNode.ToString();
             foreach(int index in this.ImageListForAlbum.SelectedIndices)
             {
                 var path = this.ImageListForAlbum.Items[index].Text.ToString();
                 helper.Remove(album, path);
             }
-            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedItem.ToString());
-            helper.addYears(AlbumList.SelectedItem.ToString(), comboBox1);
+            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedNode.ToString());
         }
 
         private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
@@ -180,8 +149,25 @@ namespace PhotoManager
             {
                 paths.Add(ImageListForAlbum.Items[i].Text.ToString());
             }
-            var show = new PhotoManager.GUI.ShowImage.Form1(paths, AlbumList.SelectedItem.ToString(), ImageListForAlbum.SelectedIndices[0]);
+            var show = new PhotoManager.GUI.ShowImage.Form1(paths, AlbumList.SelectedNode.ToString(), ImageListForAlbum.SelectedIndices[0]);
             show.ShowDialog();
+        }
+
+        private void AlbumList_SelectedIndexChanged(object sender, TreeViewEventArgs e)
+        {
+            if (AlbumList.SelectedNode != null && AlbumList.SelectedNode.Parent == null)
+            {
+                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, AlbumList.SelectedNode.Text);
+                this.label2.Visible = false;
+                this.moveAlbumBox.Visible = false;
+                this.moveButton.Visible = false;
+                this.CopyButton.Visible = false;
+                this.Text = $"{MainWindowStrings.Album}: {AlbumList.SelectedNode.Text}";
+            }
+            if (AlbumList.SelectedNode != null && AlbumList.SelectedNode.Parent != null)
+            {
+                HelperMainWindow.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text, AlbumList.SelectedNode.Parent.Text, ImageListForAlbum);
+            }
         }
     }
 }
