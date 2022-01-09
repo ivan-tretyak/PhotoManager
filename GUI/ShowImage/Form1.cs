@@ -156,9 +156,9 @@ namespace PhotoManager.GUI.ShowImage
             {
 
             }
-            date.Location = new System.Drawing.Point(103, 120);
+            date.Location = new Point(103, 120);
             this.tableLayoutPanel1.Controls.Add(date, 1, 7);
-            date.ValueChanged += new EventHandler(dateChanged);
+            date.CloseUp += new EventHandler(dateChanged);
             date.MaxDate = DateTime.Now;
             CreationDateShow.Dispose();
         }

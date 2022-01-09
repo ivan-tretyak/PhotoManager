@@ -107,9 +107,6 @@
   <data name="RemoveButton.Text" xml:space="preserve">
     <value>Удалить из альбома</value>
   </data>
-  <data name="AlbumList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
-  </data>
   <data name="AlbumList.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 43</value>
   </data>
