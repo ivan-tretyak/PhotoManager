@@ -202,6 +202,7 @@ namespace PhotoManager
 
         public static void ShowPhotoFromAlbum(string year, string albumName, ListView ImageList)
         {
+            year = NormalizeYear(year);
             using (var db = new DatabaseContext())
             {
                 //Select album contexts
@@ -268,7 +269,7 @@ namespace PhotoManager
             }
         }
 
-        public string normalizeYear(string year)
+        public static string NormalizeYear(string year)
         {
             while(year.Length < 4)
             {
