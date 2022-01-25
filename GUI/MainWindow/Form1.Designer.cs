@@ -139,15 +139,15 @@ namespace PhotoManager
         }
 
         #endregion
-        private System.Windows.Forms.ListView ImageListForAlbum;
-        private System.Windows.Forms.Button CreateAlbumButton;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox moveAlbumBox;
-        private System.Windows.Forms.Button moveButton;
-        private System.Windows.Forms.Button CopyButton;
-        private System.Windows.Forms.Button RemoveButton;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TreeView AlbumList;
+        public System.Windows.Forms.ListView ImageListForAlbum;
+        public System.Windows.Forms.Button CreateAlbumButton;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.ComboBox moveAlbumBox;
+        public System.Windows.Forms.Button moveButton;
+        public System.Windows.Forms.Button CopyButton;
+        public System.Windows.Forms.Button RemoveButton;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TreeView AlbumList;
     }
 }
 

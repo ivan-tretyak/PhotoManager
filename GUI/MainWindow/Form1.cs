@@ -25,22 +25,24 @@ namespace PhotoManager
     public partial class MainWindow : Form
     {
         HelperMainWindow helper;
+        DbHelper dbHelper;
         public MainWindow()
         {
-            helper = new();
+            helper = new(this);
+            dbHelper = new();
             InitializeComponent();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            helper.showData(this.AlbumList);
+            helper.showData();
         }
 
         private void CreateAlbumButton_Click(object sender, EventArgs e)
         {
-            var s = new PhotoManager.GUI.AlbumCreator.Form1();
+            var s = new GUI.AlbumCreator.Form1();
             s.ShowDialog();
-            helper.showData(this.AlbumList);
+            helper.showData();
         }
 
         private void ImageListForAlbum_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,15 +92,15 @@ namespace PhotoManager
                     var newAl = newAlbum.ToString();
                     var oldAl = oldAlbum.ToString();
                     var path = this.ImageListForAlbum.Items[index].Text.ToString();
-                    HelperMainWindow.MoveToAnotherAlbum(newAl, oldAl, path);
+                    dbHelper.MoveToAnotherAlbum(newAl, oldAl, path);
                 }
                 this.label2.Visible = false;
                 this.moveAlbumBox.Visible = false;
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 this.RemoveButton.Visible = false;
-                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, oldAlbum.ToString());
-                helper.showData(AlbumList);
+                helper.ShowPhotoFromAlbum(oldAlbum.ToString());
+                helper.showData();
             }
             catch (Exception)
             {
@@ -115,15 +117,15 @@ namespace PhotoManager
                 {
                     var albumNew = newAlbum.ToString();
                     var path = this.ImageListForAlbum.Items[index].Text.ToString();
-                    HelperMainWindow.CopyToAnotherAlbum(albumNew, path);
+                    dbHelper.CopyToAnotherAlbum(albumNew, path);
                 }
                 this.label2.Visible = false;
                 this.moveAlbumBox.Visible = false;
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 this.RemoveButton.Visible = false;
-                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedNode.ToString());
-                helper.showData(AlbumList);
+                helper.ShowPhotoFromAlbum(this.AlbumList.SelectedNode.ToString());
+                helper.showData();
             }
             catch (Exception)
             {
@@ -137,9 +139,9 @@ namespace PhotoManager
             foreach(int index in this.ImageListForAlbum.SelectedIndices)
             {
                 var path = this.ImageListForAlbum.Items[index].Text.ToString();
-                helper.Remove(album, path);
+                dbHelper.Remove(album, path);
             }
-            helper.ShowPhotoFromAlbum(this.ImageListForAlbum, this.AlbumList.SelectedNode.ToString());
+            helper.ShowPhotoFromAlbum(this.AlbumList.SelectedNode.ToString());
         }
 
         private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
@@ -157,7 +159,7 @@ namespace PhotoManager
         {
             if (AlbumList.SelectedNode != null && AlbumList.SelectedNode.Parent == null)
             {
-                helper.ShowPhotoFromAlbum(this.ImageListForAlbum, AlbumList.SelectedNode.Text);
+                helper.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text);
                 this.label2.Visible = false;
                 this.moveAlbumBox.Visible = false;
                 this.moveButton.Visible = false;
@@ -166,7 +168,7 @@ namespace PhotoManager
             }
             if (AlbumList.SelectedNode != null && AlbumList.SelectedNode.Parent != null)
             {
-                HelperMainWindow.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text, AlbumList.SelectedNode.Parent.Text, ImageListForAlbum);
+                helper.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text, AlbumList.SelectedNode.Parent.Text);
             }
         }
     }
