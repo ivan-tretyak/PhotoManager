@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ORMDatabaseModule;
+using PhotoManager.GUI.ChooseDirectoryToSync;
 
 
 namespace PhotoManager
@@ -60,7 +61,7 @@ namespace PhotoManager
             }
             catch (Exception)
             {
-                var s = new SelectPathWindows();
+                var s = new PhotoManager.GUI.ChooseDirectoryToSync.Form1();
                 s.ShowDialog();
                 showData();
             }

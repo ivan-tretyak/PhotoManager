@@ -57,41 +57,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 3</value>
-  </data>
-  <data name="pathLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 15</value>
-  </data>
-  <data name="pathLabel.Text" xml:space="preserve">
-    <value>Путь</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>636, 3</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Выбор</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>511, 3</value>
-  </data>
-  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 23</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Добавить строку</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>Удалить строку</value>
-  </data>
-  <data name="scanstart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 2</value>
-  </data>
-  <data name="scanstart.Text" xml:space="preserve">
-    <value>Сканирование</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Окно выбора путей</value>
-  </data>
 </root>

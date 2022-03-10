@@ -28,11 +28,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MainWindowStrings.resx</DependentUpon>
     </Compile>
-    <Compile Update="GUI\SelectedPathWindows\StringOfSelectedPath.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StringOfSelectedPath.resx</DependentUpon>
-    </Compile>
     <Compile Update="GUI\ShowImage\ShowImageString.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -48,10 +43,6 @@
     <EmbeddedResource Update="GUI\MainWindow\MainWindowStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="GUI\SelectedPathWindows\StringOfSelectedPath.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringOfSelectedPath.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="GUI\ShowImage\ShowImageString.ru-RU.resx">
       <LastGenOutput>ShowImageString.Designer.cs</LastGenOutput>
