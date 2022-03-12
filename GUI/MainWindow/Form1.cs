@@ -89,7 +89,16 @@ namespace PhotoManager
             try
             {
                 var newAlbum = this.moveAlbumBox.SelectedItem;
-                var oldAlbum = this.AlbumList.SelectedNode.Text;
+                var albumNode = this.AlbumList.SelectedNode;
+                string oldAlbum;
+                if (albumNode.Level != 0)
+                {
+                    oldAlbum = albumNode.Parent.Text;
+                }
+                else
+                {
+                    oldAlbum = albumNode.Text;
+                }
                 foreach (int index in this.ImageListForAlbum.SelectedIndices)
                 {
                     var newAl = newAlbum.ToString();
@@ -138,13 +147,22 @@ namespace PhotoManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var album = this.AlbumList.SelectedNode.ToString();
+            var albumNode = this.AlbumList.SelectedNode;
+            string album;
+            if (albumNode.Level != 0)
+            {
+                album = albumNode.Parent.Text;
+            }
+            else
+            {
+                album = albumNode.Text;
+            }
             foreach(int index in this.ImageListForAlbum.SelectedIndices)
             {
                 var path = this.ImageListForAlbum.Items[index].Text.ToString();
                 dbHelper.Remove(album, path);
             }
-            helper.ShowPhotoFromAlbum(this.AlbumList.SelectedNode.ToString());
+            helper.ShowPhotoFromAlbum(album);
         }
 
         private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
