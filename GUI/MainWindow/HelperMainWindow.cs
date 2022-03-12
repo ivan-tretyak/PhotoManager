@@ -180,10 +180,17 @@ namespace PhotoManager
         {
             RegistryKey currentUser = Registry.CurrentUser;
             RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
-            string pathToSearch = registry.GetValue("FolderSync").ToString();
+            var pathToSearch = registry.GetValue("FolderSync");
+
+            if (pathToSearch is null)
+            {
+                return;
+            }
+
+            var pathToSearchString = pathToSearch.ToString();
 
             Indexing indexing = new();
-            var res = indexing.IndexingDirectory(pathToSearch);
+            var res = indexing.IndexingDirectory(pathToSearchString);
 
             foreach (IndexingModule.Image image in res)
             {

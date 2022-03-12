@@ -18,6 +18,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             helper.HideElement(AddRowButton);
             helper.HideElement(ScanningButton);
             helper.HideElement(ChooseFolderTable);
+            helper.HideElement(DBAlreadyExists);
         }
 
         private void SelectFolderSync_Click(object sender, EventArgs e)
@@ -26,11 +27,20 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
 
             if (result.Length != 0)
             {
-                LabelFolderSyncPath.Text = result;
-                helper.ShowElement(ChooseFolderTable);
-                if (ChooseFolderTable.GetControlFromPosition(0, 0).Text != "")
+                string[] dbFiles = Directory.GetFiles(result, "*.db");
+                if (dbFiles.Length > 0)
                 {
-                    helper.ShowElement(AddRowButton);
+                    helper.ShowElement(DBAlreadyExists);
+                    LabelFolderSyncPath.Text = result;
+                }
+                else
+                {
+                    LabelFolderSyncPath.Text = result;
+                    helper.ShowElement(ChooseFolderTable);
+                    if (ChooseFolderTable.GetControlFromPosition(0, 0).Text != "")
+                    {
+                        helper.ShowElement(AddRowButton);
+                    }
                 }
             }
         }
@@ -150,6 +160,20 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
                     }
                 }
             }
+        }
+
+        private void DBAlreadyExists_Click(object sender, EventArgs e)
+        {
+            //Папка синхронизации
+            string pathSync = LabelFolderSyncPath.Text;
+
+            //Запись в реестр о выбранном месте сохранения
+            RegistryKey key = Registry.CurrentUser;
+            RegistryKey appPhotoOrginizer = key.CreateSubKey("appPhotoOrginizer");
+            appPhotoOrginizer.SetValue("FolderSync", pathSync);
+            appPhotoOrginizer.Close();
+
+            this.Close();
         }
     }
 }

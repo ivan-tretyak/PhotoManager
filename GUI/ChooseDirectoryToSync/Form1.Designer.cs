@@ -31,12 +31,13 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         {
             this.ScanningButton = new System.Windows.Forms.Button();
             this.ChooseFolderTable = new System.Windows.Forms.TableLayoutPanel();
-            this.SelectFolderButton = new System.Windows.Forms.Button();
             this.LabelFolderScanPath = new System.Windows.Forms.Label();
+            this.SelectFolderButton = new System.Windows.Forms.Button();
             this.SelectFolderSync = new System.Windows.Forms.Button();
             this.LabelFolderSyncPath = new System.Windows.Forms.Label();
             this.AddRowButton = new System.Windows.Forms.Button();
             this.RemoveRowButton = new System.Windows.Forms.Button();
+            this.DBAlreadyExists = new System.Windows.Forms.Button();
             this.ChooseFolderTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,14 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.ChooseFolderTable.Size = new System.Drawing.Size(776, 31);
             this.ChooseFolderTable.TabIndex = 2;
             // 
+            // LabelFolderScanPath
+            // 
+            this.LabelFolderScanPath.Location = new System.Drawing.Point(3, 0);
+            this.LabelFolderScanPath.Name = "LabelFolderScanPath";
+            this.LabelFolderScanPath.Size = new System.Drawing.Size(648, 30);
+            this.LabelFolderScanPath.TabIndex = 1;
+            this.LabelFolderScanPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // SelectFolderButton
             // 
             this.SelectFolderButton.Location = new System.Drawing.Point(662, 3);
@@ -73,14 +82,6 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.SelectFolderButton.Text = "Select Folder";
             this.SelectFolderButton.UseVisualStyleBackColor = true;
             this.SelectFolderButton.Click += new System.EventHandler(this.SelectFolderButton_Click);
-            // 
-            // LabelFolderScanPath
-            // 
-            this.LabelFolderScanPath.Location = new System.Drawing.Point(3, 0);
-            this.LabelFolderScanPath.Name = "LabelFolderScanPath";
-            this.LabelFolderScanPath.Size = new System.Drawing.Size(648, 30);
-            this.LabelFolderScanPath.TabIndex = 1;
-            this.LabelFolderScanPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SelectFolderSync
             // 
@@ -120,12 +121,23 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.RemoveRowButton.UseVisualStyleBackColor = true;
             this.RemoveRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
             // 
+            // DBAlreadyExists
+            // 
+            this.DBAlreadyExists.Location = new System.Drawing.Point(384, 11);
+            this.DBAlreadyExists.Name = "DBAlreadyExists";
+            this.DBAlreadyExists.Size = new System.Drawing.Size(97, 23);
+            this.DBAlreadyExists.TabIndex = 5;
+            this.DBAlreadyExists.Text = "Use exists base";
+            this.DBAlreadyExists.UseVisualStyleBackColor = true;
+            this.DBAlreadyExists.Click += new System.EventHandler(this.DBAlreadyExists_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DBAlreadyExists);
             this.Controls.Add(this.SelectFolderSync);
             this.Controls.Add(this.ChooseFolderTable);
             this.Controls.Add(this.LabelFolderSyncPath);
@@ -151,5 +163,6 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         private System.Windows.Forms.Label LabelFolderSyncPath;
         private System.Windows.Forms.Button AddRowButton;
         private System.Windows.Forms.Button RemoveRowButton;
+        private System.Windows.Forms.Button DBAlreadyExists;
     }
 }

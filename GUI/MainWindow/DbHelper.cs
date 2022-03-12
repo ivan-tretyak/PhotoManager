@@ -53,8 +53,11 @@ namespace PhotoManager
                 List<Photo> photos = new();
             foreach (var albumContext in albumContexts)
             {
-                photos.Add(db.Photos.Where(photo => photo.PhotoId == albumContext.PhotoId).First());
-
+                Photo photo = db.Photos
+                    .Where(photo => photo.PhotoId == albumContext.PhotoId && photo.MetaData.DateCreation.Contains(year))
+                    .FirstOrDefault();
+                if (photo is not null)
+                    photos.Add(photo);
             }
             return photos;
         }
