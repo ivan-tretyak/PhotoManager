@@ -190,48 +190,51 @@ namespace PhotoManager
             var pathToSearchString = pathToSearch.ToString();
 
             Indexing indexing = new();
-            var res = indexing.IndexingDirectory(pathToSearchString);
+            List<IndexingModule.Image> res = indexing.IndexingDirectory(pathToSearchString);
 
-            foreach (IndexingModule.Image image in res)
+            if (res is not null)
             {
-                using var db = new DatabaseContext();
-                Photo photo = db.Photos.Where(p => p.Path == Path.GetFileName(image.path)).FirstOrDefault();
-                if (photo is null)
+                foreach (IndexingModule.Image image in res)
                 {
-                    // Создаем новое фото
-                    Photo p = new();
+                    using var db = new DatabaseContext();
+                    Photo photo = db.Photos.Where(p => p.Path == Path.GetFileName(image.path)).FirstOrDefault();
+                    if (photo is null)
+                    {
+                        // Создаем новое фото
+                        Photo p = new();
 
-                    //Создаем новые метаданные
-                    ORMDatabaseModule.MetaData m = new();
-                    Random rnd = new Random();
+                        //Создаем новые метаданные
+                        ORMDatabaseModule.MetaData m = new();
+                        Random rnd = new Random();
 
-                    //Получаем альбом общий
-                    Album albums = db.Albums.Where(a => a.Name == "Common").First();
+                        //Получаем альбом общий
+                        Album albums = db.Albums.Where(a => a.Name == "Common").First();
 
-                    //Заполняем метаданные
-                    p.Path = Path.GetFileName(image.path);
-                    m.DateCreation = image.metaData.DateCreation.ToString();
-                    m.Flash = image.metaData.Flash;
-                    m.Latitude = image.metaData.Latitude;
-                    m.Longitude = image.metaData.Longitude;
-                    m.FocusLength = (float)image.metaData.FocalLength;
-                    m.Orientation = image.metaData.Orientation;
-                    m.Model = image.metaData.Model;
-                    m.Manufacturer = image.metaData.Manufacturer;
-                    p.MetaData = m;
+                        //Заполняем метаданные
+                        p.Path = Path.GetFileName(image.path);
+                        m.DateCreation = image.metaData.DateCreation.ToString();
+                        m.Flash = image.metaData.Flash;
+                        m.Latitude = image.metaData.Latitude;
+                        m.Longitude = image.metaData.Longitude;
+                        m.FocusLength = (float)image.metaData.FocalLength;
+                        m.Orientation = image.metaData.Orientation;
+                        m.Model = image.metaData.Model;
+                        m.Manufacturer = image.metaData.Manufacturer;
+                        p.MetaData = m;
 
-                    //Создаем запись о хранение фото в таком альбоме
-                    AlbumContext albumContext = new();
+                        //Создаем запись о хранение фото в таком альбоме
+                        AlbumContext albumContext = new();
 
-                    //Ассоциируем фото с альбомом
-                    albumContext.Album = albums;
-                    albumContext.Photo = p;
+                        //Ассоциируем фото с альбомом
+                        albumContext.Album = albums;
+                        albumContext.Photo = p;
 
-                    //Сохряняем фото в базе
-                    var b = db.Database.EnsureCreated();
-                    db.AlbumContexts.Add(albumContext);
-                    db.Albums.Attach(albums);
-                    db.SaveChanges();
+                        //Сохряняем фото в базе
+                        var b = db.Database.EnsureCreated();
+                        db.AlbumContexts.Add(albumContext);
+                        db.Albums.Attach(albums);
+                        db.SaveChanges();
+                    }
                 }
             }
         }

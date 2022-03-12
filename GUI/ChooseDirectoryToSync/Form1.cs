@@ -116,7 +116,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             for (int i = 0; i < ChooseFolderTable.RowCount; i++)
             {
                   
-                string path = ChooseFolderTable.Controls[i * 2].Text;
+                string path = ChooseFolderTable.Controls[i + 1].Text;
                 var res = indexing.IndexingDirectory(path);
 
                 foreach (Image image in res)
