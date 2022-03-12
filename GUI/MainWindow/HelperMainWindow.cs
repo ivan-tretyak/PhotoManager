@@ -21,6 +21,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using IndexingModule;
 using Microsoft.Win32;
 using ORMDatabaseModule;
 using PhotoManager.GUI.ChooseDirectoryToSync;
@@ -173,6 +174,59 @@ namespace PhotoManager
         public void ShowPhotoFromAlbum(string year, string albumName)
         {
             DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year));
+        }
+
+        public void ScanningOnStart()
+        {
+            RegistryKey currentUser = Registry.CurrentUser;
+            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+            string pathToSearch = registry.GetValue("FolderSync").ToString();
+
+            Indexing indexing = new();
+            var res = indexing.IndexingDirectory(pathToSearch);
+
+            foreach (IndexingModule.Image image in res)
+            {
+                using var db = new DatabaseContext();
+                Photo photo = db.Photos.Where(p => p.Path == Path.GetFileName(image.path)).FirstOrDefault();
+                if (photo is null)
+                {
+                    // Создаем новое фото
+                    Photo p = new();
+
+                    //Создаем новые метаданные
+                    ORMDatabaseModule.MetaData m = new();
+                    Random rnd = new Random();
+
+                    //Получаем альбом общий
+                    Album albums = db.Albums.Where(a => a.Name == "Common").First();
+
+                    //Заполняем метаданные
+                    p.Path = Path.GetFileName(image.path);
+                    m.DateCreation = image.metaData.DateCreation.ToString();
+                    m.Flash = image.metaData.Flash;
+                    m.Latitude = image.metaData.Latitude;
+                    m.Longitude = image.metaData.Longitude;
+                    m.FocusLength = (float)image.metaData.FocalLength;
+                    m.Orientation = image.metaData.Orientation;
+                    m.Model = image.metaData.Model;
+                    m.Manufacturer = image.metaData.Manufacturer;
+                    p.MetaData = m;
+
+                    //Создаем запись о хранение фото в таком альбоме
+                    AlbumContext albumContext = new();
+
+                    //Ассоциируем фото с альбомом
+                    albumContext.Album = albums;
+                    albumContext.Photo = p;
+
+                    //Сохряняем фото в базе
+                    var b = db.Database.EnsureCreated();
+                    db.AlbumContexts.Add(albumContext);
+                    db.Albums.Attach(albums);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

@@ -17,6 +17,7 @@
 using ORMDatabaseModule;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -45,7 +46,7 @@ namespace PhotoManager.GUI.ShowImage
             using (DatabaseContext db = new())
             {
                 var photo = db.Photos
-                    .Where(p => p.Path == path)
+                    .Where(p => p.Path == Path.GetFileName(path))
                     .First();
 
                 var metadata = db.MetaDatas
@@ -87,7 +88,7 @@ namespace PhotoManager.GUI.ShowImage
             using (var db = new DatabaseContext())
             {
                 var photo = db.Photos
-                    .Where(p => p.Path == path)
+                    .Where(p => p.Path == Path.GetFileName(path))
                     .First();
 
                 var metadata = db.MetaDatas

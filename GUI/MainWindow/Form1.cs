@@ -16,7 +16,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using PhotoManager.GUI.MainWindow;
 
 
@@ -35,6 +37,7 @@ namespace PhotoManager
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            helper.ScanningOnStart();
             helper.showData();
         }
 
@@ -146,10 +149,14 @@ namespace PhotoManager
 
         private void ImageListForAlbum_DoubleClick(object sender, EventArgs e)
         {
+            RegistryKey currentUser = Registry.CurrentUser;
+            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+            string pathToSearch = registry.GetValue("FolderSync").ToString();
+
             List<string> paths = new();
             for (int i = 0; i < ImageListForAlbum.Items.Count; i++)
             {
-                paths.Add(ImageListForAlbum.Items[i].Text.ToString());
+                paths.Add($"{pathToSearch}{Path.DirectorySeparatorChar}{ImageListForAlbum.Items[i].Text.ToString()}");
             }
             var show = new PhotoManager.GUI.ShowImage.Form1(paths, AlbumList.SelectedNode.ToString(), ImageListForAlbum.SelectedIndices[0]);
             show.ShowDialog();
