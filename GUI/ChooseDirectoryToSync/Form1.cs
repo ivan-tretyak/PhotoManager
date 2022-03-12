@@ -31,6 +31,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
                 if (dbFiles.Length > 0)
                 {
                     helper.ShowElement(DBAlreadyExists);
+                    helper.ShowElement(ChooseFolderTable);
                     LabelFolderSyncPath.Text = result;
                 }
                 else
@@ -174,6 +175,11 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             appPhotoOrginizer.Close();
 
             this.Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
