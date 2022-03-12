@@ -34,7 +34,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.SelectFolderButton = new System.Windows.Forms.Button();
             this.LabelFolderScanPath = new System.Windows.Forms.Label();
             this.SelectFolderSync = new System.Windows.Forms.Button();
-            this.LabelFoldeSyncPath = new System.Windows.Forms.Label();
+            this.LabelFolderSyncPath = new System.Windows.Forms.Label();
             this.AddRowButton = new System.Windows.Forms.Button();
             this.RemoveRowButton = new System.Windows.Forms.Button();
             this.ChooseFolderTable.SuspendLayout();
@@ -48,20 +48,21 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.ScanningButton.TabIndex = 0;
             this.ScanningButton.Text = "Start Scanning";
             this.ScanningButton.UseVisualStyleBackColor = true;
+            this.ScanningButton.Click += new System.EventHandler(this.ScanningButton_Click);
             // 
             // ChooseFolderTable
             // 
+            this.ChooseFolderTable.ColumnCount = 2;
             this.ChooseFolderTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
             this.ChooseFolderTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.ChooseFolderTable.Controls.Add(this.SelectFolderButton, 1, 0);
             this.ChooseFolderTable.Controls.Add(this.LabelFolderScanPath, 0, 0);
+            this.ChooseFolderTable.Controls.Add(this.SelectFolderButton, 1, 0);
             this.ChooseFolderTable.Location = new System.Drawing.Point(12, 99);
             this.ChooseFolderTable.Name = "ChooseFolderTable";
+            this.ChooseFolderTable.RowCount = 1;
             this.ChooseFolderTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.ChooseFolderTable.Size = new System.Drawing.Size(776, 31);
             this.ChooseFolderTable.TabIndex = 2;
-            this.ChooseFolderTable.RowCount = 1;
-            this.ChooseFolderTable.ColumnCount = 2;
             // 
             // SelectFolderButton
             // 
@@ -91,13 +92,13 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.SelectFolderSync.UseVisualStyleBackColor = true;
             this.SelectFolderSync.Click += new System.EventHandler(this.SelectFolderSync_Click);
             // 
-            // LabelFoldeSyncPath
+            // LabelFolderSyncPath
             // 
-            this.LabelFoldeSyncPath.Location = new System.Drawing.Point(12, 38);
-            this.LabelFoldeSyncPath.Name = "LabelFoldeSyncPath";
-            this.LabelFoldeSyncPath.Size = new System.Drawing.Size(651, 45);
-            this.LabelFoldeSyncPath.TabIndex = 2;
-            this.LabelFoldeSyncPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelFolderSyncPath.Location = new System.Drawing.Point(12, 38);
+            this.LabelFolderSyncPath.Name = "LabelFolderSyncPath";
+            this.LabelFolderSyncPath.Size = new System.Drawing.Size(651, 45);
+            this.LabelFolderSyncPath.TabIndex = 2;
+            this.LabelFolderSyncPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AddRowButton
             // 
@@ -127,7 +128,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SelectFolderSync);
             this.Controls.Add(this.ChooseFolderTable);
-            this.Controls.Add(this.LabelFoldeSyncPath);
+            this.Controls.Add(this.LabelFolderSyncPath);
             this.Controls.Add(this.RemoveRowButton);
             this.Controls.Add(this.AddRowButton);
             this.Controls.Add(this.ScanningButton);
@@ -147,7 +148,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         private System.Windows.Forms.Button SelectFolderButton;
         private System.Windows.Forms.Label LabelFolderScanPath;
         private System.Windows.Forms.Button SelectFolderSync;
-        private System.Windows.Forms.Label LabelFoldeSyncPath;
+        private System.Windows.Forms.Label LabelFolderSyncPath;
         private System.Windows.Forms.Button AddRowButton;
         private System.Windows.Forms.Button RemoveRowButton;
     }

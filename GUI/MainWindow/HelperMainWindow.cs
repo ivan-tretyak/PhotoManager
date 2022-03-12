@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using ORMDatabaseModule;
 using PhotoManager.GUI.ChooseDirectoryToSync;
 
@@ -56,7 +58,6 @@ namespace PhotoManager
             }
             try
             {
-                ShowAlbums(DBhelper.GetAlbums());
                 addYears();
             }
             catch (Exception)
@@ -110,6 +111,11 @@ namespace PhotoManager
 
         private void DisplayImage(List<Photo> photos)
         {
+            //Прочитаем, где следует искать фото, из регистра
+            RegistryKey currentUser = Registry.CurrentUser;
+            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+            string pathToSearch = registry.GetValue("FolderSync").ToString();
+
             int count = 0;
             //Delete LargeImageList
             if (myForm.ImageListForAlbum.LargeImageList != null)
@@ -139,7 +145,7 @@ namespace PhotoManager
                             .First();
                         orientation = metadata.Orientation;
                     }
-                    var i = new ImagesPreview(photo.Path, orientation);
+                    var i = new ImagesPreview($"{pathToSearch}{Path.DirectorySeparatorChar}{photo.Path}", orientation);
                     var thumbnail =i.thumbnail();
                     myForm.ImageListForAlbum.Items.Add(photo.Path, count);
                     count++;
