@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Windows.Forms;
 
 
@@ -41,11 +42,12 @@ namespace PhotoManager.GUI.ShowImage
             this.paths = paths;
             this.index = i;
             org = new PictureBox();
+            HelperShowImage.ShowImage(this.pictureBox2, org, paths[index], this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
             if (index == 0)
             {
@@ -61,14 +63,14 @@ namespace PhotoManager.GUI.ShowImage
 
         private void resize(object sender, EventArgs e)
         {
-            HelperShowImage.resizer(panel1, pictureBox1);
-            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            HelperShowImage.resizer(panel2, pictureBox2);
+            HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            HelperShowImage.ResizeImage(trackBar1, pictureBox1, org, panel1, paths[index], this);
+            HelperShowImage.ResizeImage(trackBar1, pictureBox2, org, panel2, paths[index], this);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -82,9 +84,9 @@ namespace PhotoManager.GUI.ShowImage
                 button1.Enabled = true;
             }
             index++;
-            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
-            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
+            pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
             trackBar1.Value = 0;
         }
 
@@ -129,20 +131,20 @@ namespace PhotoManager.GUI.ShowImage
                 button2.Enabled = true;
             }
             index--;
-            HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+            HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
-            pictureBox1.Size = new Size(panel1.Size.Width - 10, panel1.Size.Height - 10);
+            pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
             trackBar1.Value = 0;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            HelperShowImage.RotateImage(pictureBox1, panel1, trackBar1, true);
+            HelperShowImage.RotateImage(pictureBox2, panel2, trackBar1, true);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            HelperShowImage.RotateImage(pictureBox1, panel1, trackBar1, false);
+            HelperShowImage.RotateImage(pictureBox2, panel2, trackBar1, false);
         }
 
         private void CreationDateShow_Click(object sender, EventArgs e)
@@ -276,9 +278,54 @@ namespace PhotoManager.GUI.ShowImage
                 OrientationShow = new();
                 tableLayoutPanel1.Controls.Add(OrientationShow, 1, 2);
                 OrientationShow.Click += new EventHandler(OrientationShow_Click);
-                HelperShowImage.ShowImage(pictureBox1, org, paths[index], this);
+                HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
                 DisplayMetadata();
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            PrintImage();
+        }
+
+        void PrintImage()
+        {
+            PrintDocument pd = new PrintDocument();
+            var bmIm = new Bitmap(paths[index]);
+            if (bmIm.Width > bmIm.Height)
+            {
+                pd.DefaultPageSettings.Landscape = true;
+                pd.PrintPage += new PrintPageEventHandler(pd_PrintPageHor);
+            }
+            else
+            {
+                pd.DefaultPageSettings.Landscape = false;
+                pd.PrintPage += new PrintPageEventHandler(pd_PrintPageVert);
+            }
+
+            PrintPreviewDialog printPreviewDialog = new();
+            printPreviewDialog.Document = pd;
+            printPreviewDialog.ShowDialog();
+        }
+
+        void pd_PrintPageHor(object sender, PrintPageEventArgs e)
+        {
+            double cmToUnits = 100 / 2.54;
+            var bmIm = new Bitmap(paths[index]);
+            e.Graphics.DrawImage(bmIm, 0, 0, (float)(29.7 * cmToUnits), (float)(21 * cmToUnits));
+        }
+
+        void pd_PrintPageVert(object sender, PrintPageEventArgs e)
+        {
+            double cmToUnits = 100 / 2.54;
+            var bmIm = new Bitmap(paths[index]);
+            e.Graphics.DrawImage(bmIm, 0, 0, (float)(21 * cmToUnits), (float)(29.7 * cmToUnits));
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        { 
+            var bIm = new Bitmap(paths[index]);
+            Clipboard.SetImage(bIm);
         }
     }
 }

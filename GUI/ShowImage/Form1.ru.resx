@@ -103,4 +103,13 @@
   <data name="label6.Text" xml:space="preserve">
     <value>Вспышка</value>
   </data>
+  <data name="button5.Text" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="button6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 23</value>
+  </data>
+  <data name="button6.Text" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
 </root>

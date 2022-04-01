@@ -47,7 +47,6 @@ namespace PhotoManager.GUI.ShowImage
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LongitudeShow = new System.Windows.Forms.Label();
             this.LatitudeShow = new System.Windows.Forms.Label();
@@ -65,24 +64,21 @@ namespace PhotoManager.GUI.ShowImage
             this.CreationDateShow = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.FlashShow = new System.Windows.Forms.Label();
-            this.panel1 = new PhotoManager.GUI.ShowImage.MyPanel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.button5 = new System.Windows.Forms.Button();
+            this.panel2 = new PhotoManager.GUI.ShowImage.MyPanel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -191,12 +187,6 @@ namespace PhotoManager.GUI.ShowImage
             resources.ApplyResources(this.FlashShow, "FlashShow");
             this.FlashShow.Name = "FlashShow";
             // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Name = "panel1";
-            // 
             // trackBar1
             // 
             resources.ApplyResources(this.trackBar1, "trackBar1");
@@ -239,24 +229,52 @@ namespace PhotoManager.GUI.ShowImage
             this.sqliteCommand1.Transaction = null;
             this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
             // 
+            // button5
+            // 
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.Name = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // panel2
+            // 
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Name = "panel2";
+            // 
+            // pictureBox2
+            // 
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // button6
+            // 
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.Name = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,7 +282,6 @@ namespace PhotoManager.GUI.ShowImage
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -274,7 +291,6 @@ namespace PhotoManager.GUI.ShowImage
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private TrackBar trackBar1;
-        private MyPanel panel1;
         private Button button1;
         private Button button2;
         private Label CreationDateShow;
@@ -289,6 +305,10 @@ namespace PhotoManager.GUI.ShowImage
         private Label LongitudeShow;
         private Label label8;
         private Microsoft.Data.Sqlite.SqliteCommand sqliteCommand1;
+        private Button button5;
+        private MyPanel panel2;
+        private PictureBox pictureBox2;
+        private Button button6;
     }
 
     public class MyPanel : Panel
