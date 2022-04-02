@@ -45,6 +45,45 @@ namespace PhotoManager
             }
             return photos;
         }
+
+        public List<string> GetTags(string albumName, string year)
+        {
+            List<string> tags = new();
+            year = SmallUtils.NormalizeYear(year);
+            using var db = new DatabaseContext();
+            List<Photo> photos = new();
+            var album = db.Albums
+                .Where(a => a.Name == albumName)
+                .First();
+            List<AlbumContext> albumContexts = db.AlbumContexts
+                .Where(ac => ac.AlbumId == album.AlbumId)
+                .ToList();
+            foreach (var albumContext in albumContexts)
+            {
+                Photo photo = db.Photos
+                    .Where(p => p.PhotoId == albumContext.PhotoId && p.MetaData.DateCreation.Contains(year))
+                    .FirstOrDefault();
+                if (photo is not null)
+                {
+                    var taglists = db.keyWordsLists
+                        .Where(tl => tl.PhotoId == photo.PhotoId)
+                        .ToList();
+
+                    foreach (var taglist in taglists)
+                    {
+                        var kw = db.KeyWords
+                            .Where(kw => kw.KeyWordsId == taglist.KeyWordsId)
+                            .FirstOrDefault();
+                        if (kw is not null)
+                        {
+                            tags.Add(kw.KeyWord);
+                        }
+                    }
+                }
+            }
+           return tags;
+        }
+
         public List<Photo> GetPhotos(List<AlbumContext> albumContexts, string year)
         {
             year = SmallUtils.NormalizeYear(year);
@@ -61,6 +100,25 @@ namespace PhotoManager
             }
             return photos;
         }
+
+        public List<Photo> GetPhotos(List<AlbumContext> albumContexts, string year, string tag)
+        {
+            List<Photo> photosSelect = new();
+            using var db = new DatabaseContext();
+            List <Photo> photos = GetPhotos(albumContexts, year);
+            foreach(var photo in photos)
+            {
+                KeyWordsList keyWordsList = db.keyWordsLists
+                    .Where(kwl => kwl.PhotoId == photo.PhotoId && kwl.KeyWords.KeyWord == tag)
+                    .FirstOrDefault();
+                if (keyWordsList is not null)
+                {
+                    photosSelect.Add(photo);
+                }
+            }
+            return photosSelect;
+        }
+
         public List<AlbumContext> GetAlbumContexts(string AlbumName)
         {
             using var db = new DatabaseContext();

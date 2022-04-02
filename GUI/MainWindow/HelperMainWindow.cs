@@ -77,6 +77,8 @@ namespace PhotoManager
                 myForm.AlbumList.Nodes.Add(album.Name);
             }
         }
+        
+        
 
         public void addYears()
         {
@@ -98,9 +100,18 @@ namespace PhotoManager
                 }
 
                 var uniqueYears = years.Distinct();
+                int count = 0;
                 foreach (var year in uniqueYears)
                 {
-                    myForm.AlbumList.Nodes[i].Nodes.Add(year);
+                    myForm.AlbumList.Nodes[i].Nodes.Add(new TreeNode(year));
+                    var tags = DBhelper.GetTags(myForm.AlbumList.Nodes[i].Text, year);
+                    var uniqueTags = tags.Distinct();
+                    foreach (var tag in uniqueTags)
+                    {
+                        var t = myForm.AlbumList.Nodes[i].Nodes[count];
+                        t.Nodes.Add(tag);
+                    }
+                    count += 1;
                 }
             }
         }
@@ -174,6 +185,11 @@ namespace PhotoManager
         public void ShowPhotoFromAlbum(string year, string albumName)
         {
             DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year));
+        }
+
+        public void ShowPhotoFromAlbum(string year, string albumName, string tag)
+        {
+            DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year, tag));
         }
 
         public void ScanningOnStart()

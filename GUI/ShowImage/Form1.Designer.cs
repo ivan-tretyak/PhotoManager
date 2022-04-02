@@ -64,6 +64,8 @@ namespace PhotoManager.GUI.ShowImage
             this.CreationDateShow = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.FlashShow = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -99,6 +101,8 @@ namespace PhotoManager.GUI.ShowImage
             this.tableLayoutPanel1.Controls.Add(this.CreationDateShow, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.FlashShow, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 1, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // LongitudeShow
@@ -187,11 +191,24 @@ namespace PhotoManager.GUI.ShowImage
             resources.ApplyResources(this.FlashShow, "FlashShow");
             this.FlashShow.Name = "FlashShow";
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
             // trackBar1
             // 
             resources.ApplyResources(this.trackBar1, "trackBar1");
             this.trackBar1.Maximum = 200;
+            this.trackBar1.Minimum = 5;
             this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Value = 100;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // button1
@@ -309,6 +326,8 @@ namespace PhotoManager.GUI.ShowImage
         private MyPanel panel2;
         private PictureBox pictureBox2;
         private Button button6;
+        private Label label9;
+        private Label label10;
     }
 
     public class MyPanel : Panel

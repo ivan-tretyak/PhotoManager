@@ -28,6 +28,7 @@ namespace PhotoManager
     {
         HelperMainWindow helper;
         DbHelper dbHelper;
+        TreeNode selected;
         public MainWindow()
         {
             helper = new(this);
@@ -37,7 +38,7 @@ namespace PhotoManager
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            helper.ScanningOnStart();
+            //helper.ScanningOnStart();
             helper.showData();
         }
 
@@ -89,15 +90,18 @@ namespace PhotoManager
             try
             {
                 var newAlbum = this.moveAlbumBox.SelectedItem;
-                var albumNode = this.AlbumList.SelectedNode;
                 string oldAlbum;
-                if (albumNode.Level != 0)
+                if (selected.Level == 2)
                 {
-                    oldAlbum = albumNode.Parent.Text;
+                    oldAlbum = selected.Parent.Parent.Text;
+                }
+                else if (selected.Level == 1)
+                {
+                    oldAlbum = selected.Parent.Text;
                 }
                 else
                 {
-                    oldAlbum = albumNode.Text;
+                    oldAlbum = selected.Text;
                 }
                 foreach (int index in this.ImageListForAlbum.SelectedIndices)
                 {
@@ -111,7 +115,19 @@ namespace PhotoManager
                 this.moveButton.Visible = false;
                 this.CopyButton.Visible = false;
                 this.RemoveButton.Visible = false;
-                helper.ShowPhotoFromAlbum(oldAlbum.ToString());
+                if (selected.Level == 2)
+                {
+                    helper.ShowPhotoFromAlbum(selected.Parent.Text, selected.Parent.Parent.Text, selected.Text);
+                }
+                else if (selected.Level == 1)
+                {
+                    helper.ShowPhotoFromAlbum(selected.Text, selected.Parent.Text);
+                }
+                else
+                {
+                    helper.ShowPhotoFromAlbum(selected.Text);
+                }
+                
                 helper.showData();
             }
             catch (Exception)
@@ -178,6 +194,19 @@ namespace PhotoManager
             }
             var show = new PhotoManager.GUI.ShowImage.Form1(paths, AlbumList.SelectedNode.ToString(), ImageListForAlbum.SelectedIndices[0]);
             show.ShowDialog();
+            if (selected.Level == 2)
+            {
+                helper.ShowPhotoFromAlbum(selected.Parent.Text, selected.Parent.Parent.Text, selected.Text);
+            }
+            else if (selected.Level == 1)
+            {
+                helper.ShowPhotoFromAlbum(selected.Text, selected.Parent.Text);
+            }
+            else
+            {
+                helper.ShowPhotoFromAlbum(selected.Text);
+            }
+            helper.showData();
         }
 
         private void AlbumList_SelectedIndexChanged(object sender, TreeViewEventArgs e)
@@ -193,8 +222,12 @@ namespace PhotoManager
             }
             if (AlbumList.SelectedNode != null && AlbumList.SelectedNode.Parent != null)
             {
-                helper.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text, AlbumList.SelectedNode.Parent.Text);
+                if (AlbumList.SelectedNode.Level == 1)
+                    helper.ShowPhotoFromAlbum(AlbumList.SelectedNode.Text, AlbumList.SelectedNode.Parent.Text);
+                else if (AlbumList.SelectedNode.Level == 2)
+                    helper.ShowPhotoFromAlbum(AlbumList.SelectedNode.Parent.Text, AlbumList.SelectedNode.Parent.Parent.Text, AlbumList.SelectedNode.Text);
             }
+            selected = AlbumList.SelectedNode;
         }
     }
 }

@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -30,6 +31,7 @@ namespace PhotoManager.GUI.ShowImage
         int index;
         DateTimePicker date;
         TextBox placeInput;
+        TextBox keyWords;
         ComboBox orientationBox;
         public Form1()
         {
@@ -59,6 +61,8 @@ namespace PhotoManager.GUI.ShowImage
             }
             this.ResizeEnd += new EventHandler(this.resize);
             this.Resize += new EventHandler(this.resize);
+
+            this.trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
         }
 
         private void resize(object sender, EventArgs e)
@@ -66,6 +70,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.resizer(panel2, pictureBox2);
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
+            this.trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -87,7 +92,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
             pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
-            trackBar1.Value = 0;
+            trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
         }
 
         private void DisplayMetadata()
@@ -118,6 +123,16 @@ namespace PhotoManager.GUI.ShowImage
             LongitudeShow.Text = $"{metadata.Longitude}";
             FlashShow.Text = metadata.Flash.ToString();
             CreationDateShow.Text = metadata.DateCreation;
+
+            var keyWords = HelperShowImage.LoadKeyWords(paths[index]);
+            if (keyWords.Count() > 0)
+            {
+                label10.Text = keyWords.Aggregate((a, b) => a + ", " + b);
+            }
+            else
+            {
+                label10.Text = "";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -134,7 +149,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
             pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
-            trackBar1.Value = 0;
+            trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -209,6 +224,17 @@ namespace PhotoManager.GUI.ShowImage
             var metadata = HelperShowImage.LoadMetadata(paths[index]);
             metadata.Longitude = longitude;
             HelperShowImage.UpdateMetadata(metadata);
+        }
+
+        private void keyWordsInput(object sender, EventArgs e)
+        { 
+            label10 = new();
+            label10.Text = keyWords.Text;
+            HelperShowImage.AddNewKeyWords(keyWords.Text.Split(", "));
+            HelperShowImage.AddLinkKeyWordPhoto(keyWords.Text.Split(", "), paths[index]);
+            label10.Click += new EventHandler(label10_Click);
+            tableLayoutPanel1.Controls.Add(label10, 1, 8);
+            keyWords.Dispose();
         }
 
         private void LongitudeShow_Click(object sender, EventArgs e)
@@ -326,6 +352,12 @@ namespace PhotoManager.GUI.ShowImage
         { 
             var bIm = new Bitmap(paths[index]);
             Clipboard.SetImage(bIm);
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            keyWords = new();
+            HelperShowImage.ReplaceLabelTextBox(keyWords, label10, 8, (EventHandler)keyWordsInput, tableLayoutPanel1);
         }
     }
 }

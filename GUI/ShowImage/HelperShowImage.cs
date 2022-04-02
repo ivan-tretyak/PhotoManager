@@ -16,6 +16,7 @@
 
 using ORMDatabaseModule;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -98,6 +99,28 @@ namespace PhotoManager.GUI.ShowImage
             }
         }
 
+        public static List<String> LoadKeyWords(string path)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == Path.GetFileName(path))
+                    .First();
+                var keyWordsLists = db.keyWordsLists
+                    .Where(kL => kL.PhotoId == photo.PhotoId)
+                    .ToList();
+                List<String> keyWords = new();
+                foreach (var keyWordList in keyWordsLists)
+                {
+                    var keyWord = db.KeyWords
+                        .Where(kW => kW.KeyWordsId == keyWordList.KeyWordsId)
+                        .First();
+                    keyWords.Add(keyWord.KeyWord);
+                }
+                return keyWords;
+            }
+        } 
+
         public static void UpdateMetadata(MetaData metaData)
         {
             using (var db = new DatabaseContext())
@@ -139,6 +162,19 @@ namespace PhotoManager.GUI.ShowImage
                 pictureBox.Image.Dispose();
                 pictureBox.Image = bm;
                 gpu.Dispose();
+
+                using (DatabaseContext db = new())
+                {
+                    var photo = db.Photos
+                        .Where(p => p.Path == Path.GetFileName(path))
+                        .First();
+
+                    var metadata = db.MetaDatas
+                        .Where(m => m.MetadataId == photo.MetaDataId)
+                        .First();
+
+                    pictureBox.Image.RotateFlip(OrientationToFlipType(metadata.Orientation));
+                }
             }
             else
             {
@@ -154,6 +190,71 @@ namespace PhotoManager.GUI.ShowImage
             label.Dispose();
             tableLayoutPanel.Controls.Add(textBox, 1, row);
             textBox.DoubleClick += new EventHandler(eventHandler);
+        }
+
+        public static void AddLinkKeyWordPhoto(string[] keyWords, string path)
+        {
+            using (var db = new DatabaseContext())
+            {
+                foreach(var keyWord in keyWords)
+                {
+                    var tag = db.KeyWords
+                        .Where(k => k.KeyWord == keyWord)
+                        .First();
+
+                    var photo = db.Photos
+                        .Where(p => p.Path == Path.GetFileName(path) && p.Exist == 0)
+                        .First();
+
+                    var oldTags = db.keyWordsLists
+                        .Where(kwl => kwl.PhotoId == photo.PhotoId)
+                        .ToList();
+
+                    foreach(var oldTag in oldTags)
+                    {
+                        db.Remove(oldTag);
+                        db.SaveChanges();
+                    }
+
+                    var tagCount = db.keyWordsLists
+                        .Where(kwl => kwl.KeyWordsId == tag.KeyWordsId && kwl.PhotoId == photo.PhotoId)
+                        .FirstOrDefault();
+                    if (tagCount is null)
+                    {
+                        var tagList = new KeyWordsList();
+                        tagList.Photo = photo;
+                        tagList.KeyWords = tag;
+
+                        db.Add(tagList);
+                        db.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public static void AddNewKeyWords(string[] keyWords)
+        {
+            if (keyWords is null)
+            {
+                return;
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                foreach (var KeyWord in keyWords)
+                {
+                    var checkKeyWord = db.KeyWords
+                        .Where(k => k.KeyWord == KeyWord)
+                        .Count();
+                    if (checkKeyWord == 0)
+                    {
+                        var keyWord = new KeyWords();
+                        keyWord.KeyWord = KeyWord;
+                        db.Add(keyWord);
+                        db.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }
