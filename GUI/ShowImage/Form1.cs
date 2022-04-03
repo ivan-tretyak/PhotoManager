@@ -359,5 +359,10 @@ namespace PhotoManager.GUI.ShowImage
             keyWords = new();
             HelperShowImage.ReplaceLabelTextBox(keyWords, label10, 8, (EventHandler)keyWordsInput, tableLayoutPanel1);
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

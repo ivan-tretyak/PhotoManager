@@ -17,7 +17,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
+using System.Threading.Tasks;
 
 namespace PhotoManager
 {
@@ -27,6 +27,7 @@ namespace PhotoManager
         public int width = 256;
         public string path;
         public int orientation;
+        public Bitmap Thumbnail;
 
         private static RotateFlipType OrientationToFlipType(int orientation)
         {
@@ -82,19 +83,18 @@ namespace PhotoManager
             return destImage;
         }
 
-        private Bitmap createThumbnail(Image image, int orientation)
+        private void CreateThumbnail(Image image, int orientation)
         {
-            var thumbnail = new Bitmap(256, 256);
+            Thumbnail = new Bitmap(256, 256);
             image.RotateFlip(OrientationToFlipType(orientation));
-            using (var graphics = Graphics.FromImage(thumbnail))
+            using (var graphics = Graphics.FromImage(Thumbnail))
             {
                 graphics.Clear(Color.White);
                 graphics.DrawImage(image, (int)((256 - image.Width) / 2), 256 - image.Height);
             }
-            return thumbnail;
         }
 
-        public  Bitmap thumbnail()
+        public async Task thumbnail()
         {
             Image image = new Bitmap(path);
             height = (int)(image.Height / (image.Width / width));
@@ -103,9 +103,8 @@ namespace PhotoManager
                 height = 256;
                 width = (int)(image.Width / (image.Height / height));
             }
-            var thumbnail = createThumbnail(ResizeImage(image), orientation);
+            CreateThumbnail(ResizeImage(image), orientation);
             image.Dispose();
-            return thumbnail;
         }
     }
 }

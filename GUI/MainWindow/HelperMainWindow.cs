@@ -20,6 +20,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using IndexingModule;
 using Microsoft.Win32;
@@ -108,7 +109,7 @@ namespace PhotoManager
                     var uniqueTags = tags.Distinct();
                     foreach (var tag in uniqueTags)
                     {
-                        var t = myForm.AlbumList.Nodes[i].Nodes[count];
+                       var t = myForm.AlbumList.Nodes[i].Nodes[count];
                         t.Nodes.Add(tag);
                     }
                     count += 1;
@@ -116,12 +117,12 @@ namespace PhotoManager
             }
         }
 
-        public void ShowPhotoFromAlbum(string albumName)
+        public async Task ShowPhotoFromAlbumAsync(string albumName)
         {
-           DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName)));
+           await DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName)));
         }
 
-        private void DisplayImage(List<Photo> photos)
+        private async Task DisplayImage(List<Photo> photos)
         {
             //Прочитаем, где следует искать фото, из регистра
             RegistryKey currentUser = Registry.CurrentUser;
@@ -158,7 +159,8 @@ namespace PhotoManager
                         orientation = metadata.Orientation;
                     }
                     var i = new ImagesPreview($"{pathToSearch}{Path.DirectorySeparatorChar}{photo.Path}", orientation);
-                    var thumbnail =i.thumbnail();
+                    await i.thumbnail();
+                    var thumbnail = i.Thumbnail;
                     myForm.ImageListForAlbum.Items.Add(photo.Path, count);
                     count++;
                     LargeImageList.Images.Add(photo.Path, thumbnail);
@@ -182,14 +184,14 @@ namespace PhotoManager
             myForm.UseWaitCursor = false;
         }
 
-        public void ShowPhotoFromAlbum(string year, string albumName)
+        public async Task ShowPhotoFromAlbum(string year, string albumName)
         {
-            DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year));
+            await DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year));
         }
 
-        public void ShowPhotoFromAlbum(string year, string albumName, string tag)
+        public async Task ShowPhotoFromAlbum(string year, string albumName, string tag)
         {
-            DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year, tag));
+            await DisplayImage(DBhelper.GetPhotos(DBhelper.GetAlbumContexts(albumName), year, tag));
         }
 
         public void ScanningOnStart()
