@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoManager", "PhotoManager.csproj", "{0C09DAAD-47F0-4912-B959-0892D5B85B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoManager", "PhotoManager.csproj", "{0C09DAAD-47F0-4912-B959-0892D5B85B6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{82E6F8B2-97E2-4A08-A4C2-3EDD5B457678}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
