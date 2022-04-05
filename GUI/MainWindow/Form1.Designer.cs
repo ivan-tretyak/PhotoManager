@@ -32,7 +32,8 @@ namespace PhotoManager
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.AlbumList = new System.Windows.Forms.TreeView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.PathList = new System.Windows.Forms.ListBox();
+            this.PathList = new System.Windows.Forms.ListView();
+            this.Path = new System.Windows.Forms.ColumnHeader();
             this.PreviewImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -94,8 +95,8 @@ namespace PhotoManager
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.PreviewImage);
-            this.splitContainer2.Size = new System.Drawing.Size(531, 423);
-            this.splitContainer2.SplitterDistance = 177;
+            this.splitContainer2.Size = new System.Drawing.Size(549, 423);
+            this.splitContainer2.SplitterDistance = 183;
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -104,22 +105,33 @@ namespace PhotoManager
             this.PathList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PathList.FormattingEnabled = true;
-            this.PathList.ItemHeight = 15;
+            this.PathList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Path});
+            this.PathList.HideSelection = false;
             this.PathList.Location = new System.Drawing.Point(0, 1);
             this.PathList.Name = "PathList";
-            this.PathList.Size = new System.Drawing.Size(174, 424);
+            this.PathList.Size = new System.Drawing.Size(180, 424);
             this.PathList.TabIndex = 2;
+            this.PathList.UseCompatibleStateImageBehavior = false;
+            this.PathList.View = System.Windows.Forms.View.Details;
+            this.PathList.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.PathList_ItemSelectionChanged);
             this.PathList.SelectedIndexChanged += new System.EventHandler(this.PathList_SelectedIndexChanged);
+            this.PathList.Resize += new System.EventHandler(this.PathList_SizeChanged);
+            // 
+            // Path
+            // 
+            this.Path.Tag = "Path";
+            this.Path.Text = "Path";
+            this.Path.Width = 173;
             // 
             // PreviewImage
             // 
             this.PreviewImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreviewImage.Location = new System.Drawing.Point(3, 0);
+            this.PreviewImage.Location = new System.Drawing.Point(6, 0);
             this.PreviewImage.Name = "PreviewImage";
-            this.PreviewImage.Size = new System.Drawing.Size(326, 421);
+            this.PreviewImage.Size = new System.Drawing.Size(350, 421);
             this.PreviewImage.TabIndex = 0;
             this.PreviewImage.TabStop = false;
             // 
@@ -150,7 +162,8 @@ namespace PhotoManager
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView AlbumList;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListBox PathList;
+        private System.Windows.Forms.ListView PathList;
         private System.Windows.Forms.PictureBox PreviewImage;
+        private System.Windows.Forms.ColumnHeader Path;
     }
 }

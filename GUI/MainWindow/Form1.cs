@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ORMDatabaseModule;
 using Microsoft.Win32;
-using System.Drawing;
 
 namespace PhotoManager
 {
@@ -57,6 +56,7 @@ namespace PhotoManager
             splitContainer2.Cursor = Cursors.Default;
             AlbumList.SelectedNode = null;
             PathList.Size = new Size(PathList.Size.Width, AlbumList.Size.Height);
+            PathList.Columns[0].Width = -2;
         }
 
         private void AlbumList_AfterSelect(object sender, TreeViewEventArgs e)
@@ -134,20 +134,40 @@ namespace PhotoManager
         private void PathList_SizeChanged(object sender, EventArgs e)
         {
             PathList.Size = new Size(PathList.Size.Width, AlbumList.Size.Height);
+            PathList.Columns[0].Width = PathList.Width;
         }
+
+        List<int> SelIndex = new List<int>();
 
         private void PathList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RegistryKey currentUser = Registry.CurrentUser;
-            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
-            var pathToSearchKey = registry.GetValue("FolderSync");
-            var pathToSearch = pathToSearchKey.ToString();
+            // Очистка списка
+            if (PathList.SelectedItems.Count == 0) SelIndex.Clear();
+        }
 
-            var path = $"{pathToSearch}{System.IO.Path.DirectorySeparatorChar}{PathList.SelectedItem.ToString()}";
+        private void PathList_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected) SelIndex.Add(e.ItemIndex);
+            else SelIndex.Remove(e.ItemIndex);
 
-            PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
-            var image = new Bitmap(path);
-            PreviewImage.Image = (Image)image;
+            if (SelIndex.Count > 0)
+            {
+                RegistryKey currentUser = Registry.CurrentUser;
+                RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+                var pathToSearchKey = registry.GetValue("FolderSync");
+                var pathToSearch = pathToSearchKey.ToString();
+
+                var path = $"{pathToSearch}{System.IO.Path.DirectorySeparatorChar}{PathList.Items[SelIndex[^1]].Text}";
+
+                PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
+                var image = new Bitmap(path);
+                PreviewImage.Image = (Image)image;
+            }
+
+            else
+            {
+                PreviewImage.Image = null;
+            }
         }
     }
 }
