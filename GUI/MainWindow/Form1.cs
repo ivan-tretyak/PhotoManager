@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ORMDatabaseModule;
 using Microsoft.Win32;
+using PhotoManager.GUI.AlbumCreator;
 
 namespace PhotoManager
 {
@@ -168,6 +169,13 @@ namespace PhotoManager
             {
                 PreviewImage.Image = null;
             }
+        }
+
+        private void CreateAlbumButton_Click(object sender, EventArgs e)
+        {
+            var albumCreatorWindow = new PhotoManager.GUI.AlbumCreator.Form1();
+            albumCreatorWindow.ShowDialog();
+            AlbumList.Nodes.Add(albumCreatorWindow.Name);
         }
     }
 }

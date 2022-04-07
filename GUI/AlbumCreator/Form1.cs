@@ -22,6 +22,7 @@ namespace PhotoManager.GUI.AlbumCreator
 {
     public partial class Form1 : Form
     {
+        public new string Name;
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace PhotoManager.GUI.AlbumCreator
                     album.DateCreation = DateTime.Now.ToString();
                     db.Add(album);
                     db.SaveChanges();
+                    Name = album.Name;
                     this.Close();
                 }
                 catch (Exception)
