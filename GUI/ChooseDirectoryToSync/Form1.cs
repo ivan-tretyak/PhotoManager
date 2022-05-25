@@ -20,6 +20,8 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             helper.HideElement(ChooseFolderTable);
             helper.HideElement(DBAlreadyExists);
             helper.HideElement(label1);
+            helper.HideElement(label3);
+            helper.HideElement(progressBar1);
         }
 
         private void SelectFolderSync_Click(object sender, EventArgs e)
@@ -40,7 +42,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
                 else if (empty.Length > 0 && dbFiles.Length == 0)
                 {
                     result = result + Path.DirectorySeparatorChar + "photomanager";
-                    Directory.CreateDirectory(result + Path.DirectorySeparatorChar + "photomanager");
+                    Directory.CreateDirectory(result);
                     LabelFolderSyncPath.Text = result;
                     helper.ShowElement(ChooseFolderTable);
                     helper.ShowElement(label1);
@@ -95,7 +97,8 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         {
             //Папка синхронизации
             string pathSync = LabelFolderSyncPath.Text;
-
+            helper.ShowElement(progressBar1);
+            helper.ShowElement(label3);
             //Запись в реестр о выбранном месте сохранения
             RegistryKey key = Registry.CurrentUser;
             RegistryKey appPhotoOrginizer = key.CreateSubKey("appPhotoOrginizer");
@@ -124,11 +127,22 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
 
             //Начнем индексацию
             Indexing indexing = new();
+
+
             for (int i = 0; i < ChooseFolderTable.RowCount; i++)
             {
-                  
+                
                 string path = ChooseFolderTable.Controls[i + 1].Text;
                 var res = indexing.IndexingDirectory(path);
+
+                //Установим начальное значение progressbar в 0, а длину в количество файлов
+                progressBar1.Value = 0;
+                progressBar1.Maximum = res.Count;
+
+                //Установим значение сканируемой директории и сколько их осталось
+                label3.Text = $"{label3.Text}: {i + 1}/{ChooseFolderTable.RowCount}";
+                this.Update();
+
 
                 foreach (Image image in res)
                 {
@@ -170,6 +184,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
                         db.Albums.Attach(albums);
                         db.SaveChanges();
                     }
+                    progressBar1.Value += 1;
                 }
             }
             this.Close();

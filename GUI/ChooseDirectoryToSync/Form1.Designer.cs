@@ -40,6 +40,8 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.DBAlreadyExists = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label3 = new System.Windows.Forms.Label();
             this.ChooseFolderTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.ChooseFolderTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.ChooseFolderTable.Controls.Add(this.SelectFolderButton, 1, 0);
             this.ChooseFolderTable.Controls.Add(this.LabelFolderScanPath, 0, 0);
-            this.ChooseFolderTable.Location = new System.Drawing.Point(15, 159);
+            this.ChooseFolderTable.Location = new System.Drawing.Point(12, 190);
             this.ChooseFolderTable.Name = "ChooseFolderTable";
             this.ChooseFolderTable.RowCount = 1;
             this.ChooseFolderTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
@@ -98,7 +100,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             // 
             // LabelFolderSyncPath
             // 
-            this.LabelFolderSyncPath.Location = new System.Drawing.Point(12, 81);
+            this.LabelFolderSyncPath.Location = new System.Drawing.Point(12, 84);
             this.LabelFolderSyncPath.Name = "LabelFolderSyncPath";
             this.LabelFolderSyncPath.Size = new System.Drawing.Size(648, 45);
             this.LabelFolderSyncPath.TabIndex = 2;
@@ -137,7 +139,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 129);
+            this.label1.Location = new System.Drawing.Point(12, 164);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 15);
             this.label1.TabIndex = 2;
@@ -152,12 +154,30 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.label2.TabIndex = 6;
             this.label2.Text = "Select folder for synchronize";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(125, 138);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(659, 23);
+            this.progressBar1.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 140);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 15);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Folder scan: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DBAlreadyExists);
             this.Controls.Add(this.SelectFolderSync);
@@ -190,5 +210,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         private System.Windows.Forms.Button DBAlreadyExists;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label3;
     }
 }
