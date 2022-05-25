@@ -19,6 +19,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             helper.HideElement(ScanningButton);
             helper.HideElement(ChooseFolderTable);
             helper.HideElement(DBAlreadyExists);
+            helper.HideElement(label1);
         }
 
         private void SelectFolderSync_Click(object sender, EventArgs e)
@@ -28,16 +29,26 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             if (result.Length != 0)
             {
                 string[] dbFiles = Directory.GetFiles(result, "*.db");
+                string[] empty = Directory.GetFiles(result, "*.*");
                 if (dbFiles.Length > 0)
                 {
                     helper.ShowElement(DBAlreadyExists);
                     helper.ShowElement(ChooseFolderTable);
+                    helper.ShowElement(label1);
                     LabelFolderSyncPath.Text = result;
                 }
-                else
+                else if (empty.Length > 0 && dbFiles.Length == 0)
                 {
+                    result = result + Path.DirectorySeparatorChar + "photomanager";
+                    Directory.CreateDirectory(result + Path.DirectorySeparatorChar + "photomanager");
                     LabelFolderSyncPath.Text = result;
                     helper.ShowElement(ChooseFolderTable);
+                    helper.ShowElement(label1);
+                }
+                else {
+                    LabelFolderSyncPath.Text = result;
+                    helper.ShowElement(ChooseFolderTable);
+                    helper.ShowElement(label1);
                     if (ChooseFolderTable.GetControlFromPosition(0, 0).Text != "")
                     {
                         helper.ShowElement(AddRowButton);
@@ -161,6 +172,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
                     }
                 }
             }
+            this.Close();
         }
 
         private void DBAlreadyExists_Click(object sender, EventArgs e)
@@ -175,11 +187,6 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             appPhotoOrginizer.Close();
 
             this.Close();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

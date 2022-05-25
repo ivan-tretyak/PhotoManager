@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PhotoManager": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

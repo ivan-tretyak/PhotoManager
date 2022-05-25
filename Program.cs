@@ -14,6 +14,7 @@
 //with this program; if not, write to the Free Software Foundation, Inc.,
 //51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+using Microsoft.Win32;
 using System;
 using System.Windows.Forms;
 
@@ -30,6 +31,7 @@ namespace PhotoManager
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new MainWindow());
         }
     }

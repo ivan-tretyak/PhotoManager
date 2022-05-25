@@ -31,13 +31,15 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         {
             this.ScanningButton = new System.Windows.Forms.Button();
             this.ChooseFolderTable = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelFolderScanPath = new System.Windows.Forms.Label();
             this.SelectFolderButton = new System.Windows.Forms.Button();
+            this.LabelFolderScanPath = new System.Windows.Forms.Label();
             this.SelectFolderSync = new System.Windows.Forms.Button();
             this.LabelFolderSyncPath = new System.Windows.Forms.Label();
             this.AddRowButton = new System.Windows.Forms.Button();
             this.RemoveRowButton = new System.Windows.Forms.Button();
             this.DBAlreadyExists = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.ChooseFolderTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,20 +60,13 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.ChooseFolderTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.ChooseFolderTable.Controls.Add(this.SelectFolderButton, 1, 0);
             this.ChooseFolderTable.Controls.Add(this.LabelFolderScanPath, 0, 0);
-            this.ChooseFolderTable.Location = new System.Drawing.Point(12, 99);
+            this.ChooseFolderTable.Location = new System.Drawing.Point(15, 159);
             this.ChooseFolderTable.Name = "ChooseFolderTable";
             this.ChooseFolderTable.RowCount = 1;
             this.ChooseFolderTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.ChooseFolderTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.ChooseFolderTable.Size = new System.Drawing.Size(776, 31);
             this.ChooseFolderTable.TabIndex = 2;
-            // 
-            // LabelFolderScanPath
-            // 
-            this.LabelFolderScanPath.Location = new System.Drawing.Point(3, 0);
-            this.LabelFolderScanPath.Name = "LabelFolderScanPath";
-            this.LabelFolderScanPath.Size = new System.Drawing.Size(653, 31);
-            this.LabelFolderScanPath.TabIndex = 1;
-            this.LabelFolderScanPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SelectFolderButton
             // 
@@ -83,19 +78,27 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.SelectFolderButton.UseVisualStyleBackColor = true;
             this.SelectFolderButton.Click += new System.EventHandler(this.SelectFolderButton_Click);
             // 
+            // LabelFolderScanPath
+            // 
+            this.LabelFolderScanPath.Location = new System.Drawing.Point(3, 0);
+            this.LabelFolderScanPath.Name = "LabelFolderScanPath";
+            this.LabelFolderScanPath.Size = new System.Drawing.Size(653, 31);
+            this.LabelFolderScanPath.TabIndex = 1;
+            this.LabelFolderScanPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // SelectFolderSync
             // 
-            this.SelectFolderSync.Location = new System.Drawing.Point(674, 41);
+            this.SelectFolderSync.Location = new System.Drawing.Point(674, 81);
             this.SelectFolderSync.Name = "SelectFolderSync";
-            this.SelectFolderSync.Size = new System.Drawing.Size(111, 39);
+            this.SelectFolderSync.Size = new System.Drawing.Size(111, 45);
             this.SelectFolderSync.TabIndex = 1;
-            this.SelectFolderSync.Text = "Select Folder Sync";
+            this.SelectFolderSync.Text = "Select Folder";
             this.SelectFolderSync.UseVisualStyleBackColor = true;
             this.SelectFolderSync.Click += new System.EventHandler(this.SelectFolderSync_Click);
             // 
             // LabelFolderSyncPath
             // 
-            this.LabelFolderSyncPath.Location = new System.Drawing.Point(15, 38);
+            this.LabelFolderSyncPath.Location = new System.Drawing.Point(12, 81);
             this.LabelFolderSyncPath.Name = "LabelFolderSyncPath";
             this.LabelFolderSyncPath.Size = new System.Drawing.Size(648, 45);
             this.LabelFolderSyncPath.TabIndex = 2;
@@ -131,14 +134,34 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.DBAlreadyExists.UseVisualStyleBackColor = true;
             this.DBAlreadyExists.Click += new System.EventHandler(this.DBAlreadyExists_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 129);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 15);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Folders for scanning";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 66);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(156, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Select folder for synchronize";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.DBAlreadyExists);
             this.Controls.Add(this.SelectFolderSync);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ChooseFolderTable);
             this.Controls.Add(this.LabelFolderSyncPath);
             this.Controls.Add(this.RemoveRowButton);
@@ -147,10 +170,10 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Initial program setup wizard";
             this.ChooseFolderTable.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -165,5 +188,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
         private System.Windows.Forms.Button AddRowButton;
         private System.Windows.Forms.Button RemoveRowButton;
         private System.Windows.Forms.Button DBAlreadyExists;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

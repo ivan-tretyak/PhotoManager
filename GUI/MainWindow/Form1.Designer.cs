@@ -96,8 +96,8 @@ namespace PhotoManager
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.PreviewImage);
-            this.splitContainer2.Size = new System.Drawing.Size(537, 395);
-            this.splitContainer2.SplitterDistance = 179;
+            this.splitContainer2.Size = new System.Drawing.Size(531, 395);
+            this.splitContainer2.SplitterDistance = 177;
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -111,7 +111,7 @@ namespace PhotoManager
             this.PathList.HideSelection = false;
             this.PathList.Location = new System.Drawing.Point(0, 1);
             this.PathList.Name = "PathList";
-            this.PathList.Size = new System.Drawing.Size(176, 396);
+            this.PathList.Size = new System.Drawing.Size(174, 396);
             this.PathList.TabIndex = 2;
             this.PathList.UseCompatibleStateImageBehavior = false;
             this.PathList.View = System.Windows.Forms.View.Details;
@@ -132,7 +132,7 @@ namespace PhotoManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PreviewImage.Location = new System.Drawing.Point(6, 0);
             this.PreviewImage.Name = "PreviewImage";
-            this.PreviewImage.Size = new System.Drawing.Size(354, 393);
+            this.PreviewImage.Size = new System.Drawing.Size(344, 393);
             this.PreviewImage.TabIndex = 0;
             this.PreviewImage.TabStop = false;
             // 
@@ -154,7 +154,7 @@ namespace PhotoManager
             this.Controls.Add(this.CreateAlbumButton);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "Main Window";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

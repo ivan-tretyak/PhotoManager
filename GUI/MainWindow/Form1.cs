@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ORMDatabaseModule;
 using Microsoft.Win32;
-using PhotoManager.GUI.AlbumCreator;
 
 namespace PhotoManager
 {
@@ -19,40 +18,7 @@ namespace PhotoManager
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            using (var db = new DatabaseContext())
-            {
-                var albums = db.Albums.ToList();
-                for (int i = 0; i < albums.Count(); i++)
-                {
-                    var albumContexts = db.AlbumContexts
-                        .Where(al => al.AlbumId == albums[i].AlbumId)
-                        .Select(al => al.PhotoId)
-                        .ToList();
-                    var idMetadatas = db.Photos
-                        .Where(p => albumContexts.Contains(p.PhotoId))
-                        .Select(p => p.MetaDataId)
-                        .ToList();
-                    var years = db.MetaDatas
-                        .Where(m => idMetadatas.Contains(m.MetadataId))
-                        .Select(m => DateTime.Parse(m.DateCreation).Year.ToString())
-                        .ToList();
-                    years = years.Distinct().ToList();
-                    AlbumList.Nodes.Add(albums[i].Name);
-                    for (int j = 0; j < years.Count(); j++)
-                    {
-                        AlbumList.Nodes[i].Nodes.Add(years[j]);
-                        var keyWordsList = db.keyWordsLists
-                            .Where(kw => albumContexts.Contains(kw.PhotoId))
-                            .Select(kw => kw.KeyWords.KeyWord)
-                            .ToList();
-                        keyWordsList = keyWordsList.Distinct().ToList();
-                        foreach (var keyWord in keyWordsList)
-                        {
-                            AlbumList.Nodes[i].Nodes[j].Nodes.Add(keyWord);
-                        }
-                    }
-                }
-            }
+            GUI.MainWindow.Helper.LoadMainWindow(AlbumList);
             splitContainer1.Cursor = Cursors.Default;
             splitContainer2.Cursor = Cursors.Default;
             AlbumList.SelectedNode = null;
