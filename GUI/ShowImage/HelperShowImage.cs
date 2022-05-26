@@ -14,6 +14,7 @@
 //with this program; if not, write to the Free Software Foundation, Inc.,
 //51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+using Microsoft.Win32;
 using ORMDatabaseModule;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace PhotoManager.GUI.ShowImage
 
         public static void ShowImage(PictureBox pictureBox, PictureBox org, string path, Form form)
         {
+            path = GetFullPathForImage(path);
             pictureBox.Image = new Bitmap(path);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             org.Load(path);
@@ -57,6 +59,17 @@ namespace PhotoManager.GUI.ShowImage
                 pictureBox.Image.RotateFlip(OrientationToFlipType(metadata.Orientation));
             }
             form.Text = path;
+        }
+
+        public static string GetFullPathForImage(string path)
+        {
+            RegistryKey currentUser = Registry.CurrentUser;
+            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+            var pathToSearchKey = registry.GetValue("FolderSync");
+            var pathToSearch = pathToSearchKey.ToString();
+
+            path = $"{pathToSearch}{System.IO.Path.DirectorySeparatorChar}{path}";
+            return path;
         }
 
         public static RotateFlipType OrientationToFlipType(int orientation)
@@ -89,7 +102,7 @@ namespace PhotoManager.GUI.ShowImage
             using (var db = new DatabaseContext())
             {
                 var photo = db.Photos
-                    .Where(p => p.Path == Path.GetFileName(path))
+                    .Where(p => p.Path == path)
                     .First();
 
                 var metadata = db.MetaDatas
@@ -144,11 +157,12 @@ namespace PhotoManager.GUI.ShowImage
             pictureBox.Image = image;
             pictureBox.Size = new Size(panel.Size.Width - 10, panel.Size.Height - 10);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            track.Value = 0;
+            track.Value = 100;
         }
 
         public static void ResizeImage(TrackBar track, PictureBox pictureBox, PictureBox org, MyPanel panel, string path, Form form)
         {
+            path = GetFullPathForImage(path);
             if (track.Value > 0)
             {
                 pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -186,7 +200,7 @@ namespace PhotoManager.GUI.ShowImage
         public static void ReplaceLabelTextBox(TextBox textBox, Label label, int row, EventHandler eventHandler, TableLayoutPanel tableLayoutPanel)
         {
             textBox.Text = label.Text;
-            textBox.Location = new System.Drawing.Point(103, 120);
+            textBox.Location = new Point(103, 120);
             label.Dispose();
             tableLayoutPanel.Controls.Add(textBox, 1, row);
             textBox.DoubleClick += new EventHandler(eventHandler);

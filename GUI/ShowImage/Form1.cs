@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -38,7 +39,7 @@ namespace PhotoManager.GUI.ShowImage
             InitializeComponent();
         }
 
-        public Form1(List<string> paths, string albumName, int i)
+        public Form1(List<string> paths, int i)
         {
             InitializeComponent();
             this.paths = paths;
@@ -70,7 +71,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.resizer(panel2, pictureBox2);
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
-            this.trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
+            this.trackBar1.Value = 100;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -92,7 +93,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
             pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
-            trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
+            trackBar1.Value = 100;
         }
 
         private void DisplayMetadata()
@@ -149,7 +150,7 @@ namespace PhotoManager.GUI.ShowImage
             HelperShowImage.ShowImage(pictureBox2, org, paths[index], this);
             DisplayMetadata();
             pictureBox2.Size = new Size(panel2.Size.Width - 10, panel2.Size.Height - 10);
-            trackBar1.Value = (int)(pictureBox2.Width * 1.0 / pictureBox2.Image.Width * 100);
+            trackBar1.Value = 100;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -317,7 +318,8 @@ namespace PhotoManager.GUI.ShowImage
         void PrintImage()
         {
             PrintDocument pd = new PrintDocument();
-            var bmIm = new Bitmap(paths[index]);
+            var path = HelperShowImage.GetFullPathForImage(paths[index]);
+            var bmIm = new Bitmap(path);
             if (bmIm.Width > bmIm.Height)
             {
                 pd.DefaultPageSettings.Landscape = true;
@@ -337,7 +339,8 @@ namespace PhotoManager.GUI.ShowImage
         void pd_PrintPageHor(object sender, PrintPageEventArgs e)
         {
             double cmToUnits = 100 / 2.54;
-            var bmIm = new Bitmap(paths[index]);
+            var path = HelperShowImage.GetFullPathForImage(paths[index]);
+            var bmIm = new Bitmap(path);
             e.Graphics.DrawImage(bmIm, 0, 0, (float)(29.7 * cmToUnits), (float)(21 * cmToUnits));
         }
 
@@ -348,10 +351,10 @@ namespace PhotoManager.GUI.ShowImage
             e.Graphics.DrawImage(bmIm, 0, 0, (float)(21 * cmToUnits), (float)(29.7 * cmToUnits));
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private async void button6_Click(object sender, EventArgs e)
         { 
-            var bIm = new Bitmap(paths[index]);
-            Clipboard.SetImage(bIm);
+            Clipboard.SetImage(pictureBox2.Image);
+            await Task.Delay(1000);
         }
 
         private void label10_Click(object sender, EventArgs e)

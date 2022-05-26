@@ -36,6 +36,9 @@ namespace PhotoManager
             this.Path = new System.Windows.Forms.ColumnHeader();
             this.PreviewImage = new System.Windows.Forms.PictureBox();
             this.CreateAlbumButton = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CopyButton = new System.Windows.Forms.Button();
+            this.MoveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -71,6 +74,7 @@ namespace PhotoManager
             // 
             // AlbumList
             // 
+            this.AlbumList.AllowDrop = true;
             this.AlbumList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -96,13 +100,14 @@ namespace PhotoManager
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.PreviewImage);
-            this.splitContainer2.Size = new System.Drawing.Size(531, 395);
-            this.splitContainer2.SplitterDistance = 177;
+            this.splitContainer2.Size = new System.Drawing.Size(483, 395);
+            this.splitContainer2.SplitterDistance = 161;
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
             // 
             // PathList
             // 
+            this.PathList.AllowDrop = true;
             this.PathList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -111,12 +116,14 @@ namespace PhotoManager
             this.PathList.HideSelection = false;
             this.PathList.Location = new System.Drawing.Point(0, 1);
             this.PathList.Name = "PathList";
-            this.PathList.Size = new System.Drawing.Size(174, 396);
+            this.PathList.Size = new System.Drawing.Size(158, 396);
             this.PathList.TabIndex = 2;
             this.PathList.UseCompatibleStateImageBehavior = false;
             this.PathList.View = System.Windows.Forms.View.Details;
+            this.PathList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.PathList_DragItem);
             this.PathList.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.PathList_ItemSelectionChanged);
             this.PathList.SelectedIndexChanged += new System.EventHandler(this.PathList_SelectedIndexChanged);
+            this.PathList.DoubleClick += new System.EventHandler(this.PathList_DoubleClick);
             this.PathList.Resize += new System.EventHandler(this.PathList_SizeChanged);
             // 
             // Path
@@ -132,9 +139,10 @@ namespace PhotoManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PreviewImage.Location = new System.Drawing.Point(6, 0);
             this.PreviewImage.Name = "PreviewImage";
-            this.PreviewImage.Size = new System.Drawing.Size(344, 393);
+            this.PreviewImage.Size = new System.Drawing.Size(264, 393);
             this.PreviewImage.TabIndex = 0;
             this.PreviewImage.TabStop = false;
+            this.PreviewImage.DoubleClick += new System.EventHandler(this.PreviewImage_DoubleClick);
             // 
             // CreateAlbumButton
             // 
@@ -146,11 +154,43 @@ namespace PhotoManager
             this.CreateAlbumButton.UseVisualStyleBackColor = true;
             this.CreateAlbumButton.Click += new System.EventHandler(this.CreateAlbumButton_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(233, 11);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(170, 23);
+            this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // CopyButton
+            // 
+            this.CopyButton.Location = new System.Drawing.Point(409, 10);
+            this.CopyButton.Name = "CopyButton";
+            this.CopyButton.Size = new System.Drawing.Size(71, 23);
+            this.CopyButton.TabIndex = 3;
+            this.CopyButton.Text = "Copy";
+            this.CopyButton.UseVisualStyleBackColor = true;
+            this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
+            // 
+            // MoveButton
+            // 
+            this.MoveButton.Location = new System.Drawing.Point(486, 10);
+            this.MoveButton.Name = "MoveButton";
+            this.MoveButton.Size = new System.Drawing.Size(71, 23);
+            this.MoveButton.TabIndex = 4;
+            this.MoveButton.Text = "Move";
+            this.MoveButton.UseVisualStyleBackColor = true;
+            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MoveButton);
+            this.Controls.Add(this.CopyButton);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.CreateAlbumButton);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainWindow";
@@ -178,5 +218,8 @@ namespace PhotoManager
         private System.Windows.Forms.PictureBox PreviewImage;
         private System.Windows.Forms.ColumnHeader Path;
         private System.Windows.Forms.Button CreateAlbumButton;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button CopyButton;
+        private System.Windows.Forms.Button MoveButton;
     }
 }
