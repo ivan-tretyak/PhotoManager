@@ -100,7 +100,6 @@ namespace PhotoManager
             this.PathList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Path});
             this.PathList.HideSelection = false;
-            this.PathList.HoverSelection = true;
             this.PathList.Name = "PathList";
             this.PathList.UseCompatibleStateImageBehavior = false;
             this.PathList.View = System.Windows.Forms.View.Details;

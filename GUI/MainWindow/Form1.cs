@@ -185,6 +185,19 @@ namespace PhotoManager
             var albumCreatorWindow = new PhotoManager.GUI.AlbumCreator.Form1();
             albumCreatorWindow.ShowDialog();
             AlbumList.Nodes.Add(albumCreatorWindow.Name);
+            foreach (TreeNode item in AlbumList.Nodes)
+            {
+                if (item != AlbumList.SelectedNode && AlbumList.SelectedNode.Level == 0)
+                    comboBox1.Items.Add(item.Text);
+                else if (item != AlbumList.SelectedNode.Parent && AlbumList.SelectedNode.Level == 1)
+                    comboBox1.Items.Add(item.Text);
+                else if (AlbumList.SelectedNode.Level == 2)
+                {
+                    if (item != AlbumList.SelectedNode.Parent.Parent)
+                        comboBox1.Items.Add(item.Text);
+                }
+            }
+
         }
 
         private void PathList_DragItem(object sender, EventArgs e)
