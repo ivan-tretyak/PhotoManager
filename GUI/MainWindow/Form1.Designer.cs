@@ -39,6 +39,8 @@ namespace PhotoManager
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.CopyButton = new System.Windows.Forms.Button();
             this.MoveButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,7 +69,7 @@ namespace PhotoManager
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(776, 398);
+            this.splitContainer1.Size = new System.Drawing.Size(776, 445);
             this.splitContainer1.SplitterDistance = 214;
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 0;
@@ -80,7 +82,7 @@ namespace PhotoManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AlbumList.Location = new System.Drawing.Point(0, 0);
             this.AlbumList.Name = "AlbumList";
-            this.AlbumList.Size = new System.Drawing.Size(212, 396);
+            this.AlbumList.Size = new System.Drawing.Size(212, 443);
             this.AlbumList.TabIndex = 0;
             this.AlbumList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.AlbumList_AfterSelect);
             // 
@@ -100,8 +102,8 @@ namespace PhotoManager
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.PreviewImage);
-            this.splitContainer2.Size = new System.Drawing.Size(483, 395);
-            this.splitContainer2.SplitterDistance = 161;
+            this.splitContainer2.Size = new System.Drawing.Size(465, 442);
+            this.splitContainer2.SplitterDistance = 155;
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -116,7 +118,7 @@ namespace PhotoManager
             this.PathList.HideSelection = false;
             this.PathList.Location = new System.Drawing.Point(0, 1);
             this.PathList.Name = "PathList";
-            this.PathList.Size = new System.Drawing.Size(158, 396);
+            this.PathList.Size = new System.Drawing.Size(152, 439);
             this.PathList.TabIndex = 2;
             this.PathList.UseCompatibleStateImageBehavior = false;
             this.PathList.View = System.Windows.Forms.View.Details;
@@ -139,7 +141,7 @@ namespace PhotoManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PreviewImage.Location = new System.Drawing.Point(6, 0);
             this.PreviewImage.Name = "PreviewImage";
-            this.PreviewImage.Size = new System.Drawing.Size(264, 393);
+            this.PreviewImage.Size = new System.Drawing.Size(234, 440);
             this.PreviewImage.TabIndex = 0;
             this.PreviewImage.TabStop = false;
             this.PreviewImage.DoubleClick += new System.EventHandler(this.PreviewImage_DoubleClick);
@@ -183,11 +185,32 @@ namespace PhotoManager
             this.MoveButton.UseVisualStyleBackColor = true;
             this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(563, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(225, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.addNewFolder);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(12, 489);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(776, 10);
+            this.progressBar1.TabIndex = 3;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 497);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.MoveButton);
             this.Controls.Add(this.CopyButton);
             this.Controls.Add(this.comboBox1);
@@ -221,5 +244,7 @@ namespace PhotoManager
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button CopyButton;
         private System.Windows.Forms.Button MoveButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

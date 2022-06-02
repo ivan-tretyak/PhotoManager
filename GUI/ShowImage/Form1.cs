@@ -18,10 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using JSONSendGet;
+using ORMDatabaseModule;
+using System.Text;
 
 namespace PhotoManager.GUI.ShowImage
 {
@@ -32,8 +35,10 @@ namespace PhotoManager.GUI.ShowImage
         int index;
         DateTimePicker date;
         TextBox placeInput;
-        TextBox keyWords;
         ComboBox orientationBox;
+        bool change = false;
+        int oldPos = 0;
+        RichTextBox rich;
         public Form1()
         {
             InitializeComponent();
@@ -76,11 +81,19 @@ namespace PhotoManager.GUI.ShowImage
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             HelperShowImage.ResizeImage(trackBar1, pictureBox2, org, panel2, paths[index], this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             if (index + 1 == paths.Count - 1)
             {
                 button2.Enabled = false;
@@ -138,6 +151,10 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             if (index - 1 == 0)
             {
                 button1.Enabled = false;
@@ -155,16 +172,29 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             HelperShowImage.RotateImage(pictureBox2, panel2, trackBar1, true);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             HelperShowImage.RotateImage(pictureBox2, panel2, trackBar1, false);
         }
 
         private void CreationDateShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             date = new();
             try
             {
@@ -183,6 +213,7 @@ namespace PhotoManager.GUI.ShowImage
 
         private void dateChanged(object sender, EventArgs e)
         {
+            change = false;
             string dateString = date.Value.ToString();
             this.CreationDateShow = new();
             CreationDateShow.Text = dateString;
@@ -197,12 +228,18 @@ namespace PhotoManager.GUI.ShowImage
 
         private void LatitudeShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, LatitudeShow, 4, (EventHandler)placeInputLatitude_Click, tableLayoutPanel1);
         }
 
         private void placeInputLatitude_Click(object sender, EventArgs e)
         {
+            change = false;
             float latitude = float.Parse(placeInput.Text);
             LatitudeShow = new();
             LatitudeShow.Text = $"{latitude}";
@@ -216,6 +253,7 @@ namespace PhotoManager.GUI.ShowImage
 
         private void placeInputLongitude(object sender, EventArgs e)
         {
+            change = false;
             float longitude = float.Parse(placeInput.Text);
             LongitudeShow = new();
             LongitudeShow.Text = $"{longitude}";
@@ -228,30 +266,43 @@ namespace PhotoManager.GUI.ShowImage
         }
 
         private void keyWordsInput(object sender, EventArgs e)
-        { 
+        {
+            change = false;
             label10 = new();
-            label10.Text = keyWords.Text;
-            HelperShowImage.AddNewKeyWords(keyWords.Text.Split(", "));
-            HelperShowImage.AddLinkKeyWordPhoto(keyWords.Text.Split(", "), paths[index]);
+            label10.Text = rich.Text;
+            label10.Size = rich.Size;
+            rich.Dispose();
+            HelperShowImage.AddNewKeyWords(label10.Text.Split(", "));
+            HelperShowImage.AddLinkKeyWordPhoto(label10.Text.Split(", "), paths[index]);
             label10.Click += new EventHandler(label10_Click);
             tableLayoutPanel1.Controls.Add(label10, 1, 8);
-            keyWords.Dispose();
         }
 
         private void LongitudeShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, LongitudeShow, 5, (EventHandler)placeInputLongitude, tableLayoutPanel1);
         }
 
         private void ManufacturerShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, ManufacturerShow, 0, (EventHandler)placeInputManufacturer, tableLayoutPanel1);
         }
 
         private void placeInputManufacturer(object sender, EventArgs e)
         {
+            change = false;
             string manufacturer = placeInput.Text;
             ManufacturerShow = new();
             ManufacturerShow.Text = $"{manufacturer}";
@@ -265,12 +316,18 @@ namespace PhotoManager.GUI.ShowImage
 
         private void ModelShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             placeInput = new();
             HelperShowImage.ReplaceLabelTextBox(placeInput, ModelShow, 1, (EventHandler)placeInputModel, tableLayoutPanel1);
         }
 
         private void placeInputModel(object sender, EventArgs e)
         {
+            change = false;
             string model = placeInput.Text;
             ModelShow = new();
             ModelShow.Text = $"{model}";
@@ -284,6 +341,11 @@ namespace PhotoManager.GUI.ShowImage
 
         private void OrientationShow_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
+            change = true;
             orientationBox = new();
             for(int i = 1; i < 9; i++)
             {
@@ -296,6 +358,7 @@ namespace PhotoManager.GUI.ShowImage
 
         private void OrientationBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            change = false;
             if (orientationBox.SelectedItem != null)
             {
                 var metadata = HelperShowImage.LoadMetadata(paths[index]);
@@ -312,6 +375,10 @@ namespace PhotoManager.GUI.ShowImage
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                return;
+            }
             PrintImage();
         }
 
@@ -347,20 +414,66 @@ namespace PhotoManager.GUI.ShowImage
         void pd_PrintPageVert(object sender, PrintPageEventArgs e)
         {
             double cmToUnits = 100 / 2.54;
-            var bmIm = new Bitmap(paths[index]);
+            var path = HelperShowImage.GetFullPathForImage(paths[index]);
+            var bmIm = new Bitmap(path);
             e.Graphics.DrawImage(bmIm, 0, 0, (float)(21 * cmToUnits), (float)(29.7 * cmToUnits));
         }
 
         private async void button6_Click(object sender, EventArgs e)
-        { 
+        {
+            if (change)
+            {
+                return;
+            }
             Clipboard.SetImage(pictureBox2.Image);
             await Task.Delay(1000);
         }
 
         private void label10_Click(object sender, EventArgs e)
         {
-            keyWords = new();
-            HelperShowImage.ReplaceLabelTextBox(keyWords, label10, 8, (EventHandler)keyWordsInput, tableLayoutPanel1);
+            if (change)
+            {
+                return;
+            }
+            change = true;
+            rich = new();
+            HelperShowImage.ReplaceLabelRichTextBox(rich, label10, 8, (EventHandler)keyWordsInput, tableLayoutPanel1);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            using (DatabaseContext db = new())
+            {
+                var photo = db.Photos
+                    .Where(p => p.Path == paths[index])
+                    .First();
+
+                var metadata = db.MetaDatas
+                    .Where(m => m.MetadataId == photo.MetaDataId)
+                    .First();
+
+                pictureBox2.Image.RotateFlip(HelperShowImage.OrientationToFlipType(metadata.Orientation));
+            }
+            if (change)
+            {
+                return; 
+            }
+            change = true;
+            MemoryStream ms = new();
+            pictureBox2.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            string[] keywords = KeywordsForImage.GetKeywords(ms.GetBuffer());
+            if (keywords is null)
+            {
+                change = false;
+                return;
+            }
+            if (keywords.Length > 0)
+            {
+                label10.Text = keywords.Aggregate((a, b) => a + ", " + b);
+            }
+            HelperShowImage.AddNewKeyWords(label10.Text.Split(", "));
+            HelperShowImage.AddLinkKeyWordPhoto(label10.Text.Split(", "), paths[index]);
+            change = false;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

@@ -206,35 +206,47 @@ namespace PhotoManager.GUI.ShowImage
             textBox.DoubleClick += new EventHandler(eventHandler);
         }
 
+        public static void ReplaceLabelRichTextBox(RichTextBox combo, Label label, int row, EventHandler eventHandler, TableLayoutPanel tableLayoutPanel)
+        {
+            combo.Text = label.Text;
+            combo.Location = new Point(103, 120);
+            combo.Size = label.Size;
+            label.Dispose();
+            tableLayoutPanel.Controls.Add(combo, 1, row);
+            combo.DoubleClick += new EventHandler(eventHandler);
+        }
+
         public static void AddLinkKeyWordPhoto(string[] keyWords, string path)
         {
             using (var db = new DatabaseContext())
-            {
+            {                
+
+                var photo = db.Photos
+                    .Where(p => p.Path == Path.GetFileName(path) && p.Exist == 0)
+                    .First();
+
+                var oldTags = db.keyWordsLists
+                    .Where(kwl => kwl.PhotoId == photo.PhotoId)
+                    .ToList();
+
+                foreach(var oldTag in oldTags)
+                {
+                    db.Remove(oldTag);
+                    db.SaveChanges();
+                }
+
+
                 foreach(var keyWord in keyWords)
                 {
                     var tag = db.KeyWords
-                        .Where(k => k.KeyWord == keyWord)
+                        .Where(kw => kw.KeyWord == keyWord)
                         .First();
-
-                    var photo = db.Photos
-                        .Where(p => p.Path == Path.GetFileName(path) && p.Exist == 0)
-                        .First();
-
-                    var oldTags = db.keyWordsLists
-                        .Where(kwl => kwl.PhotoId == photo.PhotoId)
-                        .ToList();
-
-                    foreach(var oldTag in oldTags)
-                    {
-                        db.Remove(oldTag);
-                        db.SaveChanges();
-                    }
-
                     var tagCount = db.keyWordsLists
                         .Where(kwl => kwl.KeyWordsId == tag.KeyWordsId && kwl.PhotoId == photo.PhotoId)
                         .FirstOrDefault();
                     if (tagCount is null)
                     {
+
                         var tagList = new KeyWordsList();
                         tagList.Photo = photo;
                         tagList.KeyWords = tag;

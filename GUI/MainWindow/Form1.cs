@@ -1,12 +1,14 @@
-﻿using System;
+﻿using IndexingModule;
+using Microsoft.Win32;
+using ORMDatabaseModule;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using ORMDatabaseModule;
-using Microsoft.Win32;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PhotoManager
 {
@@ -47,13 +49,12 @@ namespace PhotoManager
                 }
             }
             PathList.Items.Clear();
-            var selectedAlbum = AlbumList.SelectedNode.Text;
             if (PreviewImage.Image is not null)
                 PreviewImage.Image = null;
-            ShowPathFromAlbum(selectedAlbum);
+            ShowPathFromAlbum();
         }
 
-        private void ShowPathFromAlbum(string selectedAlbum)
+        private void ShowPathFromAlbum()
         {
             using (var db = new DatabaseContext())
             {
@@ -170,7 +171,7 @@ namespace PhotoManager
 
                 PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
                 var image = new Bitmap(path);
-                PreviewImage.Image = (Image)image;
+                PreviewImage.Image = (System.Drawing.Image)image;
             }
 
             else
@@ -267,10 +268,9 @@ namespace PhotoManager
                 }
             }
             PathList.Items.Clear();
-            var selectedAlbum = AlbumList.SelectedNode.Text;
             if (PreviewImage.Image is not null)
                 PreviewImage.Image = null;
-            ShowPathFromAlbum(selectedAlbum);
+            ShowPathFromAlbum();
         }
 
         private string GetAlbumName()
@@ -308,6 +308,103 @@ namespace PhotoManager
         {
             Clipboard.SetImage(PreviewImage.Image);
             await Task.Delay(250);
+        }
+
+        private void addNewFolder(object sender, EventArgs e)
+        {
+            var choosePath = showFolderBrowserDialog();
+            if (choosePath == "")
+            {
+                return;
+            }
+            //Начнем индексацию
+            Indexing indexing = new();
+            var res = indexing.IndexingDirectory(choosePath);
+
+            RegistryKey currentUser = Registry.CurrentUser;
+            RegistryKey registry = currentUser.OpenSubKey("appPhotoOrginizer");
+            var pathToSearchKey = registry.GetValue("FolderSync");
+            var pathSync = pathToSearchKey.ToString();
+
+            progressBar1.Maximum = res.Count;
+
+            foreach (IndexingModule.Image image in res)
+            {
+                Album album = new();
+                using (var db = new DatabaseContext())
+                {
+                    album = db.Albums
+                        .Where(x => x.Name == GetAlbumName())
+                        .First();
+                }
+
+                //Создаем новое фото
+                Photo p = new();
+
+                //Создаем новые метаданные
+                ORMDatabaseModule.MetaData m = new();
+                Random rnd = new Random();
+                //Копируем файл в папку синхронизации
+                string filename = $"{prefix(rnd.Next(10, 15))}_{System.IO.Path.GetFileName(image.path)}";
+                string destPath = $"{pathSync}{System.IO.Path.DirectorySeparatorChar}{filename}";
+                File.Copy(image.path, destPath);
+
+                //Заполняем метаданные
+                p.Path = filename;
+                m.DateCreation = image.metaData.DateCreation.ToString();
+                m.Flash = image.metaData.Flash;
+                m.Latitude = image.metaData.Latitude;
+                m.Longitude = image.metaData.Longitude;
+                m.FocusLength = (float)image.metaData.FocalLength;
+                m.Orientation = image.metaData.Orientation;
+                m.Model = image.metaData.Model;
+                m.Manufacturer = image.metaData.Manufacturer;
+                p.MetaData = m;
+
+                //Создаем запись о хранение фото в таком альбоме
+                AlbumContext albumContext = new();
+
+                //Ассоциируем фото с альбомом
+                albumContext.Album = album;
+                albumContext.Photo = p;
+
+                //Сохряняем фото в базе
+                using (var db = new DatabaseContext())
+                {
+                    var b = db.Database.EnsureCreated();
+                    db.AlbumContexts.Add(albumContext);
+                    db.Albums.Attach(album);
+                    db.SaveChanges();
+                }
+                progressBar1.Value += 1;
+            }
+            PathList.Items.Clear();
+            ShowPathFromAlbum();
+            progressBar1.Value = 0;
+        }
+
+        private string showFolderBrowserDialog()
+        {
+            
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                return folderBrowserDialog.SelectedPath;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public string prefix(int lengthPrefix)
+        {
+            Random random = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+            chars += chars.ToLower();
+            return new string(Enumerable.Repeat(chars, lengthPrefix)
+        .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

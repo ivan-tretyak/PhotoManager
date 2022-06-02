@@ -76,6 +76,7 @@ namespace PhotoManager.GUI.ShowImage
             this.panel2 = new PhotoManager.GUI.ShowImage.MyPanel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -273,10 +274,18 @@ namespace PhotoManager.GUI.ShowImage
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // button7
+            // 
+            resources.ApplyResources(this.button7, "button7");
+            this.button7.Name = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
@@ -329,6 +338,8 @@ namespace PhotoManager.GUI.ShowImage
         private Button button6;
         private Label label9;
         private Label label10;
+        private RichTextBox richTextBox1;
+        private Button button7;
     }
 
     public class MyPanel : Panel
