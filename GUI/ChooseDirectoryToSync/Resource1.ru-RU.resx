@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FocalLengthUnit" xml:space="preserve">
-    <value>мм</value>
-  </data>
-  <data name="UnknownManufacturer" xml:space="preserve">
-    <value>Неизвестно</value>
-  </data>
-  <data name="UnknownModel" xml:space="preserve">
-    <value>Неизвестно</value>
+  <data name="ButtonName" xml:space="preserve">
+    <value>Выбрать папку</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using 
 
 namespace PhotoManager.GUI.ChooseDirectoryToSync
 {
@@ -30,7 +31,7 @@ namespace PhotoManager.GUI.ChooseDirectoryToSync
             Button button = new Button();
             button.Name = "SelectFolderButton";
             button.Size = new Size(111, 27);
-            button.Text = "Select Folder";
+            button.Text = Resource1.ButtonName;
             button.UseVisualStyleBackColor = true;
 
             table.Controls.Add(label, 0, table.RowCount);

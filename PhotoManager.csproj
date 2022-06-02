@@ -36,6 +36,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AlbumCreationMessage.resx</DependentUpon>
     </Compile>
+    <Compile Update="GUI\ChooseDirectoryToSync\Resource1.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Update="GUI\ShowImage\ShowImageString.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -47,6 +52,10 @@
     <EmbeddedResource Update="GUI\AlbumCreator\AlbumCreationMessage.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumCreationMessage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="GUI\ChooseDirectoryToSync\Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="GUI\ShowImage\ShowImageString.ru-RU.resx">
       <LastGenOutput>ShowImageString.Designer.cs</LastGenOutput>
